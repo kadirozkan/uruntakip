@@ -1,0 +1,133 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Funder &mdash; Colorlib Website Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="~/vendor/sweetalert.min.js"></script>
+
+    <link rel="stylesheet" href="~/Content/anasayfadosyaları/fonts/icomoon/style.css" />
+    <link href="~/Content/anasayfadosyaları/css/bootstrap/bootstrapp.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/anasayfadosyaları/css/style.css">
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/myscripts/customercodes.js"></script>
+    <script src="~/myscripts/makinaislemleri.js"></script>
+    @*----------------------------------------------------------------*@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Scripts/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.js"></script>
+
+
+
+   
+
+</head>
+<body>
+    <div class="site-navbar-wrap js-site-navbar">
+        <div class="site-navbar">
+            <nav class="site-navigation text-center" role="navigation" style="background-color:rgba(120, 221, 177, 0.91)" )>
+
+
+                <ul class="site-menu js-clone-nav d-none d-lg-block">
+
+                    <li class="has-children">
+                        <a href="#"><b>Müşteri İşlemleri</b></a>
+                        <ul class="dropdown arrow-top">
+                            <li><a href="@Url.Action("musteriekle","Customer")">Müşteri Ekle</a></li>
+                            <li><a href="@Url.Action("musterilistesi","Customer")">Müşteri Listesi</a></li>
+                            <li><a>Müşteriye ait teklifler</a></li>
+                        </ul>
+                    </li>
+
+
+                    <li class="has-children">
+                        <a href="#"><b>Makina İşlemleri</b></a>
+                        <ul class="dropdown">
+
+                            <li><a href="@Url.Action("makinalistesi","Machine")">Makina Listesi</a></li>
+                            <li><a href="#">Makina Parça Listesi</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li class="has-children">
+                        <a href="#"><b>Servis İşlemleri</b></a>
+                        <ul class="dropdown">
+
+                            <li><a href="@Url.Action("arizalistesi","Machine")">Arıza Listesi</a></li>
+
+                        </ul>
+                    </li>
+                    <li class="has-children">
+                        <a href="#"><b>Sevk ve teklif İşlemleri</b></a>
+                        <ul class="dropdown">
+                            <li><a href="#">Yeni teklif Oluştur</a></li>
+                            <li><a href="#">Yeni Sevk Oluştur</a></li>
+                            <li><a href="#">Diğer işlemler</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+
+            </nav>
+        </div>
+    </div>
+
+
+    <div>
+        @RenderBody()
+    </div>
+
+
+    <div class="modal fade" id="ShowModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3>Kayıt Formu</h3>
+
+                </div>
+                <div class="modal-body">
+                    <form id="Registration">
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input class="form-control" type="email" name="Email" id="userposta" placeholder="Email" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input class="form-control" type="password" name="Password" id="usersifre" placeholder="Password" />
+                            </div>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <button class="btn btn-info form-control" type="button" onclick="hesabikayet()"> KAYDET</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+</html>

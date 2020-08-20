@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "makinalistesi";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+<div style="margin-top:25px">
+    <table id="tblmakinalar" class="table table-hover table-bordered" *>
+
+        <thead>
+            <tr>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Firma Adı</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Makina Tipi</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Makina Serino</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Detaylar</th>
+
+            </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+    </table>
+</div>
+
+<div style="margin-top:60px;display:none" id="divgecmis">
+    <table class="table table-hover table-bordered" id="tblgecmis" style="display:none">
+        <thead>
+            <tr>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Arıza No</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Arıza Kategorisi</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza Tanımı</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza Durumu</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Detaylar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            
+
+        </tbody>
+    </table>
+</div>
+
+<br />
+<div style="height:60px">
+    
+</div>
+@*-----------------------------------makina bilgilerini guncelleme formu-------------------------------------------*@
+<div class="modal fade" id="frmguncelle">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 id="frmguncelle_ad" hidden="hidden"></h3>
+                <h3 id="frmguncelle_makinaid" hidden="hidden"></h3>
+
+            </div>
+            <div class="modal-body">
+                <form id="Registration">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Adı</b></span>
+                            <fieldset>
+                                <select id="frmguncelle_firmalar" class="form-control" style="font-weight:bold">
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Makina Tipi</b></span>
+
+                            <fieldset>
+                                <select id="frmguncelle_makinatipi" class="form-control" style="font-weight:bold">
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Seri No</b></span>
+                            <b><input type="text" id="frmguncelle_serino" class="form-control" /></b>
+
+                        </div>
+                    </div>
+
+                </form>
+                <div class="form-group">
+                    <button class="btn btn-success form-control" type="submit" onclick="makinaguncelle()">Güncelle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@**-----------------------------------------------makina arıza kayıt formu -------------------------------*@
+
+
+<div class="modal fade" id="frmariza">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 id="frmariza_serino"></h3>
+                <h3 id="frmariza_makinaid" hidden="hidden"></h3>
+
+            </div>
+            <div class="modal-body">
+                <form id="Registration">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Kategorileri</b></span>
+                            <fieldset>
+                                <select id="frmariza_kategoriler" class="form-control" style="font-weight:bold">
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Arıza Tanımı</b></span>
+
+                            <b><input type="text" id="frmariza_tanim" autocomplete="off" class="form-control" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Arıza Tarihi</b></span>
+                            <b><input type="date" id="frmariza_tarih"  class="form-control" /></b>
+
+                        </div>
+                    </div>
+
+                </form>
+                <div class="form-group">
+                    <button class="btn btn-success form-control" type="submit" onclick="arızakaydiac()">Arıza Kayıt</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* -----------------------arıza guncellemrde-----------------------------------*@
+
+<div class="modal fade" id="frmedit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 id="frmedit_arizano" hidden="hidden"></h3>
+                <h3 id="frmedit_makinaid" hidden="hidden"></h3>
+
+            </div>
+            <div class="modal-body">
+                <form id="Registration">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Kategorileri</b></span>
+                            <fieldset>
+                                <select id="frmedit_kategoriler" class="form-control" style="font-weight:bold">
+                                     
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Arıza Tanımı</b></span>
+
+                            <b><input type="text" id="frmedit_tanim" autocomplete="off" class="form-control" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Arıza Tarihi</b></span>
+                            <b><input type="date" id="frmedit_tarih" class="form-control"/></b>
+
+                        </div>
+                    </div>
+
+                </form>
+                <div class="form-group">
+                    <button class="btn btn-success form-control" type="submit" onclick="arizayiguncelle()">Arızayı Güncelle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    tummakinalar();
+    arizalarigöster();
+    arizaformunuac();
+    arizabilgilerinigetir();
+
+    $("#tblgecmis").dataTable({
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ]
+    });
+</script>
+<
+

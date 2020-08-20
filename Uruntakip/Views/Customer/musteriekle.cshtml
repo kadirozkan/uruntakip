@@ -1,0 +1,45 @@
+﻿
+
+@{
+    ViewBag.Title = "musteriekle";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+
+    
+    <form id="yenimusteri" class="text-left border border-dark p-5 " style="width:800px;margin-left:250px;margin-top:50px;" action="#!">
+       
+        <p>
+            <b style="margin-left:30px">@Html.Label("Firma adı")</b>
+            <input type="text" id="firmaadi" style="width:400px;margin-left:34px"><br />
+        </p>
+        <p style="margin-left:30px">
+            <b>@Html.Label("Personel adı")</b>
+            <input type="text" id="personeladi" style="width:400px;margin-left:14px;">
+
+        </p>
+        <!-- Name -->
+        <p>
+            <b>@Html.Label("Personel soyadı")</b>
+            <input type="text" id="personelsoyadi" style="width:400px;margin-left:19px" ><br />
+        </p>
+        
+        <p>
+            <b>@Html.Label("Personel eposta")</b>
+            <input type="email" id="personeleposta" style="width:400px;margin-left:17px"><br />
+
+        </p>
+        <p>
+            <b>@Html.Label("Personel Telefonu")</b>
+            <input type="tel" id="personeltelefon" style="width:400px;margin-left:7px" ><br />
+        </p>
+        <p>
+            
+             <b>@Html.Label("Firma Adresi")</b>
+              <textarea  maxlength="50" id="adres" style="width:400px; margin-left:45px;"> </textarea>
+             
+        </p>
+        <!-- Sign in button -->
+        <button type="button" class="btn btn-primary btn-lg" style="margin-left:200px;width:300px" onclick="musteriekle()">Müşteri Ekle</button>
+
+    </form>

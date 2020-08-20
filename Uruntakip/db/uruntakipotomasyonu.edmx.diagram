@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bd576e6a44a6463eb84f881122ce73f1" Name="Diagram1">
+        <EntityTypeShape EntityType="uruntakipdbModel.tblCustomer" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tbllogin" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblmakinatipi" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblsevk" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblsevkdetay" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblteklif" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblteklifdetay" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblurunler" Width="1.5" PointX="4.75" PointY="6.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblmakina" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblarızasonuctipleri" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblarizaislemleri" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblarizakategorileri" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblarizalar" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblkategori" Width="1.5" PointX="9.75" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

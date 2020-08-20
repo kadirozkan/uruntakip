@@ -1,0 +1,51 @@
+﻿@model List<Uruntakip.Models.cls_arizalistesi>
+@{
+    ViewBag.Title = "arizalistesi";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+    <div style="margin-top:25px">
+        <table id="tblarizalistesi" class="table table-hover table-bordered" *>
+
+            <thead>
+                <tr>
+                    <th scope="col" style="color:#fc6c05;font-size:16px">Ariza No</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px">Tarih</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px">Firma Adı</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px">Makina Tipi</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Makina Serino</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza Tanımı</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza Durumu</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">İşlemler</th>
+
+
+                </tr>
+            </thead>
+            <tbody >
+                 @foreach (var item in Model)
+                 {
+                <tr>
+                    <td><b>@item._arizano</b></td>
+                    <td><b>@item._tarih.ToShortDateString()</b></td>
+                    <td><b>@item._firmaadi</b></td>
+                    <td><b>@item._makinatipi</b></td>
+                    <td><b>@item._serino</b></td>
+                    <td><b>@item._arizatanimi</b></td>
+                    <td><b>@item._durum</b></td>
+                    <td><button id="ekle" value="@item._arizano" class="btn btn-success">Ekle</button> <button id="detay" value="@item._arizano" class="btn btn-warning">Detay</button> <button id="sevk" value="@item._arizano" class="btn btn-info">Sevk</button> </td>
+                </tr>
+                 }
+            </tbody>
+        </table>
+    </div>
+
+<script>
+    $("#tblarizalistesi").dataTable(
+        {
+            columnDefs: [
+                { targets: 'no-sort', orderable: false }
+            ]
+
+        }
+    );
+</script>

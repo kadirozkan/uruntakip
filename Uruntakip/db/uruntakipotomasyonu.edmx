@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="uruntakipdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblarızasonuctipleri">
+          <Key>
+            <PropertyRef Name="arizasonuc_id" />
+          </Key>
+          <Property Name="arizasonuc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="durum" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblarizaislemleri">
+          <Key>
+            <PropertyRef Name="islem_id" />
+          </Key>
+          <Property Name="islem_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ariza_id" Type="int" />
+          <Property Name="islemtarihi" Type="date" />
+          <Property Name="islemtipi" Type="int" />
+          <Property Name="aciklama" Type="text" />
+        </EntityType>
+        <EntityType Name="tblarizakategorileri">
+          <Key>
+            <PropertyRef Name="ariza_kategori_ID" />
+          </Key>
+          <Property Name="ariza_kategori_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="makinatipi" Type="int" />
+          <Property Name="kategoriadi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblarizalar">
+          <Key>
+            <PropertyRef Name="arizaid" />
+          </Key>
+          <Property Name="arizaid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="makina_id" Type="int" />
+          <Property Name="kategori_id" Type="int" />
+          <Property Name="tanım" Type="text" />
+          <Property Name="tarih" Type="date" />
+          <Property Name="durum" Type="int" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="firmaid" />
+          </Key>
+          <Property Name="firmaid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="nvarchar" MaxLength="50" />
+          <Property Name="soyad" Type="nchar" MaxLength="10" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="adres" Type="text" />
+          <Property Name="hesapno" Type="text" />
+          <Property Name="firmaadi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblkategori">
+          <Key>
+            <PropertyRef Name="kategoriID" />
+          </Key>
+          <Property Name="kategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategoriadi" Type="nvarchar" MaxLength="50" />
+          <Property Name="carpan" Type="money" />
+        </EntityType>
+        <EntityType Name="tbllogin">
+          <Key>
+            <PropertyRef Name="girisid" />
+          </Key>
+          <Property Name="girisid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eposta" Type="nvarchar" MaxLength="50" />
+          <Property Name="sifre" Type="nvarchar" MaxLength="50" />
+          <Property Name="durum" Type="int" />
+        </EntityType>
+        <EntityType Name="tblmakina">
+          <Key>
+            <PropertyRef Name="makinaid" />
+          </Key>
+          <Property Name="makinaid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="serino" Type="nvarchar" MaxLength="50" />
+          <Property Name="makinatip_id" Type="int" Nullable="false" />
+          <Property Name="musteri_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tblmakinatipi">
+          <Key>
+            <PropertyRef Name="tipid" />
+          </Key>
+          <Property Name="tipid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="makinatipi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblsevk">
+          <Key>
+            <PropertyRef Name="sevkid" />
+          </Key>
+          <Property Name="sevkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="musteri_id" Type="int" />
+          <Property Name="sevktarihi" Type="date" />
+          <Property Name="acıklamaası" Type="text" />
+          <Property Name="teklif_id" Type="int" />
+          <Property Name="durum" Type="int" />
+        </EntityType>
+        <EntityType Name="tblsevkdetay">
+          <Key>
+            <PropertyRef Name="sevkdetayid" />
+          </Key>
+          <Property Name="sevkdetayid" Type="int" Nullable="false" />
+          <Property Name="parca_id" Type="int" />
+          <Property Name="parcaacıklaması" Type="text" />
+          <Property Name="satisfiyatı" Type="money" />
+        </EntityType>
+        <EntityType Name="tblteklif">
+          <Key>
+            <PropertyRef Name="teklifid" />
+          </Key>
+          <Property Name="teklifid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="musteri_id" Type="int" />
+          <Property Name="tekliftarihi" Type="date" />
+          <Property Name="acıklama" Type="text" />
+        </EntityType>
+        <EntityType Name="tblteklifdetay">
+          <Key>
+            <PropertyRef Name="teklifdetayid" />
+          </Key>
+          <Property Name="teklifdetayid" Type="int" Nullable="false" />
+          <Property Name="urunid" Type="int" />
+          <Property Name="urunadeti" Type="int" />
+          <Property Name="fiyati" Type="money" />
+        </EntityType>
+        <EntityType Name="tblurunler">
+          <Key>
+            <PropertyRef Name="uruid" />
+          </Key>
+          <Property Name="uruid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="urunkategori" Type="int" />
+          <Property Name="alisfiyati" Type="money" />
+          <Property Name="satiscarpanı" Type="money" />
+          <Property Name="stok" Type="int" />
+          <Property Name="stokadi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="uruntakipdbModelStoreContainer">
+          <EntitySet Name="tblarızasonuctipleri" EntityType="Self.tblarızasonuctipleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblarizaislemleri" EntityType="Self.tblarizaislemleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblarizakategorileri" EntityType="Self.tblarizakategorileri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblarizalar" EntityType="Self.tblarizalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblkategori" EntityType="Self.tblkategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbllogin" EntityType="Self.tbllogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblmakina" EntityType="Self.tblmakina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblmakinatipi" EntityType="Self.tblmakinatipi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblsevk" EntityType="Self.tblsevk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblsevkdetay" EntityType="Self.tblsevkdetay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblteklif" EntityType="Self.tblteklif" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblteklifdetay" EntityType="Self.tblteklifdetay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblurunler" EntityType="Self.tblurunler" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="uruntakipdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="uruntakipdbEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCustomer" EntityType="uruntakipdbModel.tblCustomer" />
+          <EntitySet Name="tbllogin" EntityType="uruntakipdbModel.tbllogin" />
+          <EntitySet Name="tblmakinatipi" EntityType="uruntakipdbModel.tblmakinatipi" />
+          <EntitySet Name="tblsevk" EntityType="uruntakipdbModel.tblsevk" />
+          <EntitySet Name="tblsevkdetay" EntityType="uruntakipdbModel.tblsevkdetay" />
+          <EntitySet Name="tblteklif" EntityType="uruntakipdbModel.tblteklif" />
+          <EntitySet Name="tblteklifdetay" EntityType="uruntakipdbModel.tblteklifdetay" />
+          <EntitySet Name="tblurunler" EntityType="uruntakipdbModel.tblurunler" />
+          <EntitySet Name="tblmakina" EntityType="uruntakipdbModel.tblmakina" />
+          <EntitySet Name="tblarızasonuctipleri" EntityType="uruntakipdbModel.tblarızasonuctipleri" />
+          <EntitySet Name="tblarizaislemleri" EntityType="uruntakipdbModel.tblarizaislemleri" />
+          <EntitySet Name="tblarizakategorileri" EntityType="uruntakipdbModel.tblarizakategorileri" />
+          <EntitySet Name="tblarizalar" EntityType="uruntakipdbModel.tblarizalar" />
+          <EntitySet Name="tblkategori" EntityType="uruntakipdbModel.tblkategori" />
+        </EntityContainer>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="firmaid" />
+          </Key>
+          <Property Name="firmaid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="soyad" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="hesapno" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="firmaadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbllogin">
+          <Key>
+            <PropertyRef Name="girisid" />
+          </Key>
+          <Property Name="girisid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eposta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="durum" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblmakinatipi">
+          <Key>
+            <PropertyRef Name="tipid" />
+          </Key>
+          <Property Name="tipid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="makinatipi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblsevk">
+          <Key>
+            <PropertyRef Name="sevkid" />
+          </Key>
+          <Property Name="sevkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="musteri_id" Type="Int32" />
+          <Property Name="sevktarihi" Type="DateTime" Precision="0" />
+          <Property Name="acıklamaası" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="teklif_id" Type="Int32" />
+          <Property Name="durum" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblsevkdetay">
+          <Key>
+            <PropertyRef Name="sevkdetayid" />
+          </Key>
+          <Property Name="sevkdetayid" Type="Int32" Nullable="false" />
+          <Property Name="parca_id" Type="Int32" />
+          <Property Name="parcaacıklaması" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="satisfiyatı" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tblteklif">
+          <Key>
+            <PropertyRef Name="teklifid" />
+          </Key>
+          <Property Name="teklifid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="musteri_id" Type="Int32" />
+          <Property Name="tekliftarihi" Type="DateTime" Precision="0" />
+          <Property Name="acıklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblteklifdetay">
+          <Key>
+            <PropertyRef Name="teklifdetayid" />
+          </Key>
+          <Property Name="teklifdetayid" Type="Int32" Nullable="false" />
+          <Property Name="urunid" Type="Int32" />
+          <Property Name="urunadeti" Type="Int32" />
+          <Property Name="fiyati" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tblurunler">
+          <Key>
+            <PropertyRef Name="uruid" />
+          </Key>
+          <Property Name="uruid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="urunkategori" Type="Int32" />
+          <Property Name="alisfiyati" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="satiscarpanı" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="stok" Type="Int32" />
+          <Property Name="stokadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblmakina">
+          <Key>
+            <PropertyRef Name="makinaid" />
+          </Key>
+          <Property Name="makinaid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="serino" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="makinatip_id" Type="Int32" Nullable="false" />
+          <Property Name="musteri_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblarızasonuctipleri">
+          <Key>
+            <PropertyRef Name="arizasonuc_id" />
+          </Key>
+          <Property Name="arizasonuc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="durum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblarizaislemleri">
+          <Key>
+            <PropertyRef Name="islem_id" />
+          </Key>
+          <Property Name="islem_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ariza_id" Type="Int32" />
+          <Property Name="islemtarihi" Type="DateTime" Precision="0" />
+          <Property Name="islemtipi" Type="Int32" />
+          <Property Name="aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblarizakategorileri">
+          <Key>
+            <PropertyRef Name="ariza_kategori_ID" />
+          </Key>
+          <Property Name="ariza_kategori_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="makinatipi" Type="Int32" />
+          <Property Name="kategoriadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblarizalar">
+          <Key>
+            <PropertyRef Name="arizaid" />
+          </Key>
+          <Property Name="arizaid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="makina_id" Type="Int32" />
+          <Property Name="kategori_id" Type="Int32" />
+          <Property Name="tanım" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="tarih" Type="DateTime" Precision="0" />
+          <Property Name="durum" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblkategori">
+          <Key>
+            <PropertyRef Name="kategoriID" />
+          </Key>
+          <Property Name="kategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="carpan" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="uruntakipdbModelStoreContainer" CdmEntityContainer="uruntakipdbEntities3">
+          <EntitySetMapping Name="tblCustomer">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="firmaadi" ColumnName="firmaadi" />
+                <ScalarProperty Name="hesapno" ColumnName="hesapno" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="firmaid" ColumnName="firmaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbllogin">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tbllogin">
+              <MappingFragment StoreEntitySet="tbllogin">
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="eposta" ColumnName="eposta" />
+                <ScalarProperty Name="girisid" ColumnName="girisid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblmakinatipi">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblmakinatipi">
+              <MappingFragment StoreEntitySet="tblmakinatipi">
+                <ScalarProperty Name="makinatipi" ColumnName="makinatipi" />
+                <ScalarProperty Name="tipid" ColumnName="tipid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblsevk">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblsevk">
+              <MappingFragment StoreEntitySet="tblsevk">
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="teklif_id" ColumnName="teklif_id" />
+                <ScalarProperty Name="acıklamaası" ColumnName="acıklamaası" />
+                <ScalarProperty Name="sevktarihi" ColumnName="sevktarihi" />
+                <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
+                <ScalarProperty Name="sevkid" ColumnName="sevkid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblsevkdetay">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblsevkdetay">
+              <MappingFragment StoreEntitySet="tblsevkdetay">
+                <ScalarProperty Name="satisfiyatı" ColumnName="satisfiyatı" />
+                <ScalarProperty Name="parcaacıklaması" ColumnName="parcaacıklaması" />
+                <ScalarProperty Name="parca_id" ColumnName="parca_id" />
+                <ScalarProperty Name="sevkdetayid" ColumnName="sevkdetayid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblteklif">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblteklif">
+              <MappingFragment StoreEntitySet="tblteklif">
+                <ScalarProperty Name="acıklama" ColumnName="acıklama" />
+                <ScalarProperty Name="tekliftarihi" ColumnName="tekliftarihi" />
+                <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
+                <ScalarProperty Name="teklifid" ColumnName="teklifid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblteklifdetay">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblteklifdetay">
+              <MappingFragment StoreEntitySet="tblteklifdetay">
+                <ScalarProperty Name="fiyati" ColumnName="fiyati" />
+                <ScalarProperty Name="urunadeti" ColumnName="urunadeti" />
+                <ScalarProperty Name="urunid" ColumnName="urunid" />
+                <ScalarProperty Name="teklifdetayid" ColumnName="teklifdetayid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblurunler">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblurunler">
+              <MappingFragment StoreEntitySet="tblurunler">
+                <ScalarProperty Name="stokadi" ColumnName="stokadi" />
+                <ScalarProperty Name="stok" ColumnName="stok" />
+                <ScalarProperty Name="satiscarpanı" ColumnName="satiscarpanı" />
+                <ScalarProperty Name="alisfiyati" ColumnName="alisfiyati" />
+                <ScalarProperty Name="urunkategori" ColumnName="urunkategori" />
+                <ScalarProperty Name="uruid" ColumnName="uruid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblmakina">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblmakina">
+              <MappingFragment StoreEntitySet="tblmakina">
+                <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
+                <ScalarProperty Name="makinatip_id" ColumnName="makinatip_id" />
+                <ScalarProperty Name="serino" ColumnName="serino" />
+                <ScalarProperty Name="makinaid" ColumnName="makinaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblarızasonuctipleri">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblarızasonuctipleri">
+              <MappingFragment StoreEntitySet="tblarızasonuctipleri">
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="arizasonuc_id" ColumnName="arizasonuc_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblarizaislemleri">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblarizaislemleri">
+              <MappingFragment StoreEntitySet="tblarizaislemleri">
+                <ScalarProperty Name="aciklama" ColumnName="aciklama" />
+                <ScalarProperty Name="islemtipi" ColumnName="islemtipi" />
+                <ScalarProperty Name="islemtarihi" ColumnName="islemtarihi" />
+                <ScalarProperty Name="ariza_id" ColumnName="ariza_id" />
+                <ScalarProperty Name="islem_id" ColumnName="islem_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblarizakategorileri">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblarizakategorileri">
+              <MappingFragment StoreEntitySet="tblarizakategorileri">
+                <ScalarProperty Name="kategoriadi" ColumnName="kategoriadi" />
+                <ScalarProperty Name="makinatipi" ColumnName="makinatipi" />
+                <ScalarProperty Name="ariza_kategori_ID" ColumnName="ariza_kategori_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblarizalar">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblarizalar">
+              <MappingFragment StoreEntitySet="tblarizalar">
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="tanım" ColumnName="tanım" />
+                <ScalarProperty Name="kategori_id" ColumnName="kategori_id" />
+                <ScalarProperty Name="makina_id" ColumnName="makina_id" />
+                <ScalarProperty Name="arizaid" ColumnName="arizaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblkategori">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblkategori">
+              <MappingFragment StoreEntitySet="tblkategori">
+                <ScalarProperty Name="carpan" ColumnName="carpan" />
+                <ScalarProperty Name="kategoriadi" ColumnName="kategoriadi" />
+                <ScalarProperty Name="kategoriID" ColumnName="kategoriID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

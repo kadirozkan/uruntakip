@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "musterilistesi";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+
+
+<body>
+    <div style="margin-top:25px">
+        <table id="tblmusteri" class="table table-hover table-bordered">
+
+            <thead>
+                <tr>
+                    <th scope="col" style="color:#fc6c05;font-size:16px">Müşteri Adı</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Yekili Personel</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">E-posta</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Telefon</th>
+                    <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Detaylar</th>
+
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="modal fade" id="ShowModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 id="firmaid" hidden="hidden"></h3>
+
+                </div>
+                <div class="modal-body">
+                    <form id="Registration">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Adı</b></span>
+                                <b> <input class="form-control" type="text" id="_firmaad" placeholder="Firma Adı" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Personel Adı</b></span>
+                                <b><input class="form-control" type="text" id="_ad" placeholder="Personel Adı" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="color:#fc6c05"><b>Personel Soyadı</b></span>
+                                <b> <input class="form-control" type="text" id="_soyad" placeholder="Personel Soyadı" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Eposta</b></span>
+                                <b><input class="form-control" type="email" id="_email" placeholder="Eposta" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Telefon No</b></span>
+                                <b><input class="form-control" type="text" id="_telefon" placeholder="Telefon" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Adresi</b></span>
+                                <b><input class="form-control" type="text" id="_adres" placeholder="Firma Adresi" /></b>
+
+                            </div>
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <button class="btn btn-success form-control" type="button" onclick="bilgileriguncelle()">Güncelle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+<script>
+    musteriler()
+
+</script>
+
+
