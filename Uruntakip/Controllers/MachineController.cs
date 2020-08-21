@@ -171,10 +171,7 @@ namespace Uruntakip.Controllers
 
             return Json(sonuc, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult test()
-        {
-            return View();
-        }
+    
 
     }
 }
