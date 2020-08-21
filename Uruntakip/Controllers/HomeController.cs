@@ -74,7 +74,7 @@ namespace Uruntakip.Controllers
             }
             catch (Exception)
             {
-
+                string a = "d";
                 return Json(sonuc, JsonRequestBehavior.AllowGet);
             }
 
