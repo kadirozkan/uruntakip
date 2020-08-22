@@ -9,7 +9,6 @@ namespace Uruntakip.Models
     {
         public int _arizano;
         public string _firmaadi;
-        public DateTime _tarih;
         public string _arizatanimi;
         public string _makinatipi;
         public string _serino;
@@ -18,5 +17,6 @@ namespace Uruntakip.Models
         public int _makinaid;
         public string _kategoriadi;
         public string tarih2;
+        public int _islemid;
     }
 }

@@ -1,0 +1,76 @@
+﻿@model List<Uruntakip.Models.cls_arizalistesi>
+@{
+    ViewBag.Title = "arizadetayı";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+
+<div style="margin-top:25px">
+    <table id="tblarizadetaylari" class="table table-hover table-bordered" *>
+
+        <thead>
+            <tr>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="ters">İşlem No</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">İşlem Tarihi</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Açıklama</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Durum</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                
+                
+                foreach (var item in Model)
+                {
+                        <tr>
+                            <td><b>@item._islemid</b></td>
+                            <td><b>@item.tarih2</b></td>
+                            <td><b>@item._arizatanimi</b></td>
+                            @if (item._durum == "İşleme Alındı")
+                            {
+                                <td><b style="color:green">@item._durum</b></td>
+                            }
+                            else if (item._durum == "Kontrol Ediliyor")
+                            {
+                                <td><b style="color:red">@item._durum</b></td>
+                            }
+                            else if (item._durum == "Malzeme Gönderildi")
+                            {
+                                <td><b style="color:blue">@item._durum</b></td>
+                            }
+                            else if (item._durum == "Tamamlandı")
+                            {
+                                <td><b style="color:black">@item._durum</b></td>
+                            }
+
+                        </tr>
+                }
+            }
+
+
+        </tbody>
+    </table>
+</div>
+<script>
+    $("#tblarizadetaylari").dataTable({
+        
+        "columnDefs": [
+            {
+            "targets": "no-sort",
+            "orderable": false,
+           
+            },
+           
+        ],
+        "searching": false,
+        
+
+    });
+
+    var table = $("#tblarizadetaylari").DataTable();
+    table
+        .order([0, 'desc'])
+        .draw();
+
+</script>

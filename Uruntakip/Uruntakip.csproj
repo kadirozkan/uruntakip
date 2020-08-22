@@ -140,6 +140,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ArizaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\MachineController.cs" />
@@ -456,6 +457,7 @@
     <Content Include="images\2.jpg" />
     <Content Include="images\3.jpg" />
     <Content Include="images\icons\favicon.ico" />
+    <Content Include="myscripts\arizaislemleri.js" />
     <Content Include="myscripts\customercodes.js" />
     <Content Include="myscripts\makinaislemleri.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -764,8 +766,8 @@
     <Content Include="Views\Customer\musteriekle.cshtml" />
     <Content Include="Views\Customer\musterilistesi.cshtml" />
     <Content Include="Views\Machine\makinalistesi.cshtml" />
-    <Content Include="Views\Machine\arizadetay.cshtml" />
     <Content Include="Views\Machine\arizalistesi.cshtml" />
+    <Content Include="Views\Ariza\arizadetayı.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

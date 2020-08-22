@@ -26,18 +26,82 @@
                  {
                 <tr>
                     <td><b>@item._arizano</b></td>
-                    <td><b>@item._tarih.ToShortDateString()</b></td>
+                    <td><b>@item.tarih2</b></td>
                     <td><b>@item._firmaadi</b></td>
                     <td><b>@item._makinatipi</b></td>
                     <td><b>@item._serino</b></td>
                     <td><b>@item._arizatanimi</b></td>
-                    <td><b>@item._durum</b></td>
-                    <td><button id="ekle" value="@item._arizano" class="btn btn-success">Ekle</button> <button id="detay" value="@item._arizano" class="btn btn-warning">Detay</button> <button id="sevk" value="@item._arizano" class="btn btn-info">Sevk</button> </td>
+                    @if (item._durum == "İşleme Alındı")
+                    {
+                        <td><b style="color:green">@item._durum</b></td>
+                    }
+                    else if (item._durum == "Kontrol Ediliyor")
+                    {
+                        <td><b style="color:red">@item._durum</b></td>
+                    }
+                    else if(item._durum== "Malzeme Gönderildi")
+                    {
+                        <td><b style="color:blue">@item._durum</b></td>
+                    }
+
+                <td><button id="ekle" value="@item._arizano" class="btn btn-success">Ekle</button> <a href="@Url.Action("arizadetayı","Ariza",new {id=item._arizano })"><input type="button" value="Detay" id="detay" class="btn btn-warning" /></a> <a href="#"><input type="button" value="Sevk" id="sevk" class="btn btn-info" /></a> </td>
                 </tr>
                  }
             </tbody>
         </table>
     </div>
+@* -----------------------------------------Arıza ıcın yapılan ıslemlerı guncelledigimiz form-----------------------*@
+
+<div class="modal fade" id="frmislem">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+               
+                <div>
+
+                    <span class="" style="color:#fc6c05;font-size:16px"><b>Ariza No :  </b></span>  <span style="font-size:18px;"><b id="frmislem_arizano"></b></span>
+
+                </div>
+
+            </div>
+            <div class="modal-body">
+                <form id="Registration">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>İşlem Tipi</b></span>
+                            <fieldset>
+                                <select id="frmislem_islemtipi" class="form-control" style="font-weight:bold">
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Yapılan İşlem</b></span>
+
+                            <b><input type="text" id="frmislem_tanim" autocomplete="off" class="form-control" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>İşlem Tarihi</b></span>
+                            <b><input type="date" id="frmislem_tarih" class="form-control" /></b>
+
+                        </div>
+                    </div>
+
+                </form>
+                <div class="form-group">
+                    <button class="btn btn-success form-control" type="submit" onclick="islemgirisi()">Yeni işlem Ekle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <script>
     $("#tblarizalistesi").dataTable(
@@ -48,4 +112,6 @@
 
         }
     );
+
+    islemformunuac();
 </script>
