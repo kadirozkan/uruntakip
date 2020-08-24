@@ -17,6 +17,7 @@ namespace Uruntakip.Controllers
         {
             return View();
         }
+        //-----------------------------------------------------ARIZALAR ICIN YAPILAN ISLEMLER GIRILIYOR---------
         public ActionResult _arizaislemleri(int arizano,string islem,DateTime tarih,int islemtipi)
         {
             string sonuc = "0";

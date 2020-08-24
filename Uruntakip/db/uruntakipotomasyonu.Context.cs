@@ -32,12 +32,16 @@ namespace Uruntakip.db
         public virtual DbSet<tblsevkdetay> tblsevkdetay { get; set; }
         public virtual DbSet<tblteklif> tblteklif { get; set; }
         public virtual DbSet<tblteklifdetay> tblteklifdetay { get; set; }
-        public virtual DbSet<tblurunler> tblurunler { get; set; }
         public virtual DbSet<tblmakina> tblmakina { get; set; }
         public virtual DbSet<tblarızasonuctipleri> tblarızasonuctipleri { get; set; }
         public virtual DbSet<tblarizaislemleri> tblarizaislemleri { get; set; }
         public virtual DbSet<tblarizakategorileri> tblarizakategorileri { get; set; }
         public virtual DbSet<tblarizalar> tblarizalar { get; set; }
         public virtual DbSet<tblkategori> tblkategori { get; set; }
+        public virtual DbSet<tbltedarikci> tbltedarikci { get; set; }
+        public virtual DbSet<tblurun_islem_Gecmisi> tblurun_islem_Gecmisi { get; set; }
+        public virtual DbSet<tblurundetayları> tblurundetayları { get; set; }
+        public virtual DbSet<tblurunhareketleri> tblurunhareketleri { get; set; }
+        public virtual DbSet<tblurunler> tblurunler { get; set; }
     }
 }

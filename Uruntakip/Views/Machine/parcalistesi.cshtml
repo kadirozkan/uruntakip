@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "parcalistesi";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+<div class="modal-dialog">
+       <form id="Registration">
+          <div class="form-group">
+              <div class="input-group">
+                  <b> <input class="form-control" type="text" id="search_id" placeholder="Makina Seri No" /></b>
+                  <span class="input-group-addon" style="width:128px;color:#fc6c05" onclick="test()"><b>Search</b></span>
+
+              </div>
+          </div>          
+        </form>
+</div>
+
+<table id="tblparcalistesi" class="table table-hover table-bordered">
+
+    <thead>
+        <tr>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="ters">İşlem No</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">İşlem Tarihi</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Stok Kodu</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Stok Adı</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Adet</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">İşlem Tipi</th>
+
+        </tr>
+    </thead>
+    <tbody>
+       
+
+    </tbody>
+</table>
+
+<script>
+    $("#tblparcalistesi").dataTable({
+
+        "columnDefs": [
+            {
+                "targets": "no-sort",
+                "orderable": false,
+
+            },
+
+        ],
+        
+
+    });
+
+    function test() {
+        alert("basıldı");
+    }
+
+</script>

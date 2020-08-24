@@ -12,13 +12,17 @@
         <EntityTypeShape EntityType="uruntakipdbModel.tblsevkdetay" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblteklif" Width="1.5" PointX="2.75" PointY="6.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblteklifdetay" Width="1.5" PointX="6.75" PointY="3.75" />
-        <EntityTypeShape EntityType="uruntakipdbModel.tblurunler" Width="1.5" PointX="4.75" PointY="6.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblmakina" Width="1.5" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblarızasonuctipleri" Width="1.5" PointX="3.75" PointY="0.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblarizaislemleri" Width="1.5" PointX="9.75" PointY="0.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblarizakategorileri" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblarizalar" Width="1.5" PointX="2.75" PointY="9.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblkategori" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tbltedarikci" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblurun_islem_Gecmisi" Width="1.5" PointX="9.375" PointY="6.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblurundetayları" Width="1.5" PointX="7.375" PointY="10.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblurunhareketleri" Width="1.5" PointX="9.375" PointY="10.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblurunler" Width="1.5" PointX="11.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,12 +12,14 @@ namespace Uruntakip.db
     using System;
     using System.Collections.Generic;
     
-    public partial class tblurunler
+    public partial class tblurun_islem_Gecmisi
     {
-        public int uruid { get; set; }
-        public Nullable<int> urunkategori { get; set; }
-        public string urunadi { get; set; }
-        public Nullable<decimal> urun_fiyati { get; set; }
-        public Nullable<int> tedarikci_id { get; set; }
+        public int islem_id { get; set; }
+        public string urun_serino { get; set; }
+        public Nullable<int> uruneskimusteri { get; set; }
+        public Nullable<int> urunyenimusteri { get; set; }
+        public Nullable<System.DateTime> islem_tarihi { get; set; }
+        public Nullable<int> islemtipi { get; set; }
+        public Nullable<int> makina_id { get; set; }
     }
 }

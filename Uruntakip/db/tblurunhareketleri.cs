@@ -12,12 +12,9 @@ namespace Uruntakip.db
     using System;
     using System.Collections.Generic;
     
-    public partial class tblurunler
+    public partial class tblurunhareketleri
     {
-        public int uruid { get; set; }
-        public Nullable<int> urunkategori { get; set; }
-        public string urunadi { get; set; }
-        public Nullable<decimal> urun_fiyati { get; set; }
-        public Nullable<int> tedarikci_id { get; set; }
+        public int hareket_id { get; set; }
+        public string hareket_tipi { get; set; }
     }
 }

@@ -113,7 +113,10 @@ namespace Uruntakip.Controllers
             return View(listeler);
         }
        
-       
+       public ActionResult parcalistesi()
+        {
+            return View();
+        }
     
 
     }

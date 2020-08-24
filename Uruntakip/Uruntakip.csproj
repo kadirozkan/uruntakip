@@ -177,13 +177,25 @@
     <Compile Include="db\tblsevkdetay.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
+    <Compile Include="db\tbltedarikci.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
     <Compile Include="db\tblteklif.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
     <Compile Include="db\tblteklifdetay.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
+    <Compile Include="db\tblurundetayları.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\tblurunhareketleri.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
     <Compile Include="db\tblurunler.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\tblurun_islem_Gecmisi.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
     <Compile Include="db\uruntakipotomasyonu.Context.cs">
@@ -768,6 +780,7 @@
     <Content Include="Views\Machine\makinalistesi.cshtml" />
     <Content Include="Views\Machine\arizalistesi.cshtml" />
     <Content Include="Views\Ariza\arizadetayı.cshtml" />
+    <Content Include="Views\Machine\parcalistesi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
