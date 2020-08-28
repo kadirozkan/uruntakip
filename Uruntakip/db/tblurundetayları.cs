@@ -17,5 +17,6 @@ namespace Uruntakip.db
         public int detay_id { get; set; }
         public Nullable<int> urun_id { get; set; }
         public string urunserino { get; set; }
+        public Nullable<int> adet { get; set; }
     }
 }

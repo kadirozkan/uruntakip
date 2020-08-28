@@ -12,12 +12,9 @@ namespace Uruntakip.db
     using System;
     using System.Collections.Generic;
     
-    public partial class tbltedarikci
+    public partial class tblurunharekettipi
     {
-        public int tedarikciID { get; set; }
-        public string tedarikciismi { get; set; }
-        public string telefon { get; set; }
-        public string email { get; set; }
-        public string adress { get; set; }
+        public int hareket_id { get; set; }
+        public string hareket_tipi { get; set; }
     }
 }

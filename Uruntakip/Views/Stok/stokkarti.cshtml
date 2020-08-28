@@ -1,0 +1,105 @@
+﻿@model List<Uruntakip.db.tblkategori>
+
+@{
+    ViewBag.Title = "stokkarti";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+@using (Html.BeginForm("stokkarti", "Stok", FormMethod.Post))
+{
+
+    <div class="" id="frmtedarik">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center">
+
+                    <div>
+
+                        <span class="" style="color:#fc6c05;font-size:16px"><b> Stok Kartı  </b></span>
+
+                    </div>
+
+                </div>
+                <div class="modal-body">
+                    <form id="Registration">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Tedarikçi</b></span>
+
+                                <fieldset>
+                                    <select id="tedarikci" name="tedarikci"class="form-control" style="font-weight:bold">
+
+                                        @{
+                                            var liste = (List<Uruntakip.db.tblCustomer>)ViewBag.tedarikci;
+                                            foreach (var item in liste)
+                                            {
+                                                <option value="@item.firmaid"><b>@item.firmaadi</b></option>
+                                            }
+
+                                        }
+                                    </select>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Ürün Kategorisi</b></span>
+
+                                <fieldset>
+                                    <select name="kategori" class="form-control" style="font-weight:bold">
+                                        @foreach (var item in Model)
+                                        {
+                                            <option value="@item.kategoriID"><b>@item.kategoriadi</b></option>
+                                        }
+                                    </select>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Ürün Adı</b></span>
+
+                                <b><input type="text" name="ad" autocomplete="off" class="form-control" required="" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Ürün Fiyatı</b></span>
+
+                                <b><input type="text" name="fiyat" autocomplete="off" class="form-control" required="" /></b>
+                            </div>
+                        </div>
+                        
+
+                    </form>
+                    <div class="form-group">
+                        <button class="btn btn-success form-control" type="submit">Ekle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+    
+    var mesaj =@ViewBag.mesaj;
+    if (mesaj == 0) {
+        swal("İşlem Başarısız", "Ürün mevcuttur.", "info");
+
+    }
+    else if (mesaj == 1) {
+        swal("işlem başarılı", "", "success");
+    }
+    else {
+        swal("işlem başarsız !!!!", "", "warning");
+    }
+
+       
+       
+
+
+    
+</script>
+

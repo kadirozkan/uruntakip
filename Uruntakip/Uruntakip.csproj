@@ -144,6 +144,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\MachineController.cs" />
+    <Compile Include="Controllers\StokController.cs" />
     <Compile Include="db\tblarizaislemleri.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
@@ -177,9 +178,6 @@
     <Compile Include="db\tblsevkdetay.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
-    <Compile Include="db\tbltedarikci.cs">
-      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
-    </Compile>
     <Compile Include="db\tblteklif.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
@@ -189,7 +187,7 @@
     <Compile Include="db\tblurundetayları.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
-    <Compile Include="db\tblurunhareketleri.cs">
+    <Compile Include="db\tblurunharekettipi.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
     <Compile Include="db\tblurunler.cs">
@@ -472,6 +470,7 @@
     <Content Include="myscripts\arizaislemleri.js" />
     <Content Include="myscripts\customercodes.js" />
     <Content Include="myscripts\makinaislemleri.js" />
+    <Content Include="myscripts\urunislemleri.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
@@ -781,6 +780,9 @@
     <Content Include="Views\Machine\arizalistesi.cshtml" />
     <Content Include="Views\Ariza\arizadetayı.cshtml" />
     <Content Include="Views\Machine\parcalistesi.cshtml" />
+    <Content Include="Views\Stok\tedarikci.cshtml" />
+    <Content Include="Views\Stok\stokkarti.cshtml" />
+    <Content Include="Views\Stok\urunekle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

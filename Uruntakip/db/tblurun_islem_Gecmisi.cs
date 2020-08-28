@@ -15,7 +15,7 @@ namespace Uruntakip.db
     public partial class tblurun_islem_Gecmisi
     {
         public int islem_id { get; set; }
-        public string urun_serino { get; set; }
+        public Nullable<int> urun_detay_id { get; set; }
         public Nullable<int> uruneskimusteri { get; set; }
         public Nullable<int> urunyenimusteri { get; set; }
         public Nullable<System.DateTime> islem_tarihi { get; set; }

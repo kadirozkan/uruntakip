@@ -19,6 +19,7 @@
     <script src="~/myscripts/customercodes.js"></script>
     <script src="~/myscripts/makinaislemleri.js"></script>
     <script src="~/myscripts/arizaislemleri.js"></script>
+    <script src="~/myscripts/urunislemleri.js"></script>
     @*----------------------------------------------------------------*@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -69,15 +70,19 @@
                         <ul class="dropdown">
 
                             <li><a href="@Url.Action("arizalistesi","Machine")">Arıza Listesi</a></li>
+                            <li><a href="#">Yeni teklif Oluştur</a></li>
+                            <li><a href="#">Yeni Sevk Oluştur</a></li>
 
                         </ul>
                     </li>
                     <li class="has-children">
-                        <a href="#"><b>Sevk ve teklif İşlemleri</b></a>
+                        <a href="#"><b>Stok işlemleri</b></a>
                         <ul class="dropdown">
-                            <li><a href="#">Yeni teklif Oluştur</a></li>
-                            <li><a href="#">Yeni Sevk Oluştur</a></li>
-                            <li><a href="#">Diğer işlemler</a></li>
+
+                            <li><a href="@Url.Action("tedarikci","Stok")">Tedarikçi Ekle</a></li>
+                            <li><a href="@Url.Action("stokkarti","Stok")">Stok Kartı Oluştur</a></li>
+                            <li><a href="@Url.Action("urunekle","Stok")">Ürün ekle Ekle</a></li>
+                            <li><a href="#">Üretime Parça Çıkışı</a></li>
                         </ul>
                     </li>
 

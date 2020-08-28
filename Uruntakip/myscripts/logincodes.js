@@ -61,6 +61,7 @@ function hesabikayet() {
             if (sonuc == "1") {
                 swal("Kayıt işlemi başarılı", "", "success");
                 $("#Registration")[0].reset();
+                
             }
             else if (sonuc == "2") {
                 swal("Bu e-posta sistemde zaten kayıtlıdır", "", "warning");

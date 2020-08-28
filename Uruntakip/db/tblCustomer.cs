@@ -22,5 +22,6 @@ namespace Uruntakip.db
         public string adres { get; set; }
         public string hesapno { get; set; }
         public string firmaadi { get; set; }
+        public Nullable<int> musteritipi { get; set; }
     }
 }

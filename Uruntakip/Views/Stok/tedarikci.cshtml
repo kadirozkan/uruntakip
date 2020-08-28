@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "tedarikci";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+@using (Html.BeginForm("tedarikci", "Stok", FormMethod.Post))
+{
+
+    <div class="" id="frmtedarik">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center">
+
+                    <div>
+
+                        <span class="" style="color:#fc6c05;font-size:16px"><b> Yeni Tedarikçi  </b></span>
+
+                    </div>
+
+                </div>
+                <div class="modal-body">
+                    <form id="Registration">
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Adı</b></span>
+
+                                <b><input type="text" name="ad" autocomplete="off" class="form-control" required=""/></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Adresi</b></span>
+
+                                <b><input type="text" name="adres" autocomplete="off" class="form-control" required="" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Telefon</b></span>
+
+                                <b><input type="text" name="telefon" autocomplete="off" class="form-control" required="" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Eposta</b></span>
+                                <b><input type="email" name="email" autocomplete="off" class="form-control" required="" /></b>
+
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="form-group">
+                        <button class="btn btn-success form-control" type="submit">Ekle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script>
+    var mesaj =@ViewBag.mesaj;
+    if (mesaj == 1) {
+        swal("işlem başarılı", "", "success");
+
+    }
+    else {
+        swal("işlem başarısız", "", "warning");
+    }
+</script>

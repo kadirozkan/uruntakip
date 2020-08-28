@@ -112,7 +112,7 @@ namespace Uruntakip.Controllers
 
             return View(listeler);
         }
-       
+       [Authorize]
        public ActionResult parcalistesi()
         {
             return View();

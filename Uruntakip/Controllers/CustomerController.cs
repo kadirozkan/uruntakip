@@ -42,6 +42,7 @@ namespace Uruntakip.Controllers
                 t.adres = adres;
                 t.telefon = telefon;
                 t.firmaadi = firmaadi;
+                t.musteritipi = 1;
                 db.tblCustomer.Add(t);
                 db.SaveChanges();
                 sonuc = "1";
@@ -66,7 +67,7 @@ namespace Uruntakip.Controllers
         
         public ActionResult getcustomer()
         {
-            List<tblCustomer> liste = db.tblCustomer.ToList();
+            List<tblCustomer> liste = db.tblCustomer.Where(x=>x.musteritipi==1).ToList();
 
             return Json(liste, JsonRequestBehavior.AllowGet);
 
