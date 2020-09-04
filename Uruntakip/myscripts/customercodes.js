@@ -60,7 +60,8 @@ function musteriler()
                     '<b>' + v1.ad + '  ' + v1.soyad + '</b>',
                     '<b>' + v1.email + '</b>',
                     '<b>' + v1.telefon + '</b>',
-                    '<button value="' + v1.firmaid + '" onclick="' + adresgoster() + '" class= "btn btn-warning" id="adres">' + 'Adres Bilgisi' + '</button>' + " " + '<button value="' + v1.firmaid + '" onclick="'+musteribilgileri()+'" class= "btn btn-success" id="guncelle">'+'Güncelle'+'</button>',
+                    '<b>' + v1.adres + '</b>',
+                    '<button value="' + v1.firmaid + '" onclick="'+musteribilgileri()+'" class= "btn btn-success" id="guncelle">'+'Güncelle'+'</button>',
                    
                 ]).draw(false);
             });
@@ -136,7 +137,8 @@ function bilgileriguncelle()
                                 '<b>' + v1.ad + '  ' + v1.soyad + '</b>',
                                 '<b>' + v1.email + '</b>',
                                 '<b>' + v1.telefon + '</b>',
-                                '<button value="' + v1.firmaid + '" onclick="' + adresgoster() + '" class= "btn btn-warning" id="adres">' + 'Adres Bilgisi' + '</button>' + " " + '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">' + 'Güncelle' + '</button>',
+                                '<b>' + v1.adres + '</b>',
+                                '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">' + 'Güncelle' + '</button>',
 
                             ]).draw(false);
                         });

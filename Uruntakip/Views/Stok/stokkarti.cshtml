@@ -46,11 +46,8 @@
                                 <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Ürün Kategorisi</b></span>
 
                                 <fieldset>
-                                    <select name="kategori" class="form-control" style="font-weight:bold">
-                                        @foreach (var item in Model)
-                                        {
-                                            <option value="@item.kategoriID"><b>@item.kategoriadi</b></option>
-                                        }
+                                    <select id="kategori" name="kategori" class="form-control" style="font-weight:bold">
+                                        
                                     </select>
                                 </fieldset>
                             </div>
@@ -66,7 +63,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Ürün Fiyatı</b></span>
 
-                                <b><input type="text" name="fiyat" autocomplete="off" class="form-control" required="" /></b>
+                                <b><input type="text" id="fiyat" name="fiyat" autocomplete="off" class="form-control" required="" /></b>
                             </div>
                         </div>
                         
@@ -83,11 +80,18 @@
 }
 
 <script>
-    
+    fiyatverikontrol();
+    tedarikcikategorisi();
+</script>
+<script> //Tedarikci degisince ona ait urun kategorisi geliyor
+    $("#tedarikci").change(function () {
+        tedarikcikategorisi();
+    })
+</script>
+<script>    
     var mesaj =@ViewBag.mesaj;
     if (mesaj == 0) {
         swal("İşlem Başarısız", "Ürün mevcuttur.", "info");
-
     }
     else if (mesaj == 1) {
         swal("işlem başarılı", "", "success");
@@ -95,11 +99,6 @@
     else {
         swal("işlem başarsız !!!!", "", "warning");
     }
-
-       
-       
-
-
-    
+   
+  
 </script>
-

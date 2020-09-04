@@ -42,5 +42,6 @@ namespace Uruntakip.db
         public virtual DbSet<tblurundetayları> tblurundetayları { get; set; }
         public virtual DbSet<tblurunharekettipi> tblurunharekettipi { get; set; }
         public virtual DbSet<tblurunler> tblurunler { get; set; }
+        public virtual DbSet<tblefirmaurun_kategorisi> tblefirmaurun_kategorisi { get; set; }
     }
 }

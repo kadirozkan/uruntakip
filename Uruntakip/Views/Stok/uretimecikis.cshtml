@@ -1,0 +1,43 @@
+﻿@model List<Uruntakip.Models.cls_makinalar>
+@{
+    ViewBag.Title = "uretimecikis";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+<div style="margin-top:25px">
+    <table id="uretim" class="table table-hover table-bordered" *>
+
+        <thead>
+            <tr>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Firma Adı</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Makina Tipi</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Makina Serino</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Detaylar</th>
+
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            @{  
+                foreach (var item in Model)
+                {
+                        <tr>
+                            <td><b>@item._firmaadi</b></td>
+                            <td><b>@item._makinatipi</b></td>
+                            <td><b>@item._makinaserino</b></td>
+                            <td><button class="btn btn-success" value="@item._makinaid">Ürün Ekle</button></td>
+                        </tr>
+                }
+
+
+
+             }
+        </tbody>
+    </table>
+</div>
+<script>
+    $("#uretim").dataTable({
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ]
+    });
+</script>

@@ -160,6 +160,9 @@
     <Compile Include="db\tblCustomer.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
+    <Compile Include="db\tblefirmaurun_kategorisi.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
     <Compile Include="db\tblkategori.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
@@ -216,6 +219,8 @@
     </Compile>
     <Compile Include="Models\cls_arizalistesi.cs" />
     <Compile Include="Models\cls_makinalar.cs" />
+    <Compile Include="Models\cls_musteriler.cs" />
+    <Compile Include="Models\cls_urunler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -783,6 +788,9 @@
     <Content Include="Views\Stok\tedarikci.cshtml" />
     <Content Include="Views\Stok\stokkarti.cshtml" />
     <Content Include="Views\Stok\urunekle.cshtml" />
+    <Content Include="Views\Stok\uretimecikis.cshtml" />
+    <Content Include="Views\Stok\tedarikciler.cshtml" />
+    <Content Include="Views\Stok\urunlistesi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

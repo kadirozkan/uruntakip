@@ -55,6 +55,14 @@
           <Property Name="firmaadi" Type="nvarchar" MaxLength="50" />
           <Property Name="musteritipi" Type="int" />
         </EntityType>
+        <EntityType Name="tblefirmaurun_kategorisi">
+          <Key>
+            <PropertyRef Name="urunkatid" />
+          </Key>
+          <Property Name="urunkatid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firmaid" Type="int" />
+          <Property Name="kategoriid" Type="int" />
+        </EntityType>
         <EntityType Name="tblkategori">
           <Key>
             <PropertyRef Name="kategoriID" />
@@ -170,6 +178,7 @@
           <EntitySet Name="tblarizakategorileri" EntityType="Self.tblarizakategorileri" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblarizalar" EntityType="Self.tblarizalar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblefirmaurun_kategorisi" EntityType="Self.tblefirmaurun_kategorisi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblkategori" EntityType="Self.tblkategori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbllogin" EntityType="Self.tbllogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblmakina" EntityType="Self.tblmakina" Schema="dbo" store:Type="Tables" />
@@ -205,6 +214,7 @@
           <EntitySet Name="tblurundetayları" EntityType="uruntakipdbModel.tblurundetayları" />
           <EntitySet Name="tblurunharekettipi" EntityType="uruntakipdbModel.tblurunharekettipi" />
           <EntitySet Name="tblurunler" EntityType="uruntakipdbModel.tblurunler" />
+          <EntitySet Name="tblefirmaurun_kategorisi" EntityType="uruntakipdbModel.tblefirmaurun_kategorisi" />
         </EntityContainer>
         <EntityType Name="tblarızasonuctipleri">
           <Key>
@@ -364,6 +374,14 @@
           <Property Name="urunadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="urun_fiyati" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="tedarikci_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblefirmaurun_kategorisi">
+          <Key>
+            <PropertyRef Name="urunkatid" />
+          </Key>
+          <Property Name="urunkatid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firmaid" Type="Int32" />
+          <Property Name="kategoriid" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -544,6 +562,15 @@
                 <ScalarProperty Name="urunadi" ColumnName="urunadi" />
                 <ScalarProperty Name="urunkategori" ColumnName="urunkategori" />
                 <ScalarProperty Name="uruid" ColumnName="uruid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblefirmaurun_kategorisi">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblefirmaurun_kategorisi">
+              <MappingFragment StoreEntitySet="tblefirmaurun_kategorisi">
+                <ScalarProperty Name="kategoriid" ColumnName="kategoriid" />
+                <ScalarProperty Name="firmaid" ColumnName="firmaid" />
+                <ScalarProperty Name="urunkatid" ColumnName="urunkatid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

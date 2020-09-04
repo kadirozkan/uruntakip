@@ -1,0 +1,33 @@
+﻿@model List<Uruntakip.Models.cls_urunler>
+@{
+    ViewBag.Title = "urunlistesi";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+<div style="margin-top:25px">
+    <table id="tblurunlistesi" class="table table-hover table-bordered" *>
+
+        <thead>
+            <tr>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Ürün Stok kodu</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Ürün Adı</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Ürün Adedi</th>
+                
+
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td><b>@item._stokkodu</b></td>
+                <td><b>@item._urunadi</b></td>
+                <td><b>@item._urunadedi</b></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $("#tblurunlistesi").dataTable();
+</script>

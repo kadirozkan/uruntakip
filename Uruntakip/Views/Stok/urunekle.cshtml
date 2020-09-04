@@ -32,7 +32,7 @@
                                             var liste = (List<Uruntakip.db.tblurunler>)ViewBag.urunler;
                                             foreach (var item in liste)
                                             {
-                                                <option value="@item.uruid"><b>@item.urunadi</b></option>
+                                                <option value="@item.uruid">@item.urunadi</option>
                                             }
 
                                         }
@@ -53,7 +53,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Ürün Adeti</b></span>
 
-                                <b><input type="text" name="adet" autocomplete="off" id="adet" class="form-control" /></b>
+                                <b><input type="text" name="adet" autocomplete="off" id="adet" class="form-control" required=""/></b>
                             </div>
                         </div>
 
@@ -70,6 +70,20 @@
 <script>
     // adet kısmına harf gırılmesını engellıyoruz
     onlynumber();
-
+    fiyatverikontrol();
+   
 </script>
+<script>
+     var mesaj =@ViewBag.mesaj;
+    if (mesaj == 0) {
+        swal("İşlem başarısız", "", "warning");
+    }
+    else if (mesaj == 1) {
+        swal("işlem başarılı", "", "success");
 
+    }
+    else {
+        swal("Bu ürün mevcut !!!", "Lütfen seri numarasını kontrol ediniz!!!", "info");
+    }
+    /// urun eklerken guncell fıyat gırılecek
+</script>

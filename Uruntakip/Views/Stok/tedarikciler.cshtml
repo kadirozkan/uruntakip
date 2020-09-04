@@ -1,0 +1,115 @@
+﻿@model List<Uruntakip.Models.cls_musteriler>
+@{
+    ViewBag.Title = "tedarikciler";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+<div style="margin-top:25px">
+    <table id="tbltedarikci" class="table table-hover table-bordered" *>
+
+        <thead>
+            <tr>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Firma Adı</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Yetkili Personel</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Adres</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Telefon</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Email</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Ürün Kategorileri</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">İşlemler</th>
+
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            
+        </tbody>
+    </table>
+</div>
+
+@* -----------------------------tedarikci bilgileri formu-------------------*@
+
+<div class="modal fade" id="frmtedarikci">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 id="frmtedarikci_id" hidden="hidden"></h3>
+
+            </div>
+            <div class="modal-body">
+                <form id="Registration">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Adı</b></span>
+
+                            <b><input type="text" id="frmtedarikci_firmaadi" autocomplete="off" class="form-control" required="" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Personel Adı</b></span>
+
+                            <b><input type="text" id="frmtedarikci_adi" autocomplete="off" class="form-control" required="" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Personel Soyadı</b></span>
+
+                            <b><input type="text" id="frmtedarikci_soyadi" autocomplete="off" class="form-control" required="" /></b>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Adresi</b></span>
+
+                            <b><input type="text" id="frmtedarikci_adres" autocomplete="off" class="form-control" required="" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Telefon</b></span>
+
+                            <b><input type="text" id="frmtedarikci_telefon" autocomplete="off" class="form-control" required="" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Eposta</b></span>
+                            <b><input type="email" id="frmtedarikci_email" autocomplete="off" class="form-control" required="" /></b>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Ürün kategorisi</b></span>
+                            <fieldset>
+                                <select id="frmtedarikci_kategori" class="form-control" style="font-weight:bold" required="">
+                                </select>
+                            </fieldset>
+
+                        </div>
+                    </div>
+                </form>
+                <div class="form-group">
+                    <button class="btn btn-success form-control" type="submit" onclick="tedarikciguncelle()">Güncelle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#tbltedarikci").dataTable({
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ]
+    });
+</script>
+<script>
+    tedarikciler();
+    $("#tbltedarikci tbody").on("click", "#musteri", function () {
+        tedarikcibilgileri($(this).val());
+        $("#frmtedarikci").modal();
+    })
+</script>
