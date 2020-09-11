@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using PagedList;
 using WebGrease.Css.ImageAssemblyAnalysis.LogModel;
 using Uruntakip.Models;
+using System.EnterpriseServices;
 
 namespace Uruntakip.Controllers
 {
@@ -36,12 +37,12 @@ namespace Uruntakip.Controllers
             try
             {
                 tblCustomer t = new tblCustomer();
-                t.ad = adi;
-                t.soyad = soyadi;
+                t.ad = adi.ToUpper();
+                t.soyad = soyadi.ToUpper();
                 t.email = eposta;
                 t.adres = adres;
                 t.telefon = telefon;
-                t.firmaadi = firmaadi;
+                t.firmaadi = firmaadi.ToUpper();
                 t.musteritipi = 1;
                 db.tblCustomer.Add(t);
                 db.SaveChanges();
@@ -61,7 +62,9 @@ namespace Uruntakip.Controllers
         [Authorize]
         public ActionResult musterilistesi()
         {
-            return View();
+            List<tblCustomer> liste = db.tblCustomer.Where(x => x.musteritipi == 1).ToList();
+            return View(liste);
+           
             
         }
         
@@ -108,9 +111,13 @@ namespace Uruntakip.Controllers
 
             return Json(kontrol, JsonRequestBehavior.AllowGet);
         }
+       [Authorize]
+        public ActionResult yeniteklif(int id)
+        {
+            
+            return View();
+        }
        
-        
-
         
     }
 }

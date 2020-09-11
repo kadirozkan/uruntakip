@@ -21,7 +21,18 @@
 
                 </tr>
             </thead>
-            <tbody id="tbody">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><b>@item.firmaadi</b></td>
+                        <td><b>@item.ad  @item.soyad</b></td>
+                        <td><b>@item.email</b></td>
+                        <td><b>@item.telefon</b></td>
+                        <td><b>@item.adres</b></td>
+                        <td><b><button id="guncelle" value="@item.firmaid" onclick="musteribilgileri()" class="btn btn-success">Güncelle</button></b> <button id="teklif"  onclick="teklifformu(@item.firmaid)" class="btn btn-warning">Teklif</button> <button id="teklif" value="@item.firmaid" class="btn btn-info">Sevk</button></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -84,11 +95,15 @@
     </div>
 </body>
 
-
-
 <script>
-    musteriler()
+    $('#tblmusteri').dataTable({
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ]
+    });
 
 </script>
+
+
 
 

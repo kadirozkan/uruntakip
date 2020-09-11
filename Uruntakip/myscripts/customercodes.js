@@ -9,8 +9,9 @@ function musteriekle()
     var _telefon = $("#personeltelefon").val();
     var _adres = $("#adres").val();
     var _firmadı = $("#firmaadi").val();
-    if (_adi == "" || _soyadi == "" || _eposta == "" || _telefon == "" || _adres == "") {
-        swal("Bilgileri eksiksiz girin", "", "info");
+    
+    if (_adi == "" || _soyadi == "" || _eposta == "" || _telefon == "" || _adres == "" || _eposta.indexOf("@")<0) {
+        swal("Bilgilerinizi kontrol ediniz", "", "info");
         return;
 
     }
@@ -24,12 +25,12 @@ function musteriekle()
         {
             if (sonuc == "0") {
                 swal("İşlem başarısız", "", "warning");
-                $("#yenimusteri")[0].reset();
+                $("#Registration")[0].reset();
             }
             else
             {
                 swal("İşlem başarılı", "", "success");
-                $("#yenimusteri")[0].reset();
+                $("#Registration")[0].reset();
             }
 
         }
@@ -38,40 +39,7 @@ function musteriekle()
 }
 
 
-// --------musteri listesini cekme--------
-function musteriler()
-{
-    $('#tblmusteri').dataTable({
-        columnDefs: [
-            { targets: 'no-sort', orderable: false }
-        ]
-    });
-
-    var table = $('#tblmusteri').DataTable();
-   
-    $(document).ready(function () {
-       
-        $.get("/Customer/getcustomer", {}, function (gelendata) {
-            
-                $.each(gelendata, function (i, v1) {
-               
-                table.row.add([
-                    '<b>' + v1.firmaadi + '</b>',
-                    '<b>' + v1.ad + '  ' + v1.soyad + '</b>',
-                    '<b>' + v1.email + '</b>',
-                    '<b>' + v1.telefon + '</b>',
-                    '<b>' + v1.adres + '</b>',
-                    '<button value="' + v1.firmaid + '" onclick="'+musteribilgileri()+'" class= "btn btn-success" id="guncelle">'+'Güncelle'+'</button>',
-                   
-                ]).draw(false);
-            });
-            
-        });
-       
-    });
-}
-
-//-------musteri bilgilerini cekme --------------
+//------------------------------------musteri bilgileri gösteriliyor--------------
 
 function musteribilgileri()
 {  
@@ -138,13 +106,13 @@ function bilgileriguncelle()
                                 '<b>' + v1.email + '</b>',
                                 '<b>' + v1.telefon + '</b>',
                                 '<b>' + v1.adres + '</b>',
-                                '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">' + 'Güncelle' + '</button>',
+                                '<b>' + '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">' + 'Güncelle' + '</button>' + '</b>' + ' ' + '<button id="teklif" onclick="teklifformu('+v1.firmaid+')" class="btn btn-warning">' + 'Teklif' + '</button>' + ' ' + '<button id="sevk" value="'+v1.firmaid+'" class="btn btn-info">'+'Sevk'+'</button>',
 
-                            ]).draw(false);
-                        });
+                                ]).draw(false);
+                                });
 
-                    });
-                }
+                                });
+                                }
                 else {
 
                     swal("İşlem başarısız", "", "warning");
@@ -158,30 +126,43 @@ function bilgileriguncelle()
 
 }
 
-//----- musterinin adresını gosterme------------------------
-function adresgoster() {
-    var _musteriid;
-    $("#tblmusteri tbody").on("click", "#adres", function () {
-        _musteriid = $(this).val();
-        var _data = { id: _musteriid }
-        $.ajax({
-            type: "POST",
-            url: "/Customer/adresgoster",
-            data: _data,
-            success: function (data) {
-                if (data != null || data != "") {
-                    swal("Adres Bilgileri",data, "info");
-                }
-                else {
-                    swal("Adres bulunamadı", "", "warning");
-                }
-            }
+//---------------------------------------teklif olusturma sayfasına yönlendırme 
 
-        });
+function teklifformu(id)
+{
+    location.href = '/Customer/yeniteklif/'+id;
+}
+function teklifhazırla()
+{
+    var url = window.location.pathname;
+    var id = url.substring(url.lastIndexOf('/') + 1);   //müsteri id numarası url uzerınden alınıyor
+    $("#form1").click(function () {
+
+        var deger = $("#email").val();
+        var ad = $("#adı").val();
+        var soy = $("#soyadı").val();
+        if (deger == "" || ad == "" || soy == "") {
+            alert("eksık bılgı var");
+        }
+        else {
+
+            ileri($("#form1").val());
+        }
+
+    });
+    $("#form2").click(function () {
+
+        ileri($("#form2").val())
+
+    })
+    $("#form3").click(function () {
+
+        ileri($("#form3").val())
 
     })
 
 }
+
 
 
 

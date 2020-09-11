@@ -184,7 +184,10 @@
     <Compile Include="db\tblteklif.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
-    <Compile Include="db\tblteklifdetay.cs">
+    <Compile Include="db\tblteklifsevkdetayı.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\tblteklif_urunler.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
     <Compile Include="db\tblurundetayları.cs">
@@ -791,6 +794,7 @@
     <Content Include="Views\Stok\uretimecikis.cshtml" />
     <Content Include="Views\Stok\tedarikciler.cshtml" />
     <Content Include="Views\Stok\urunlistesi.cshtml" />
+    <Content Include="Views\Customer\yeniteklif.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

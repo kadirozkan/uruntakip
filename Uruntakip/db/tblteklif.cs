@@ -16,7 +16,10 @@ namespace Uruntakip.db
     {
         public int teklifid { get; set; }
         public Nullable<int> musteri_id { get; set; }
-        public Nullable<System.DateTime> tekliftarihi { get; set; }
-        public string acıklama { get; set; }
+        public string teklifno { get; set; }
+        public Nullable<int> gonderimtipi { get; set; }
+        public string gonderitip_acıklasması { get; set; }
+        public Nullable<System.DateTime> tarih { get; set; }
+        public string teklifnotu { get; set; }
     }
 }

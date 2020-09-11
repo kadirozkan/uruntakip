@@ -1,0 +1,380 @@
+﻿
+@{
+    ViewBag.Title = "yeniteklif";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+
+
+<div class="" id="1">
+    <div class="modal-dialog" style="padding-right:600px">
+        <div class="modal-content" style="width:600px">
+            <div class="modal-header" style="text-align:center">
+                <div>
+                    <span class="" style="color:#fc6c05;font-size:16px"><b> Teklif Bilgileri  </b></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group" style="width:300px">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Teklif Tarihi</b></span>
+
+                            <b><input type="date" name="tarih" id="tarih" autocomplete="off" class="form-control" required="" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group" style="width:300px">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Teklif Numarası</b></span>
+
+                            <b><input type="text" name="teklifno" id="teklifno" autocomplete="off" class="form-control" required="" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group" style="width:300px">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Teklif Notu</b></span>
+
+                            <b><input type="text" name="teklifno" id="teklifnot" autocomplete="off" class="form-control" required="" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group" style="width:300px">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Gönderim Tipi</b></span>
+                            <fieldset>
+                                <select id="gonderimtip" name="gonderimtip" class="form-control" style="font-weight:bold">
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Açıklama</b></span>
+
+                            <textarea style="height:150px" class="form-control" name="acıklama" id="acıklama"></textarea>
+                        </div>
+                    </div>
+
+                </form>
+                
+                <div style="float:right">
+                    <button id="form1" class="btn btn-info" value="1" >İleri</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="" id="2" style="display:none">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align:center">
+                <div>
+                    <span class="" style="color:#fc6c05;font-size:16px"><b> Sevk Bilgileri  </b></span>
+                </div>
+
+            </div>
+            <div class="modal-body">
+                <form id="Registration">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Makina No</b></span>
+
+                            <select id="makina" name="makina" class="form-control" style="width:150px">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Arıza No</b></span>
+
+                            <select id="ariza" name="ariza" class="form-control" style="width:150px">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Genel iskonto</b></span>
+
+                            <b><input type="text" name="iskonto" id="iskonto" autocomplete="off" class="form-control" required="" style="width:150px" /></b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Para Birimi</b></span>
+
+                            <select id="birim" name="birim" class="form-control" style="width:150px">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+               
+            <div style="float:right">
+                <button class="btn btn-danger" onclick="geri(2)">Geri</button> <button id="form2" value="2" class="btn btn-info">İleri</button>
+            </div>
+        </div>
+           
+     </div>
+ </div>
+</div>
+<div class="" id="3" style="display:none;">
+    <div class="modal-dialog" style="padding-right:800px">
+        <div class="modal-content" style="width:900px">
+            <div class="modal-header" style="text-align:center">
+                <div>
+                    <span class="" style="color:#fc6c05;font-size:16px"><b> Malzeme Bilgileri</b></span>
+                </div><br />
+                <div class="form-group">
+                    <div class="input-group">
+                        <b><input type="text" id="arama" autocomplete="off" style="height:28px" /></b>
+                        <span class="input-group-addon" style="width:128px;color:#fc6c05;display:unset;vertical-align:initial" onclick=""><b>Ürün Arama</b></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <table class="table table-hover table-bordered" id="urunstokları">
+                        <thead>
+                            <tr>
+                                <th class="no-sort">Stok Kodu</th>
+                                <th class="no-sort">Ürün Adı</th>
+                                <th class="no-sort">Stok Adedi</th>
+                                <th class="no-sort">Satış Fiyatı</th>
+                                <th class="no-sort">İşlem</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1sadasdasd</td>
+                                <td>1</td>
+                                <td>1333</td>
+                                <td><button class="btn btn-danger">Seç</button></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1sadasdasd</td>
+                                <td>1</td>
+                                <td>1333</td>
+                                <td><button class="btn btn-danger">Seç</button></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1sadasdasd</td>
+                                <td>1</td>
+                                <td>1333</td>
+                                <td><button class="btn btn-danger">Seç</button></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1sadasdasd</td>
+                                <td>1</td>
+                                <td>1333</td>
+                                <td><button class="btn btn-danger">Seç</button></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1sadasdasd</td>
+                                <td>1</td>
+                                <td>1333</td>
+                                <td><button class="btn btn-danger">Seç</button></td>
+
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1sadasdasd</td>
+                                <td>1</td>
+                                <td>1333</td>
+                                <td><button class="btn btn-danger">Seç</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div>
+                    <div style="float:left">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Ürün Adı</label>
+                                    <input style="width:400px" type="text" name="urunadi" class="form-control" id="urunadi">
+                                </div>
+                            </div>
+
+                          
+                            <div class="form-row">
+
+                                <div class="form-group col-md-2">
+                                    <label for="inputZip">Adet</label>
+                                    <input type="text" class="form-control" id="adet" name="adet">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputZip">Kdv</label>
+                                    <input type="text" class="form-control" id="kdv" name="kdv">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="inputZip">Fiyat</label>
+                                    <input type="text" class="form-control" id="fiyat" name="fiyat">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary form-control-lg">Ürünü Ekle</button>
+                        </form>
+
+                    </div>
+                    @* -----------------urune ait gecmiş teklifler gelicek----*@
+                    <div style="float:right;margin-top:-250px;display:none" id="div_gecmis">
+                        <h4><b style="text-decoration:underline;color:#fc6c05;margin-left:30px">Eski Teklifler</b></h4>
+                        <table class="table table-bordered" id="gecmisteklif">
+                            <thead>
+                                <tr>
+                                    <th class="no-sort">Tarih</th>
+                                    <th class="no-sort">Adet</th>
+                                    <th class="no-sort">Fiyat</th>
+                                    <th class="no-sort">Birim</th>
+                                    <th class="no-sort">Firma Bilgisi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>19.02.2020</td>
+                                    <td>4</td>
+                                    <td>1500</td>
+                                    <td>Euro</td>
+                                    <td><button class="btn btn-info">Göster</button></td>
+
+                                </tr>
+                                <tr>
+                                    <td>19.02.2020</td>
+                                    <td>4</td>
+                                    <td>1500</td>
+                                    <td>Euro</td>
+                                    <td><button class="btn btn-info">Göster</button></td>
+
+                                </tr>
+                                <tr>
+                                    <td>19.02.2020</td>
+                                    <td>4</td>
+                                    <td>1500</td>
+                                    <td>Euro</td>
+                                    <td><button class="btn btn-info">Göster</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>           
+
+            </div>
+            <div style="padding-left:788px;padding-bottom:25px">
+                <button class="btn btn-danger" onclick="geri(3)">Geri</button> <button id="form3" value="3" class="btn btn-info">İleri</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*----------------------------------------------------------------------------------------------------------------*@ 
+<div class="" id="4" style="display:none;">
+    <div class="modal-dialog" style="padding-right:800px">
+        <div class="modal-content" style="width:900px">
+            <div class="modal-header" style="text-align:center">
+                <div>
+                    <span class="" style="color:#fc6c05;font-size:16px"><b> Teklif Malzemeleri</b></span>
+                </div>
+               
+            </div>
+            <div class="modal-body">
+                <div>
+                    <table class="table table-hover table-bordered" id="teklif">
+                        <thead>
+                            <tr>
+                                <th>Stok Kodu</th>
+                                <th>Ürün Adı</th>
+                                <th>Stok Adedi</th>
+                                <th>Biri Fiyatı</th>
+                                <th>Toplam Tutar</th>
+                                <th>İşlem</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1sadasdasd3123123123123</td>
+                                <td>1</td>
+                                <td>1333</td>
+                                <td>1333</td>
+                                <td><button class="btn btn-info">Çıkar</button></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1sadasdasd123123123123</td>
+                                <td>1</td>
+                                <td>1333</td>
+                                <td>1333</td>
+                                <td><button class="btn btn-info">Çıkar</button></td>
+
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1sadasdasd3123123123123</td>
+                                <td>1</td>
+                                <td>1333</td>
+                                <td>1333</td>
+                                <td><button class="btn btn-info">Çıkar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            
+                 <div style="padding-left:740px;">
+                    <button class="btn btn-danger" onclick="geri(4)">Geri</button> <button id="form4"  class="btn btn-success">Oluştur</button>
+                </div>
+
+         </div>
+    </div>
+  </div>
+</div>
+<script>
+    function geri(id) {
+        var a = parseInt( id) - 1;
+        document.getElementById(id).style.display = "none";
+        document.getElementById(a).style.display = "";
+    }
+
+    function ileri(id)
+    {   var a = parseInt(id) + 1;
+        document.getElementById(id).style.display = "none";      
+        document.getElementById(a).style.display = "";
+    }
+    $("#urunstokları").dataTable({
+        "searching": false,
+        "lengthChange": false,
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ]
+    })
+    $("#gecmisteklif").dataTable({
+        "searching": false,
+        "lengthChange": false,
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ]
+
+    })
+</script>
+
+<script>
+   
+   
+    teklifhazırla();
+    
+</script>

@@ -7,39 +7,69 @@
 
 
     
-    <form id="yenimusteri" class="text-left border border-dark p-5 " style="width:800px;margin-left:250px;margin-top:50px;" action="#!">
-       
-        <p>
-            <b style="margin-left:30px">@Html.Label("Firma adı")</b>
-            <input type="text" id="firmaadi" style="width:400px;margin-left:34px"><br />
-        </p>
-        <p style="margin-left:30px">
-            <b>@Html.Label("Personel adı")</b>
-            <input type="text" id="personeladi" style="width:400px;margin-left:14px;">
+   
+    <div class="" id="frmfirma">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center">
 
-        </p>
-        <!-- Name -->
-        <p>
-            <b>@Html.Label("Personel soyadı")</b>
-            <input type="text" id="personelsoyadi" style="width:400px;margin-left:19px" ><br />
-        </p>
-        
-        <p>
-            <b>@Html.Label("Personel eposta")</b>
-            <input type="email" id="personeleposta" style="width:400px;margin-left:17px"><br />
+                    <div>
 
-        </p>
-        <p>
-            <b>@Html.Label("Personel Telefonu")</b>
-            <input type="tel" id="personeltelefon" style="width:400px;margin-left:7px" ><br />
-        </p>
-        <p>
-            
-             <b>@Html.Label("Firma Adresi")</b>
-              <textarea  maxlength="50" id="adres" style="width:400px; margin-left:45px;"> </textarea>
-             
-        </p>
-        <!-- Sign in button -->
-        <button type="button" class="btn btn-primary btn-lg" style="margin-left:200px;width:300px" onclick="musteriekle()">Müşteri Ekle</button>
+                        <span class="" style="color:#fc6c05;font-size:16px"><b> Yeni Müşteri </b></span>
 
-    </form>
+                    </div>
+
+                </div>
+                <div class="modal-body">
+                    <form id="Registration">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Adı</b></span>
+
+                                <b><input type="text" id="firmaadi" autocomplete="off" class="form-control" required="" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Personel Adı</b></span>
+
+                                <b><input type="text" id="personeladi" autocomplete="off" class="form-control" required="" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Personel Soyadı</b></span>
+
+                                <b><input type="text" id="personelsoyadi" autocomplete="off" class="form-control" required="" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Eposta</b></span>
+                                <b><input type="email" id="personeleposta" autocomplete="off" class="form-control" required="" /></b>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Telefon</b></span>
+
+                                <b><input type="text" id="personeltelefon" autocomplete="off" class="form-control" required="" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Firma Adresi</b></span>
+
+                                <b><input type="text" id="adres" autocomplete="off" class="form-control" required="" /></b>
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="form-group">
+                        <button class="btn btn-danger form-control" type="submit" onclick="musteriekle()" >Müşteri Ekle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
