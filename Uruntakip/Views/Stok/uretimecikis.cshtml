@@ -17,8 +17,7 @@
             </tr>
         </thead>
         <tbody id="tbody">
-            @{  
-                foreach (var item in Model)
+            @{foreach (var item in Model)
                 {
                         <tr>
                             <td><b>@item._firmaadi</b></td>
@@ -26,18 +25,18 @@
                             <td><b>@item._makinaserino</b></td>
                             <td><button class="btn btn-success" value="@item._makinaid">Ürün Ekle</button></td>
                         </tr>
+                    }
                 }
-
-
-
-             }
+            
         </tbody>
     </table>
 </div>
+
 <script>
     $("#uretim").dataTable({
         columnDefs: [
             { targets: 'no-sort', orderable: false }
         ]
     });
+    
 </script>

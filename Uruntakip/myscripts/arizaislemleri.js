@@ -265,7 +265,7 @@ function arizalarigöster() {
                                 '<b>' + k.tarih2 + '</b>',
                                 '<b>' + k._arizatanimi + '</b>',
                                 '<b style="color:green">' + k._durum + '</b>',
-                                '<button id="duzen" value="' + k._arizano + '" class="btn btn-success">' + 'Güncelle' + '</button>' + ' ' + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + '<input id="detay" type="button" class="btn btn-warning" value="Detaylar">' + '</a>', ,
+                                '<button id="duzen" value="' + k._arizano + '" class="btn btn-success">' + 'Güncelle' + '</button>' + ' ' + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + '<input id="detay" type="button" class="btn btn-warning" value="Detaylar">' + '</a>', 
 
 
                             ]).draw();

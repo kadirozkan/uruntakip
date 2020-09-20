@@ -12,22 +12,26 @@
                 <th scope="col" style="color:#fc6c05;font-size:16px">Ürün Stok kodu</th>
                 <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Ürün Adı</th>
                 <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Ürün Adedi</th>
-                
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">işlem</th>
+
 
             </tr>
         </thead>
-        <tbody id="tbody">
+        <tbody id="tbody" style="font-weight:bold">
             @foreach (var item in Model)
             {
             <tr>
-                <td><b>@item._stokkodu</b></td>
-                <td><b>@item._urunadi</b></td>
-                <td><b>@item._urunadedi</b></td>
+                <td>@item._stokkodu</td>
+                <td>@item._urunadi</td>
+                <td>@item._urunadedi</td>
+                <td><button id="sec" value="@item._stokkodu" class="btn btn-danger">urun sec</button></td>
             </tr>
             }
         </tbody>
     </table>
 </div>
 <script>
+    
     $("#tblurunlistesi").dataTable();
+    
 </script>

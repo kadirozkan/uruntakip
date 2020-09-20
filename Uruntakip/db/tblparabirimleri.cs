@@ -12,16 +12,9 @@ namespace Uruntakip.db
     using System;
     using System.Collections.Generic;
     
-    public partial class tblteklifsevkdetayı
+    public partial class tblparabirimleri
     {
-        public int teklifdetayid { get; set; }
-        public Nullable<int> teklif_id { get; set; }
-        public string sevkadresi { get; set; }
-        public Nullable<int> sevkiyattipi { get; set; }
-        public Nullable<int> odemetipi { get; set; }
-        public Nullable<int> iskonto { get; set; }
-        public Nullable<int> teslimattipi { get; set; }
-        public string makinano { get; set; }
-        public string arizano { get; set; }
+        public int paraid { get; set; }
+        public string parabirimi { get; set; }
     }
 }

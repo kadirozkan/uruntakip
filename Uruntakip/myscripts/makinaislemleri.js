@@ -1,17 +1,15 @@
 ﻿
 //---------------tum makinalar cekılıyor---------------------
 
-function tummakinalar() {
-    $("#tblmakinalar").dataTable({
+function tummakinalar()
+{
+    var table = $('#tblmakinalar').DataTable({
         columnDefs: [
             { targets: 'no-sort', orderable: false }
         ]
     });
-    var table = $('#tblmakinalar').DataTable();
-   
-    $(document).ready(function () {
 
-        $.get("/Machine/_makinalar", {}, function (gelendata) {
+    $.get("/Machine/_makinalar", {}, function (gelendata) {
 
             $.each(gelendata, function (i, v1) {
 
@@ -24,12 +22,12 @@ function tummakinalar() {
 
 
             })
+            document.getElementById("veri").style.display = "none";
 
 
-
-        })
-        
     })
+        
+   
    
 }
 

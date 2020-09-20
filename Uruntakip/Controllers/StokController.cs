@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.Web.WebPages.Html;
+using System.Xml;
 using Uruntakip.db;
 using Uruntakip.Models;
 
@@ -389,6 +391,133 @@ namespace Uruntakip.Controllers
             return View();
         }
 
+        public double kurcevir(string birim,double tutar)
+        {
+            string bugun = "https://www.tcmb.gov.tr/kurlar/today.xml";
+            var xmldoc = new XmlDocument();
+            xmldoc.Load(bugun);
+            string usd = xmldoc.SelectSingleNode("Tarih_Date/Currency [@Kod='USD']/BanknoteSelling").InnerXml;
+            string eur=  xmldoc.SelectSingleNode("Tarih_Date/Currency [@Kod='EUR']/BanknoteSelling").InnerXml;
+            usd = usd.Replace('.', ',');
+            eur = eur.Replace('.', ',');
+            double dolar = Convert.ToDouble(usd);
+            double euro = Convert.ToDouble(eur);
+            double deger = 0;
+            switch (birim)
+            {
+                case "DOLAR":
+                    deger = tutar * (euro / dolar);
+                    break;
+                case "TL":
+                    deger = tutar * euro;
+                    break;
+            }
+            deger = Math.Round(deger, 3);
+            return deger;
+        }
 
+        public ActionResult teklifurunu(string name,string teklifno)
+        {
+            name = name.Trim();
+            var teklif = from t in db.tblteklif join p in db.tblparabirimleri on t.parabirimi equals p.paraid where t.teklifno==teklifno select new { p.parabirimi };
+            List < cls_urunler > liste = new List<cls_urunler>();
+            try
+            {
+                int id = Convert.ToInt32(name);
+                List<tblurundetayları> t = db.tblurundetayları.Where(x => x.urun_id ==id && x.urunserino != null).ToList();
+                if(t.Count()>0)  // serı numaralı urunse lıste degerı 0 dan buyuk olurda adet sayısı lıste uzunluguna esıt olur
+                {
+                    int adet = t.Count();
+                    liste = (from p in db.tblurunler
+                             where p.uruid == id
+                             select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)p.urun_fiyati, _urunadi = p.urunadi, _urunadedi = adet })).ToList();
+                }
+                else // serı numaralı urun degılse count 0 olur ve adet tutarı tblurundetaylarından alınır
+                {
+                    liste = (from p in db.tblurunler join d in db.tblurundetayları on p.uruid equals d.urun_id
+                             where p.uruid == id
+                             select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)p.urun_fiyati, _urunadi = p.urunadi, _urunadedi =(int)d.adet  })).ToList();
+                }
+
+            }
+            catch (Exception)
+            {
+                List<tblurunler> product = db.tblurunler.Where(x => x.urunadi.StartsWith(name.Trim().ToUpper())||x.urunadi.EndsWith(name.Trim().ToUpper())||x.urunadi.Contains(name.Trim().ToUpper())).ToList();
+                foreach (tblurunler item in product)
+                {
+                    List<tblurundetayları> t = db.tblurundetayları.Where(x => x.urun_id == item.uruid && x.urunserino != null).ToList();
+                    if (t.Count() > 0)  // serı numaralı urunse lıste degerı 0 dan buyuk olurda adet sayısı lıste uzunluguna esıt olur
+                    {
+                        int adet = t.Count();
+                      var urun = from p in db.tblurunler
+                                 where p.uruid == item.uruid
+                                 select new{p.uruid, p.urun_fiyati,p.urunadi };
+                        foreach (var p in urun)
+                        {
+                            cls_urunler u = new cls_urunler();
+                            u._stokkodu = p.uruid;
+                            u.urunfiyati = Convert.ToDouble(p.urun_fiyati);
+                            u._urunadi = p.urunadi;
+                            u._urunadedi = adet;
+                            liste.Add(u);
+                        }
+
+                    }
+                    else // serı numaralı urun degılse count 0 olur ve adet tutarı tblurundetaylarından alınır
+                    {
+                        var urun = from p in db.tblurunler
+                                   join d in db.tblurundetayları on p.uruid equals d.urun_id
+                                   where p.uruid == item.uruid
+                                   select new { p.uruid, p.urun_fiyati, p.urunadi, d.adet };
+                        foreach (var p in urun)
+                        {
+                            cls_urunler u = new cls_urunler();
+                            u._stokkodu = p.uruid;
+                            u.urunfiyati = Convert.ToDouble(p.urun_fiyati);
+                            u._urunadi = p.urunadi;
+                            u._urunadedi =(int) p.adet;
+                            liste.Add(u);
+                        }
+                    }
+                }
+                
+            }
+            
+            foreach (var item in teklif)
+            {
+                switch (item.parabirimi)
+                {
+                    case "DOLAR":
+                        foreach (cls_urunler tt in liste)
+                        {
+                            tt.parabirimi = "DOLAR";
+                            tt.urunfiyati = kurcevir("DOLAR",tt.urunfiyati);
+                        }
+                        break;
+                   
+                    case "TL":
+                        foreach (cls_urunler tt in liste)
+                        {
+                            tt.parabirimi = "TL";
+                            tt.urunfiyati =kurcevir("TL",tt.urunfiyati);
+                        }
+                        break;
+                    case "EURO":
+                        foreach (cls_urunler tt in liste)
+                        {
+                            tt.parabirimi = "EURO";
+                           
+                        }
+                        break;
+                }
+
+            }
+           return Json(liste, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult urunteklifgecmisi(int id)
+        {// teklıf olusturunca gecmıs ıcın gereklı kodları yazıcaz
+            return View();
+        }
     }
 }

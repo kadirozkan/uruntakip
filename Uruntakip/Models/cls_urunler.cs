@@ -11,5 +11,7 @@ namespace Uruntakip.Models
         public string _urunadi;
         public int _urunadedi;
         public string urunserino;
+        public string parabirimi;
+        public double urunfiyati;
     }
 }

@@ -66,6 +66,20 @@ function fiyatverikontrol() {
         if (code < 48 || code > 57)
             return false;
     });
+    $("#teklifno").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46 )
+            return false;
+        if (code == 8 || code == 46 ||code==45 )
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
 
     //Disable paste
     $("#fiyat").bind("paste", function (e) {

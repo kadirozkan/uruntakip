@@ -17,9 +17,14 @@ namespace Uruntakip.db
         public int teklifid { get; set; }
         public Nullable<int> musteri_id { get; set; }
         public string teklifno { get; set; }
-        public Nullable<int> gonderimtipi { get; set; }
-        public string gonderitip_acıklasması { get; set; }
+        public Nullable<int> teslimatid { get; set; }
+        public string teslimat_notu { get; set; }
         public Nullable<System.DateTime> tarih { get; set; }
         public string teklifnotu { get; set; }
+        public Nullable<int> sevkiyat_id { get; set; }
+        public string makinserino { get; set; }
+        public string arizano { get; set; }
+        public Nullable<int> iskonto { get; set; }
+        public Nullable<int> parabirimi { get; set; }
     }
 }

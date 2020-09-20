@@ -163,6 +163,9 @@
     <Compile Include="db\tblefirmaurun_kategorisi.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
+    <Compile Include="db\tblgonerimtipleri.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
     <Compile Include="db\tblkategori.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
@@ -175,16 +178,19 @@
     <Compile Include="db\tblmakinatipi.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
+    <Compile Include="db\tblparabirimleri.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
     <Compile Include="db\tblsevk.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
     <Compile Include="db\tblsevkdetay.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
-    <Compile Include="db\tblteklif.cs">
+    <Compile Include="db\tblsevkiyat.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
-    <Compile Include="db\tblteklifsevkdetayı.cs">
+    <Compile Include="db\tblteklif.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
     <Compile Include="db\tblteklif_urunler.cs">
@@ -223,6 +229,7 @@
     <Compile Include="Models\cls_arizalistesi.cs" />
     <Compile Include="Models\cls_makinalar.cs" />
     <Compile Include="Models\cls_musteriler.cs" />
+    <Compile Include="Models\cls_teklif.cs" />
     <Compile Include="Models\cls_urunler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -475,6 +482,8 @@
     <Content Include="images\2.jpg" />
     <Content Include="images\3.jpg" />
     <Content Include="images\icons\favicon.ico" />
+    <Content Include="images\VAV.png" />
+    <Content Include="images\yukleniyor.gif" />
     <Content Include="myscripts\arizaislemleri.js" />
     <Content Include="myscripts\customercodes.js" />
     <Content Include="myscripts\makinaislemleri.js" />
