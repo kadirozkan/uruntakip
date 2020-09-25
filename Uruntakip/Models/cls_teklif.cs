@@ -8,9 +8,8 @@ namespace Uruntakip.Models
     public class cls_teklif
     {
         public string tarih;
-        public string firmadi;
+        public string firmaadi;
         public double fiyat;
-        public int adet;
         public string parabirimi;
     }
 }

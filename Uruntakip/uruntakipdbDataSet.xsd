@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="uruntakipdbDataSet" targetNamespace="http://tempuri.org/uruntakipdbDataSet.xsd" xmlns:mstns="http://tempuri.org/uruntakipdbDataSet.xsd" xmlns="http://tempuri.org/uruntakipdbDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="uruntakipdbConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="uruntakipdbConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.uruntakipdbConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vwyeniteklifTableAdapter" GeneratorDataComponentClassName="vwyeniteklifTableAdapter" Name="vwyeniteklif" UserDataComponentName="vwyeniteklifTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="uruntakipdbConnectionString (Web.config)" DbObjectName="uruntakipdb.dbo.vwyeniteklif" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT teklifid, teklifno, tarih, teslimat_notu, iskonto, gdr_adres, gdr_email, parabirimi, sembol, ad, soyad, email, telefon, adres, firmaadi, urun_id, urunadi, birimfiyat, urunadeti, total FROM dbo.vwyeniteklif</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="teklifid" DataSetColumn="teklifid" />
+              <Mapping SourceColumn="teklifno" DataSetColumn="teklifno" />
+              <Mapping SourceColumn="tarih" DataSetColumn="tarih" />
+              <Mapping SourceColumn="teslimat_notu" DataSetColumn="teslimat_notu" />
+              <Mapping SourceColumn="iskonto" DataSetColumn="iskonto" />
+              <Mapping SourceColumn="gdr_adres" DataSetColumn="gdr_adres" />
+              <Mapping SourceColumn="gdr_email" DataSetColumn="gdr_email" />
+              <Mapping SourceColumn="parabirimi" DataSetColumn="parabirimi" />
+              <Mapping SourceColumn="sembol" DataSetColumn="sembol" />
+              <Mapping SourceColumn="ad" DataSetColumn="ad" />
+              <Mapping SourceColumn="soyad" DataSetColumn="soyad" />
+              <Mapping SourceColumn="email" DataSetColumn="email" />
+              <Mapping SourceColumn="telefon" DataSetColumn="telefon" />
+              <Mapping SourceColumn="adres" DataSetColumn="adres" />
+              <Mapping SourceColumn="firmaadi" DataSetColumn="firmaadi" />
+              <Mapping SourceColumn="urun_id" DataSetColumn="urun_id" />
+              <Mapping SourceColumn="urunadi" DataSetColumn="urunadi" />
+              <Mapping SourceColumn="birimfiyat" DataSetColumn="birimfiyat" />
+              <Mapping SourceColumn="urunadeti" DataSetColumn="urunadeti" />
+              <Mapping SourceColumn="total" DataSetColumn="total" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="uruntakipdbDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="uruntakipdbDataSet" msprop:Generator_UserDSName="uruntakipdbDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vwyeniteklif" msprop:Generator_TableClassName="vwyeniteklifDataTable" msprop:Generator_TableVarName="tablevwyeniteklif" msprop:Generator_TablePropName="vwyeniteklif" msprop:Generator_RowDeletingName="vwyeniteklifRowDeleting" msprop:Generator_RowChangingName="vwyeniteklifRowChanging" msprop:Generator_RowEvHandlerName="vwyeniteklifRowChangeEventHandler" msprop:Generator_RowDeletedName="vwyeniteklifRowDeleted" msprop:Generator_UserTableName="vwyeniteklif" msprop:Generator_RowChangedName="vwyeniteklifRowChanged" msprop:Generator_RowEvArgName="vwyeniteklifRowChangeEvent" msprop:Generator_RowClassName="vwyeniteklifRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="teklifid" msprop:Generator_ColumnVarNameInTable="columnteklifid" msprop:Generator_ColumnPropNameInRow="teklifid" msprop:Generator_ColumnPropNameInTable="teklifidColumn" msprop:Generator_UserColumnName="teklifid" type="xs:int" />
+              <xs:element name="teklifno" msprop:Generator_ColumnVarNameInTable="columnteklifno" msprop:Generator_ColumnPropNameInRow="teklifno" msprop:Generator_ColumnPropNameInTable="teklifnoColumn" msprop:Generator_UserColumnName="teklifno" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="tarih" msprop:Generator_ColumnVarNameInTable="columntarih" msprop:Generator_ColumnPropNameInRow="tarih" msprop:Generator_ColumnPropNameInTable="tarihColumn" msprop:Generator_UserColumnName="tarih" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="teslimat_notu" msprop:Generator_ColumnVarNameInTable="columnteslimat_notu" msprop:Generator_ColumnPropNameInRow="teslimat_notu" msprop:Generator_ColumnPropNameInTable="teslimat_notuColumn" msprop:Generator_UserColumnName="teslimat_notu" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="iskonto" msprop:Generator_ColumnVarNameInTable="columniskonto" msprop:Generator_ColumnPropNameInRow="iskonto" msprop:Generator_ColumnPropNameInTable="iskontoColumn" msprop:Generator_UserColumnName="iskonto" type="xs:int" minOccurs="0" />
+              <xs:element name="gdr_adres" msprop:Generator_ColumnVarNameInTable="columngdr_adres" msprop:Generator_ColumnPropNameInRow="gdr_adres" msprop:Generator_ColumnPropNameInTable="gdr_adresColumn" msprop:Generator_UserColumnName="gdr_adres" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="gdr_email" msprop:Generator_ColumnVarNameInTable="columngdr_email" msprop:Generator_ColumnPropNameInRow="gdr_email" msprop:Generator_ColumnPropNameInTable="gdr_emailColumn" msprop:Generator_UserColumnName="gdr_email" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="parabirimi" msprop:Generator_ColumnVarNameInTable="columnparabirimi" msprop:Generator_ColumnPropNameInRow="parabirimi" msprop:Generator_ColumnPropNameInTable="parabirimiColumn" msprop:Generator_UserColumnName="parabirimi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="sembol" msprop:Generator_ColumnVarNameInTable="columnsembol" msprop:Generator_ColumnPropNameInRow="sembol" msprop:Generator_ColumnPropNameInTable="sembolColumn" msprop:Generator_UserColumnName="sembol" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ad" msprop:Generator_ColumnVarNameInTable="columnad" msprop:Generator_ColumnPropNameInRow="ad" msprop:Generator_ColumnPropNameInTable="adColumn" msprop:Generator_UserColumnName="ad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="soyad" msprop:Generator_ColumnVarNameInTable="columnsoyad" msprop:Generator_ColumnPropNameInRow="soyad" msprop:Generator_ColumnPropNameInTable="soyadColumn" msprop:Generator_UserColumnName="soyad" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="email" msprop:Generator_ColumnVarNameInTable="columnemail" msprop:Generator_ColumnPropNameInRow="email" msprop:Generator_ColumnPropNameInTable="emailColumn" msprop:Generator_UserColumnName="email" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="telefon" msprop:Generator_ColumnVarNameInTable="columntelefon" msprop:Generator_ColumnPropNameInRow="telefon" msprop:Generator_ColumnPropNameInTable="telefonColumn" msprop:Generator_UserColumnName="telefon" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="adres" msprop:Generator_ColumnVarNameInTable="columnadres" msprop:Generator_ColumnPropNameInRow="adres" msprop:Generator_ColumnPropNameInTable="adresColumn" msprop:Generator_UserColumnName="adres" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="firmaadi" msprop:Generator_ColumnVarNameInTable="columnfirmaadi" msprop:Generator_ColumnPropNameInRow="firmaadi" msprop:Generator_ColumnPropNameInTable="firmaadiColumn" msprop:Generator_UserColumnName="firmaadi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="urun_id" msprop:Generator_ColumnVarNameInTable="columnurun_id" msprop:Generator_ColumnPropNameInRow="urun_id" msprop:Generator_ColumnPropNameInTable="urun_idColumn" msprop:Generator_UserColumnName="urun_id" type="xs:int" minOccurs="0" />
+              <xs:element name="urunadi" msprop:Generator_ColumnVarNameInTable="columnurunadi" msprop:Generator_ColumnPropNameInRow="urunadi" msprop:Generator_ColumnPropNameInTable="urunadiColumn" msprop:Generator_UserColumnName="urunadi" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="birimfiyat" msprop:Generator_ColumnVarNameInTable="columnbirimfiyat" msprop:Generator_ColumnPropNameInRow="birimfiyat" msprop:Generator_ColumnPropNameInTable="birimfiyatColumn" msprop:Generator_UserColumnName="birimfiyat" type="xs:decimal" minOccurs="0" />
+              <xs:element name="urunadeti" msprop:Generator_ColumnVarNameInTable="columnurunadeti" msprop:Generator_ColumnPropNameInRow="urunadeti" msprop:Generator_ColumnPropNameInTable="urunadetiColumn" msprop:Generator_UserColumnName="urunadeti" type="xs:int" minOccurs="0" />
+              <xs:element name="total" msprop:Generator_ColumnVarNameInTable="columntotal" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_UserColumnName="total" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:vwyeniteklif" />
+      <xs:field xpath="mstns:teklifid" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

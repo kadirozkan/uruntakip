@@ -58,6 +58,9 @@
       <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.2.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -163,9 +166,6 @@
     <Compile Include="db\tblefirmaurun_kategorisi.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
-    <Compile Include="db\tblgonerimtipleri.cs">
-      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
-    </Compile>
     <Compile Include="db\tblkategori.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
@@ -196,6 +196,9 @@
     <Compile Include="db\tblteklif_urunler.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
+    <Compile Include="db\tblteslimattipleri.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
     <Compile Include="db\tblurundetayları.cs">
       <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
     </Compile>
@@ -223,6 +226,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>uruntakipotomasyonu.edmx</DependentUpon>
     </Compile>
+    <Compile Include="db\vwyeniteklif.cs">
+      <DependentUpon>uruntakipotomasyonu.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -232,6 +238,11 @@
     <Compile Include="Models\cls_teklif.cs" />
     <Compile Include="Models\cls_urunler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="uruntakipdbDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>uruntakipdbDataSet.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\anasayfadosyaları\css\animate.css" />
@@ -481,6 +492,7 @@
     <Content Include="images\1.jpg" />
     <Content Include="images\2.jpg" />
     <Content Include="images\3.jpg" />
+    <Content Include="images\dowload.png" />
     <Content Include="images\icons\favicon.ico" />
     <Content Include="images\VAV.png" />
     <Content Include="images\yukleniyor.gif" />
@@ -668,6 +680,7 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\dataTables.fixedColums.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -759,6 +772,7 @@
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\util.js" />
     <Content Include="vendor\animate\animate.css" />
     <Content Include="vendor\animsition\css\animsition.css" />
     <Content Include="vendor\animsition\css\animsition.min.css" />
@@ -804,6 +818,18 @@
     <Content Include="Views\Stok\tedarikciler.cshtml" />
     <Content Include="Views\Stok\urunlistesi.cshtml" />
     <Content Include="Views\Customer\yeniteklif.cshtml" />
+    <Content Include="uruntakipdbDataSet.xsc">
+      <DependentUpon>uruntakipdbDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="uruntakipdbDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>uruntakipdbDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="uruntakipdbDataSet.xss">
+      <DependentUpon>uruntakipdbDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="Views\Customer\pdfgoruntule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -823,6 +849,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="pdfreports\teklif.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

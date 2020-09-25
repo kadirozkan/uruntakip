@@ -21,6 +21,12 @@ namespace Uruntakip.Controllers
         {
             return View();
         }
+        public string tarihduzelt_gun_ay_yıl(string m)
+        {
+            string tarih = Convert.ToDateTime(m).ToShortDateString();  // 2020.08.19 seklınde gelen tarıhı 19.08.2020 formatına cevırdık datetıme yazmak ıcın
+
+            return tarih;
+        }
         [Authorize]
         public ActionResult tedarikci()
         {
@@ -428,15 +434,15 @@ namespace Uruntakip.Controllers
                 if(t.Count()>0)  // serı numaralı urunse lıste degerı 0 dan buyuk olurda adet sayısı lıste uzunluguna esıt olur
                 {
                     int adet = t.Count();
-                    liste = (from p in db.tblurunler
+                    liste = (from p in db.tblurunler join k in db.tblkategori on p.urunkategori equals k.kategoriID
                              where p.uruid == id
-                             select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)p.urun_fiyati, _urunadi = p.urunadi, _urunadedi = adet })).ToList();
+                             select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)(p.urun_fiyati * k.carpan), _urunadi = p.urunadi, _urunadedi = adet })).ToList();
                 }
                 else // serı numaralı urun degılse count 0 olur ve adet tutarı tblurundetaylarından alınır
                 {
-                    liste = (from p in db.tblurunler join d in db.tblurundetayları on p.uruid equals d.urun_id
+                    liste = (from p in db.tblurunler join d in db.tblurundetayları on p.uruid equals d.urun_id join k in db.tblkategori on p.urunkategori equals k.kategoriID
                              where p.uruid == id
-                             select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)p.urun_fiyati, _urunadi = p.urunadi, _urunadedi =(int)d.adet  })).ToList();
+                             select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)(p.urun_fiyati*k.carpan), _urunadi = p.urunadi, _urunadedi =(int)d.adet  })).ToList();
                 }
 
             }
@@ -446,17 +452,20 @@ namespace Uruntakip.Controllers
                 foreach (tblurunler item in product)
                 {
                     List<tblurundetayları> t = db.tblurundetayları.Where(x => x.urun_id == item.uruid && x.urunserino != null).ToList();
-                    if (t.Count() > 0)  // serı numaralı urunse lıste degerı 0 dan buyuk olurda adet sayısı lıste uzunluguna esıt olur
+                    if (t.Count() > 0)  // serı numaralı urunse lıste degerı 0 dan buyuk olur ve adet sayısı lıste uzunluguna esıt olur
                     {
                         int adet = t.Count();
-                      var urun = from p in db.tblurunler
-                                 where p.uruid == item.uruid
-                                 select new{p.uruid, p.urun_fiyati,p.urunadi };
+
+
+                        var urun = from p in db.tblurunler
+                                   join k in db.tblkategori on p.urunkategori equals k.kategoriID
+                                   where p.uruid == item.uruid
+                                   select new { p.uruid, p.urun_fiyati, p.urunadi,k.carpan };
                         foreach (var p in urun)
                         {
                             cls_urunler u = new cls_urunler();
                             u._stokkodu = p.uruid;
-                            u.urunfiyati = Convert.ToDouble(p.urun_fiyati);
+                            u.urunfiyati = Convert.ToDouble(p.urun_fiyati*p.carpan);
                             u._urunadi = p.urunadi;
                             u._urunadedi = adet;
                             liste.Add(u);
@@ -466,16 +475,16 @@ namespace Uruntakip.Controllers
                     else // serı numaralı urun degılse count 0 olur ve adet tutarı tblurundetaylarından alınır
                     {
                         var urun = from p in db.tblurunler
-                                   join d in db.tblurundetayları on p.uruid equals d.urun_id
+                                   join d in db.tblurundetayları on p.uruid equals d.urun_id join k in db.tblkategori on p.urunkategori equals k.kategoriID
                                    where p.uruid == item.uruid
-                                   select new { p.uruid, p.urun_fiyati, p.urunadi, d.adet };
+                                   select new { p.uruid, p.urun_fiyati, p.urunadi, d.adet ,k.carpan};
                         foreach (var p in urun)
                         {
                             cls_urunler u = new cls_urunler();
                             u._stokkodu = p.uruid;
-                            u.urunfiyati = Convert.ToDouble(p.urun_fiyati);
+                            u.urunfiyati = Convert.ToDouble(p.urun_fiyati*p.carpan);
                             u._urunadi = p.urunadi;
-                            u._urunadedi =(int) p.adet;
+                            u._urunadedi = (int)p.adet;
                             liste.Add(u);
                         }
                     }
@@ -516,8 +525,18 @@ namespace Uruntakip.Controllers
         }
 
         public ActionResult urunteklifgecmisi(int id)
-        {// teklıf olusturunca gecmıs ıcın gereklı kodları yazıcaz
-            return View();
+        {
+            List<cls_teklif> liste = (from m in db.tblCustomer
+                                      join t in db.tblteklif on m.firmaid equals t.musteri_id
+                                      join tu in db.tblteklif_urunler on t.teklifid equals tu.teklif_id
+                                      join p in db.tblparabirimleri on t.parabirimi equals p.paraid
+                                      where tu.urun_id==id
+                                      select (new cls_teklif { firmaadi = m.firmaadi, tarih = t.tarih.ToString(), fiyat = (double)tu.birimfiyat, parabirimi = p.parabirimi })).ToList();
+            foreach (cls_teklif item in liste)
+            {
+                item.tarih = tarihduzelt_gun_ay_yıl(item.tarih);
+            }
+            return Json(liste, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -16,5 +16,6 @@ namespace Uruntakip.db
     {
         public int paraid { get; set; }
         public string parabirimi { get; set; }
+        public string sembol { get; set; }
     }
 }

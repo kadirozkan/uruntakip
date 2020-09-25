@@ -31,7 +31,6 @@ namespace Uruntakip.db
         public virtual DbSet<tblarizalar> tblarizalar { get; set; }
         public virtual DbSet<tblCustomer> tblCustomer { get; set; }
         public virtual DbSet<tblefirmaurun_kategorisi> tblefirmaurun_kategorisi { get; set; }
-        public virtual DbSet<tblgonerimtipleri> tblgonerimtipleri { get; set; }
         public virtual DbSet<tblkategori> tblkategori { get; set; }
         public virtual DbSet<tbllogin> tbllogin { get; set; }
         public virtual DbSet<tblmakina> tblmakina { get; set; }
@@ -41,10 +40,12 @@ namespace Uruntakip.db
         public virtual DbSet<tblsevkdetay> tblsevkdetay { get; set; }
         public virtual DbSet<tblsevkiyat> tblsevkiyat { get; set; }
         public virtual DbSet<tblteklif> tblteklif { get; set; }
+        public virtual DbSet<tblteklif_urunler> tblteklif_urunler { get; set; }
+        public virtual DbSet<tblteslimattipleri> tblteslimattipleri { get; set; }
         public virtual DbSet<tblurun_islem_Gecmisi> tblurun_islem_Gecmisi { get; set; }
         public virtual DbSet<tblurundetayları> tblurundetayları { get; set; }
         public virtual DbSet<tblurunharekettipi> tblurunharekettipi { get; set; }
         public virtual DbSet<tblurunler> tblurunler { get; set; }
-        public virtual DbSet<tblteklif_urunler> tblteklif_urunler { get; set; }
+        public virtual DbSet<vwyeniteklif> vwyeniteklif { get; set; }
     }
 }

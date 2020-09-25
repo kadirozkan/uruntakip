@@ -64,7 +64,7 @@ function musteribilgileri()
 
 
         });
-        $("#ShowModal").modal();
+        $("#frmmusteri").modal();
         
     })
     
@@ -87,33 +87,37 @@ function bilgileriguncelle()
             data: gidendata,
             url: "/Customer/musteriguncelle",
             success: function (data) {
-                if (data == "1") {
-                    $("#ShowModal").modal("hide");
+                if (data == "1")
+                {
+                    $("#frmmusteri").modal("hide");
                     swal("İşlem başarılı", "", "success");
                     // ıslem basarılı olduktan sonra tablo ıcı bosaltılıp musterıler fonksıyonu ıle tekrar yenı bılgıler dolduruyor.
-                    var table = $('#tblmusteri').DataTable();
+                    var table = $("#tblmusteri").DataTable();
 
                     table
                         .clear()
                         .draw();
-                    $.get("/Customer/getcustomer", {}, function (gelendata) {
+                    $.get("/Customer/getcustomer", {}, function (gelendata)
+                    {
 
-                        $.each(gelendata, function (i, v1) {
+                        $.each(gelendata, function (i, v1)
+                        {
 
                             table.row.add([
-                                '<b>' + v1.firmaadi + '</b>',
-                                '<b>' + v1.ad + '  ' + v1.soyad + '</b>',
-                                '<b>' + v1.email + '</b>',
-                                '<b>' + v1.telefon + '</b>',
-                                '<b>' + v1.adres + '</b>',
-                                '<b>' + '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">' + 'Güncelle' + '</button>' + '</b>' + ' ' + '<button id="teklif" onclick="teklifformu('+v1.firmaid+')" class="btn btn-warning">' + 'Teklif' + '</button>' + ' ' + '<button id="sevk" value="'+v1.firmaid+'" class="btn btn-info">'+'Sevk'+'</button>',
+                                v1.firmaadi,
+                                 v1.ad+' '+v1.soyad,
+                                 v1.email,
+                                 v1.telefon,
+                                  v1.adres,
+                                '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">'+'Güncelle'+'</button>'+' '+'<button id="teklif" onclick="teklifformu('+v1.firmaid+')" class="btn btn-warning">'+'Teklif'+'</button>'+' '+'<button id="sevk" value="'+v1.firmaid+'" class="btn btn-info">'+'Sevk'+'</button>',
 
-                                ]).draw(false);
-                                });
+                                ]).draw();
+                        });
 
-                                });
-                                }
-                else {
+                    });
+                }
+                else
+                {
 
                     swal("İşlem başarısız", "", "warning");
                 }
@@ -125,6 +129,30 @@ function bilgileriguncelle()
 
 
 }
+function musterilistesi()
+{
+    var table = $("#tblmusteri").DataTable();
+
+    table
+        .clear()
+        .draw();
+    $.get("/Customer/getcustomer", {}, function (gelendata) {
+
+        $.each(gelendata, function (i, v1) {
+
+            table.row.add([
+                v1.firmaadi,
+                v1.ad + ' ' + v1.soyad,
+                v1.email,
+                v1.telefon,
+                v1.adres,
+                '<button value="'+v1.firmaid+'" onclick="'+musteribilgileri()+'" class= "btn btn-success" id="guncelle">'+'Güncelle'+'</button>'+' '+'<button id="teklif" onclick="teklifformu('+v1.firmaid+')" class="btn btn-warning">'+'Teklif'+'</button>'+' '+'<button id="sevk" value="'+v1.firmaid+'" class="btn btn-info">'+'Sevk'+'</button>',
+
+            ]).draw();
+        });
+
+    });
+}
 
 //---------------------------------------teklif olusturma sayfasına yönlendırme 
 
@@ -133,17 +161,17 @@ function teklifformu(id)
     location.href = '/Customer/yeniteklif/'+id;
 }
 //----------------------------------------sayfa yuklenınce teklif için default verılerı cekıyoruz---------------------
-function gonderimtiplerinicek() 
+function teslimattiplerinicek() 
 {
    
-    $.post("/Customer/getgonderimtip", { id: $("#sevkiyattip :selected").val() }, function (data) {
+    $.post("/Customer/getteslimattip", { id: $("#sevkiyattip :selected").val() }, function (data) {
         var item = "";
         var a = 0;
         $.each(data, function (v, k) {
             if (a == 0)
             {
                 a++;
-                item += '<option value="' + k.gonderiID + '">' + k.gonderimadi + '</option>'
+                item += '<option value="' + k.teslimatID + '">' + k.teslimatadi + '</option>'
                 $("#acıklama").empty();
                 $("#acıklama").val(k.aciklama);
             }
@@ -183,17 +211,14 @@ function urunbul()
 
 }
 
-
-
-
 //---------------------------------------teklıf olusturma ıslemlerı------------------------------
 function teklifhazırla()
 {
-    gonderimtiplerinicek();
+    teslimattiplerinicek();
 
     // sevkiyat tıp degistikce ona uygun gonderım tıplerını cekıyoruz
     $("#sevkiyattip").change(function () {
-        gonderimtiplerinicek();
+        teslimattiplerinicek();
     })
 
     // gonderım tıpıne gore acıklama bılgısı cekılıyor
@@ -285,20 +310,45 @@ function teklifhazırla()
     });
     // ---------------------------------listeden urun secılıyor------------------------------------------
     $("#urunstokları tbody").on("click", "#_sec", function () {
-        $("#urunid").empty();
-        $("#urunadi").empty();
-        $("#fiyat").empty();
-
+      
+      
         var data = $('#urunstokları').DataTable().row($(this).parents('tr')).data();
         $("#urunid").text(data[0]);
         $("#urunadi").val(data[1]);
         $("#fiyat").val(data[3]);
+        document.getElementById("mesaj").style.display = "none";
 
-        //teklifler olusturulunca yapıcaz
-        //$.post("/Stok/urunteklifgecmisi", { id: $("#urunid").text() }, function (data) {
+        //--------------------------------------------secilen urun baska bır fırma ıcın daha once teklıf hazırlandıysa bılgılerını yazdırıyoruz
+
+        $.post("/Stok/urunteklifgecmisi", { id: data[0] }, function (data) {
+            if (data.count()>0)
+            {
+                var urungecmisi = $("#eskiteklif").DataTable();
+                urungecmisi
+                    .clear()
+                    .draw();
+                $.each(data, function (v, k) {
+
+                    urungecmisi.row.add([
+                        k.firmaadi,
+                        k.tarih,
+                        k.fiyat,
+                        k.parabirimi
 
 
-        //})
+                    ]).draw();
+
+                })
+
+                document.getElementById("urungecmisi").style.display = "";
+
+            }
+            else
+            {
+                document.getElementById("urungecmisi").style.display = "none";
+            }
+
+        })
 
     })
     // --------------------------------------ekle butonuna basınca tabloya urun eklenıyor
@@ -320,10 +370,12 @@ function teklifhazırla()
             '<button class="btn btn-warning" id="sil">' + 'Ürünü Sil' + '</button>',
 
         ]).draw();
-        $("#urunid").empty();
-        $("#urunadi").empty();
+        $("#urunid").val("");
+        $("#urunadi").val("");
         $("#adet").val(1);
-        $("#fiyat").empty();
+        $("#fiyat").val("");
+
+        document.getElementById("mesaj").style.display = "";
 
     });
    
@@ -356,15 +408,27 @@ function teklifhazırla()
                 item += '/' + value[0] + '-' + value[1] + '-' + value[2] + '-' + value[3] + '-' + value[4];
             }
         });
+
         $.post("/Customer/teklifurunleri", { data: item, teklifno: $("#_teklifno2").text() }, function (data) {
 
-            
+            if (data != null)
+            {
+                pdfgoruntule(data);
+            }
+            else {
+                swal("Uyarı !!!", "işlem başarısız", "warning");
+            }
 
         })
 
         
 
     })
+   
+}
+function pdfgoruntule(id)
+{
+    location.href = "/Customer/pdfgoruntule/" + id;
 }
 
 
