@@ -77,13 +77,16 @@
      var mesaj =@ViewBag.mesaj;
     if (mesaj == 0) {
         swal("İşlem başarısız", "", "warning");
+        $("#Registration")[0].reset();
     }
-    else if (mesaj == 1) {
+    else if (mesaj == 1)
+    {
         swal("işlem başarılı", "", "success");
-
+        $("#Registration")[0].reset();
     }
     else {
         swal("Bu ürün mevcut !!!", "Lütfen seri numarasını kontrol ediniz!!!", "info");
+        $("#Registration")[0].reset();
     }
     /// urun eklerken guncell fıyat gırılecek
 </script>

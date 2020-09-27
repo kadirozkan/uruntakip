@@ -64,12 +64,13 @@ namespace Uruntakip.Controllers
 
           
         }
+       [Authorize]
         public ActionResult getcustomer()
         {
             List<tblCustomer> liste = db.tblCustomer.Where(x=>x.musteritipi==1).ToList();
             return Json(liste, JsonRequestBehavior.AllowGet);
         }
-
+        [Authorize]
         //-------------------------------------------musterı lıstesı gonderılıyor
         public ActionResult musterilistesi()
         {
@@ -78,14 +79,14 @@ namespace Uruntakip.Controllers
            
             
         }
-        
+        [Authorize]
        //-------------------------------------------------id numarasına aıt musterı bılgılerı----------------
         public ActionResult musteribilgileri(int id)
         {
             tblCustomer musteri = db.tblCustomer.FirstOrDefault(x => x.firmaid == id);
             return Json(musteri, JsonRequestBehavior.AllowGet);
         }
-
+        [Authorize]
         //--------------------------------------------------musterı bılgılerı guncellenıyor---------------------
         public ActionResult musteriguncelle(int id,string firmaadi,string ad,string soyad,string eposta,string telefon,string adres)
         {
@@ -121,7 +122,7 @@ namespace Uruntakip.Controllers
             
             return View();
         }
-        
+        [Authorize]
        public ActionResult getteslimattip(int id)
         {
             List<tblteslimattipleri> liste = db.tblteslimattipleri.Where(x => x.sevkiyat_id == id).ToList();
@@ -138,6 +139,7 @@ namespace Uruntakip.Controllers
             }
           return  Json(liste, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
         public ActionResult getaciklama(int id)
         {
             tblteslimattipleri t = db.tblteslimattipleri.FirstOrDefault(x => x.teslimatID == id);
@@ -152,6 +154,7 @@ namespace Uruntakip.Controllers
 
            
         }
+        [Authorize]
         public ActionResult teklifolustur(int id,DateTime tarih,string teklifno,string not,int sevkiyat,int teslimat,string teslimatnotu)
         {
            int sonuc = 0;
@@ -189,6 +192,7 @@ namespace Uruntakip.Controllers
             }
             return Json(sonuc, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
         public ActionResult teklifdetay(string teklifno,string serino,string arizano,int parabirimi,int iskonto)
         {
             int sonuc = 0;
@@ -211,6 +215,7 @@ namespace Uruntakip.Controllers
             }
             return Json(sonuc, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
         public ActionResult teklifurunleri(string data,string teklifno)
         { string teklifid= null;
             try
@@ -249,7 +254,7 @@ namespace Uruntakip.Controllers
 
             return Json(teklifid, JsonRequestBehavior.AllowGet);
         }
-
+        [Authorize]
         public ActionResult pdfgoruntule(string id)
         { 
             if (string.IsNullOrEmpty(id))
@@ -260,73 +265,84 @@ namespace Uruntakip.Controllers
             {
                 int teklifid = Convert.ToInt32(id);
                 tblteklif gelenteklif = db.tblteklif.FirstOrDefault(x => x.teklifid ==teklifid);
-                LocalReport localReport = new LocalReport();
-                localReport.ReportPath = Server.MapPath("~/pdfreports/teklif.rdlc");
-
-                var liste = from m in db.tblCustomer
-                            join t in db.tblteklif on m.firmaid equals t.musteri_id
-                            join tu in db.tblteklif_urunler on t.teklifid equals tu.teklif_id
-                            join p in db.tblparabirimleri on t.parabirimi equals p.paraid
-                            where t.teklifid ==gelenteklif.teklifid
-                            select new { m.firmaadi, m.ad, m.soyad, m.adres, m.email, m.telefon, t.iskonto, p.parabirimi, p.sembol, t.gdr_adres, t.gdr_email, t.tarih, t.teklifno, t.teslimat_notu, tu.birimfiyat, tu.urun_id, tu.urunadi, tu.total, tu.urunadeti };
-                List<vwyeniteklif> tur = new List<vwyeniteklif>();
-                foreach (var item in liste)
+                if(gelenteklif!=null)
                 {
-                    vwyeniteklif t = new vwyeniteklif();
-                    t.firmaadi = item.firmaadi;
-                    t.adres = item.adres;
-                    t.email = item.email;
-                    t.telefon = item.telefon;
-                    t.urunadi = item.urunadi;
-                    t.urunadeti = item.urunadeti;
-                    t.total = item.total;
-                    t.birimfiyat = item.birimfiyat;
-                    t.teklifno = item.teklifno;
-                    t.urun_id = item.urun_id;
-                    t.tarih = item.tarih;
-                    t.ad = item.ad;
-                    t.soyad = item.soyad;
-                    t.teslimat_notu = item.teslimat_notu;
-                    t.gdr_adres = item.gdr_adres;
-                    t.gdr_email = item.gdr_email;
-                    t.iskonto = item.iskonto;
-                    t.parabirimi = item.parabirimi;
-                    t.sembol = item.sembol;
+                    LocalReport localReport = new LocalReport();
+                    localReport.ReportPath = Server.MapPath("~/pdfreports/teklif.rdlc");
 
-                    tur.Add(t);
-                };
-                ReportDataSource reportDataSource = new ReportDataSource("musteriteklifleri", tur);
+                    var liste = from m in db.tblCustomer
+                                join t in db.tblteklif on m.firmaid equals t.musteri_id
+                                join tu in db.tblteklif_urunler on t.teklifid equals tu.teklif_id
+                                join p in db.tblparabirimleri on t.parabirimi equals p.paraid
+                                where t.teklifid == gelenteklif.teklifid
+                                select new { m.firmaadi, m.ad, m.soyad, m.adres, m.email, m.telefon, t.iskonto, p.parabirimi, p.sembol, t.gdr_adres, t.gdr_email, t.tarih, t.teklifno, t.teslimat_notu, tu.birimfiyat, tu.urun_id, tu.urunadi, tu.total, tu.urunadeti };
+                    List<vwyeniteklif> tur = new List<vwyeniteklif>();
+                    
+                
+                    foreach (var item in liste)
+                      { 
+                        
+                        vwyeniteklif t = new vwyeniteklif();
+                        t.firmaadi = item.firmaadi;
+                        t.adres = item.adres;
+                        t.email = item.email;
+                        t.telefon = item.telefon;
+                        t.urunadi = item.urunadi;
+                        t.urunadeti = item.urunadeti;
+                        t.total =decimal.Round( (decimal)item.total,2);
+                        t.birimfiyat =decimal.Round((decimal) item.birimfiyat,2);
+                        t.teklifno = item.teklifno;
+                        t.urun_id = item.urun_id;
+                        t.tarih = item.tarih;
+                        t.ad = item.ad;
+                        t.soyad = item.soyad;
+                        t.teslimat_notu = item.teslimat_notu;
+                        t.gdr_adres = item.gdr_adres;
+                        t.gdr_email = item.gdr_email;
+                        t.iskonto = item.iskonto;
+                        t.parabirimi = item.parabirimi;
+                        t.sembol = item.sembol;
 
-                localReport.DataSources.Add(reportDataSource);
-                string reportType = "PDF";
-                string mimeTpe;
-                string encoding;
-                string fileNameExtension;
-          
+                        tur.Add(t);
+                    };
+                    ReportDataSource reportDataSource = new ReportDataSource("musteriteklifleri", tur);
+
+                    localReport.DataSources.Add(reportDataSource);
+                    string reportType = "PDF";
+                    string mimeTpe;
+                    string encoding;
+                    string fileNameExtension;
 
 
 
-                Warning[] warnings;
-                string[] streams;
-                byte[] renderedBytes;
 
-                renderedBytes = localReport.Render(
-                                           reportType,
-                                          "",
-                                           out mimeTpe,
-                                           out encoding,
-                                           out fileNameExtension,
-                                           out streams,
-                                           out warnings);
-               
-                //Response.AddHeader("content-disposition", "attachment; filename="+gelenteklif.teklifno+"." + fileNameExtension);
+                    Warning[] warnings;
+                    string[] streams;
+                    byte[] renderedBytes;
 
-                return File(renderedBytes, mimeTpe);
+                    renderedBytes = localReport.Render(
+                                               reportType,
+                                              "",
+                                               out mimeTpe,
+                                               out encoding,
+                                               out fileNameExtension,
+                                               out streams,
+                                               out warnings);
+
+                    //Response.AddHeader("content-disposition", "attachment; filename="+gelenteklif.teklifno+"." + fileNameExtension);
+
+                    return File(renderedBytes, mimeTpe);
+                }
+                else
+                {
+                    return View();
+                }
+                
                 
             }
 
         }
-       
 
+      
     }
 }

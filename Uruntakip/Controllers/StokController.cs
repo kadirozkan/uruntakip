@@ -70,6 +70,7 @@ namespace Uruntakip.Controllers
             
             return View(liste);
         }
+        [Authorize]
         //-----------------------------------------------------------tedarikci bilgileri jquery ıle alınıyor
         public ActionResult _tedarickibilgileri(int id)
         {
@@ -80,6 +81,7 @@ namespace Uruntakip.Controllers
                                           select (new cls_musteriler { _musteriid = c.firmaid, _adres = c.adres, _email = c.email, _firmaadi = c.firmaadi, _personelad = c.ad, _personelsoyad = c.soyad, _urunkategori = m.kategoriadi, _telefon = c.telefon, _urunkatid = m.kategoriID })).ToList();
             return Json(liste, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
 
         //-----------------------------------------------------------butun tedarıkcıler cekılıyor
         public ActionResult _tedarikcilerigetir()
@@ -89,7 +91,7 @@ namespace Uruntakip.Controllers
                                           join m in db.tblkategori on k.kategoriid equals m.kategoriID
                                           select (new cls_musteriler { _musteriid = c.firmaid, _adres = c.adres, _email = c.email, _firmaadi = c.firmaadi, _personelad = c.ad, _personelsoyad = c.soyad, _urunkategori = m.kategoriadi, _telefon = c.telefon })).ToList();
             return Json(liste, JsonRequestBehavior.AllowGet);
-        }
+        }[Authorize]
 
         //--------------------------------------------------------tedarikci bilgileri jquery ıle guncellenıyor
         public ActionResult _tedarikci_bilgilerini_guncelle(int musteriid, string firmaadi, string personelad, string personelsoyad, string email, string telefon, int kategori, string adres)
@@ -126,6 +128,7 @@ namespace Uruntakip.Controllers
 
             return View();
         }
+        [Authorize]
         //----------------------------------------------------------- firmanın urun kategorileri bilgileri alınıyor----------------------
         public ActionResult _firmaurunkategorisi(int id)
         {
@@ -147,6 +150,7 @@ namespace Uruntakip.Controllers
             
             return View(urunkategorisi);
         }
+        [Authorize]
         //------------------------------------------------stok kartı olusturuluyor------------------------
         [HttpPost]
         public ActionResult stokkarti(FormCollection frm)
@@ -166,7 +170,10 @@ namespace Uruntakip.Controllers
                     yeniurun.urun_fiyati = Convert.ToDecimal(frm["fiyat"].ToString().Trim());
                     yeniurun.urunkategori = Convert.ToInt32(frm["kategori"]);
                     db.tblurunler.Add(yeniurun);
+                   
                     db.SaveChanges();
+                    tblurundetayları t = new tblurundetayları();
+                    
                     ViewBag.mesaj = 1;
                 }
                 catch (Exception)
@@ -199,8 +206,8 @@ namespace Uruntakip.Controllers
             return View();
 
         }
-
-         //---------------------------------------------yenı urun eklenıyor--------------------
+        [Authorize]
+        //---------------------------------------------yenı urun eklenıyor--------------------
         [HttpPost]
         public ActionResult urunekle(FormCollection frm)
         {
@@ -308,6 +315,7 @@ namespace Uruntakip.Controllers
          
             return View();
         }
+        [Authorize]
         //------------------------------------------------------------gelen veri turune arama yapılıyor deger ınt ıse uruıd uzerınden strıng ıse urunadı uzerınden ıslem yapılıyor
         public ActionResult _urunarama(string name)
         {
@@ -340,7 +348,8 @@ namespace Uruntakip.Controllers
           
             return Json(liste, JsonRequestBehavior.AllowGet);
         }
-       
+        [Authorize]
+
 
         //------------------------------------------------------ depoda bulunan urunlerın kategorı lıstesı----------------------------------
         public ActionResult _urunkategorileri()
@@ -391,11 +400,13 @@ namespace Uruntakip.Controllers
                                                           { _firmaadi = c.firmaadi, _makinaserino = m.serino, _makinatipi = t.makinatipi, _makinaid = m.makinaid })).ToList();
                          return View(liste);
         }
+        [Authorize]
         [HttpPost]
         public ActionResult uretimecikis(FormCollection frm)
         {
             return View();
         }
+        [Authorize]
 
         public double kurcevir(string birim,double tutar)
         {
@@ -421,6 +432,7 @@ namespace Uruntakip.Controllers
             deger = Math.Round(deger, 3);
             return deger;
         }
+        [Authorize]
 
         public ActionResult teklifurunu(string name,string teklifno)
         {
@@ -430,20 +442,45 @@ namespace Uruntakip.Controllers
             try
             {
                 int id = Convert.ToInt32(name);
-                List<tblurundetayları> t = db.tblurundetayları.Where(x => x.urun_id ==id && x.urunserino != null).ToList();
-                if(t.Count()>0)  // serı numaralı urunse lıste degerı 0 dan buyuk olurda adet sayısı lıste uzunluguna esıt olur
+                tblurundetayları urunkontrol = db.tblurundetayları.FirstOrDefault(x => x.urun_id == id);
+                if(urunkontrol==null)
                 {
-                    int adet = t.Count();
-                    liste = (from p in db.tblurunler join k in db.tblkategori on p.urunkategori equals k.kategoriID
-                             where p.uruid == id
-                             select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)(p.urun_fiyati * k.carpan), _urunadi = p.urunadi, _urunadedi = adet })).ToList();
+                    var arananurun = from p in db.tblurunler join k in db.tblkategori on p.urunkategori equals k.kategoriID where p.uruid==id select new { p.uruid, p.urun_fiyati, k.carpan, p.urunadi };
+                    foreach (var item in arananurun)
+                    {
+                        cls_urunler u = new cls_urunler();
+                        u._stokkodu = item.uruid;
+                        u.urunfiyati = Convert.ToDouble(item.urun_fiyati * item.carpan);
+                        u._urunadi = item.urunadi;
+                        u._urunadedi = 0;
+                        liste.Add(u);
+
+                    }
+                    
+
                 }
-                else // serı numaralı urun degılse count 0 olur ve adet tutarı tblurundetaylarından alınır
+                else
                 {
-                    liste = (from p in db.tblurunler join d in db.tblurundetayları on p.uruid equals d.urun_id join k in db.tblkategori on p.urunkategori equals k.kategoriID
-                             where p.uruid == id
-                             select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)(p.urun_fiyati*k.carpan), _urunadi = p.urunadi, _urunadedi =(int)d.adet  })).ToList();
+                    List<tblurundetayları> t = db.tblurundetayları.Where(x => x.urun_id == id && x.urunserino != null).ToList();
+                    if (t.Count() > 0)  // serı numaralı urunse lıste degerı 0 dan buyuk olursa adet sayısı lıste uzunluguna esıt olur
+                    {
+                        int adet = t.Count();
+                        liste = (from p in db.tblurunler
+                                 join k in db.tblkategori on p.urunkategori equals k.kategoriID
+                                 where p.uruid == id
+                                 select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)(p.urun_fiyati * k.carpan), _urunadi = p.urunadi, _urunadedi = adet })).ToList();
+                    }
+                    else // serı numaralı urun degılse count 0 olur ve adet tutarı tblurundetaylarından alınır
+                    {
+                        liste = (from p in db.tblurunler
+                                 join d in db.tblurundetayları on p.uruid equals d.urun_id
+                                 join k in db.tblkategori on p.urunkategori equals k.kategoriID
+                                 where p.uruid == id
+                                 select (new cls_urunler { _stokkodu = p.uruid, urunfiyati = (double)(p.urun_fiyati * k.carpan), _urunadi = p.urunadi, _urunadedi = (int)d.adet })).ToList();
+                    }
+
                 }
+                
 
             }
             catch (Exception)
@@ -451,43 +488,62 @@ namespace Uruntakip.Controllers
                 List<tblurunler> product = db.tblurunler.Where(x => x.urunadi.StartsWith(name.Trim().ToUpper())||x.urunadi.EndsWith(name.Trim().ToUpper())||x.urunadi.Contains(name.Trim().ToUpper())).ToList();
                 foreach (tblurunler item in product)
                 {
-                    List<tblurundetayları> t = db.tblurundetayları.Where(x => x.urun_id == item.uruid && x.urunserino != null).ToList();
-                    if (t.Count() > 0)  // serı numaralı urunse lıste degerı 0 dan buyuk olur ve adet sayısı lıste uzunluguna esıt olur
+                    tblurundetayları urunkontrol = db.tblurundetayları.FirstOrDefault(x => x.urun_id == item.uruid);
+                    tblkategori kategori = db.tblkategori.FirstOrDefault(x => x.kategoriID == item.urunkategori);
+                    if(urunkontrol== null)
                     {
-                        int adet = t.Count();
-
-
-                        var urun = from p in db.tblurunler
-                                   join k in db.tblkategori on p.urunkategori equals k.kategoriID
-                                   where p.uruid == item.uruid
-                                   select new { p.uruid, p.urun_fiyati, p.urunadi,k.carpan };
-                        foreach (var p in urun)
+                        cls_urunler u = new cls_urunler();
+                        u._stokkodu = item.uruid;
+                        u.urunfiyati = Convert.ToDouble(item.urun_fiyati * kategori.carpan);
+                        u._urunadi = item.urunadi;
+                        u._urunadedi = 0;
+                        liste.Add(u);
+                    }
+                    else
+                    {
+                        List<tblurundetayları> t = db.tblurundetayları.Where(x => x.urun_id == item.uruid && x.urunserino != null).ToList();
+                        if (t.Count() > 0)  // serı numaralı urunse lıste degerı 0 dan buyuk olur ve adet sayısı lıste uzunluguna esıt olur
                         {
-                            cls_urunler u = new cls_urunler();
-                            u._stokkodu = p.uruid;
-                            u.urunfiyati = Convert.ToDouble(p.urun_fiyati*p.carpan);
-                            u._urunadi = p.urunadi;
-                            u._urunadedi = adet;
-                            liste.Add(u);
+                            int adet = t.Count();
+
+
+                            var urun = from p in db.tblurunler
+                                       join k in db.tblkategori on p.urunkategori equals k.kategoriID
+                                       where p.uruid == item.uruid
+                                       select new { p.uruid, p.urun_fiyati, p.urunadi, k.carpan };
+                            foreach (var p in urun)
+                            {
+                                cls_urunler u = new cls_urunler();
+                                u._stokkodu = p.uruid;
+                                u.urunfiyati = Convert.ToDouble(p.urun_fiyati * p.carpan);
+                                u._urunadi = p.urunadi;
+                                u._urunadedi = adet;
+                                liste.Add(u);
+                            }
+
+                        }
+                        else // serı numaralı urun degılse count 0 olur ve adet tutarı tblurundetaylarından alınır
+                        {
+                            var urun = from p in db.tblurunler
+                                       join d in db.tblurundetayları on p.uruid equals d.urun_id
+                                       join k in db.tblkategori on p.urunkategori equals k.kategoriID
+                                       where p.uruid == item.uruid
+                                       select new { p.uruid, p.urun_fiyati, p.urunadi, d.adet, k.carpan };
+                            foreach (var p in urun)
+                            {
+                                cls_urunler u = new cls_urunler();
+                                u._stokkodu = p.uruid;
+                                u.urunfiyati = Convert.ToDouble(p.urun_fiyati * p.carpan);
+                                u._urunadi = p.urunadi;
+                                u._urunadedi = (int)p.adet;
+                                liste.Add(u);
+                            }
                         }
 
                     }
-                    else // serı numaralı urun degılse count 0 olur ve adet tutarı tblurundetaylarından alınır
-                    {
-                        var urun = from p in db.tblurunler
-                                   join d in db.tblurundetayları on p.uruid equals d.urun_id join k in db.tblkategori on p.urunkategori equals k.kategoriID
-                                   where p.uruid == item.uruid
-                                   select new { p.uruid, p.urun_fiyati, p.urunadi, d.adet ,k.carpan};
-                        foreach (var p in urun)
-                        {
-                            cls_urunler u = new cls_urunler();
-                            u._stokkodu = p.uruid;
-                            u.urunfiyati = Convert.ToDouble(p.urun_fiyati*p.carpan);
-                            u._urunadi = p.urunadi;
-                            u._urunadedi = (int)p.adet;
-                            liste.Add(u);
-                        }
-                    }
+
+
+                   
                 }
                 
             }
@@ -523,6 +579,7 @@ namespace Uruntakip.Controllers
             }
            return Json(liste, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
 
         public ActionResult urunteklifgecmisi(int id)
         {

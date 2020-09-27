@@ -13,10 +13,14 @@ namespace Uruntakip.Controllers
     {
         // GET: Ariza
         uruntakipdbEntities3 db = new uruntakipdbEntities3();
+        [Authorize]
         public ActionResult Index()
-        {
+            
+        { 
+            
             return View();
         }
+        [Authorize]
         //-----------------------------------------------------ARIZALAR ICIN YAPILAN ISLEMLER GIRILIYOR---------
         public ActionResult _arizaislemleri(int arizano,string islem,DateTime tarih,int islemtipi)
         {
@@ -43,6 +47,7 @@ namespace Uruntakip.Controllers
             
 
         }
+        [Authorize]
         //--------------------------------------------------------MAKINAYA AIT BUTUN ARIZALAR CEKILIYOR------------------
         public ActionResult _arizagecmisi(int makinaid)
         {
@@ -82,6 +87,7 @@ namespace Uruntakip.Controllers
 
             return Json(gidicekliste, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
         //---------------------------------------------------------ARIZA BILGILERI GUNCELLENIYOR-----------------------
 
         public ActionResult _arizaguncelle(int arizano, int kategori, string tanim, DateTime tarih)
@@ -105,6 +111,7 @@ namespace Uruntakip.Controllers
 
             return Json(sonuc, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
 
         // ---------------------------------------------------------TARIH FORMATI DEGISTIRILIYOR----------------
         public string tarihduzelt_yıl_ay_gun(string tt)
@@ -121,6 +128,7 @@ namespace Uruntakip.Controllers
             return tarih;
         }
         //-------------------------------------------------------------ARIZAYA AIT BILGILER CEKILIYOR--------------------
+        [Authorize]
         public ActionResult _arizabilgileri(int arizano)
         {
             tblarizalar aranan = db.tblarizalar.FirstOrDefault(x => x.arizaid == arizano);
@@ -133,13 +141,15 @@ namespace Uruntakip.Controllers
             return Json(c, JsonRequestBehavior.AllowGet);
 
         }
-       // -----------------------------------------------------------MAKINA TIPINE GORE ARIZA KATEGORILERI CEKILIYOR----------
+        // -----------------------------------------------------------MAKINA TIPINE GORE ARIZA KATEGORILERI CEKILIYOR----------
+        [Authorize]
         public ActionResult _arizakategorileri(int makinaid)
         {
             tblmakina mc = db.tblmakina.FirstOrDefault(x => x.makinaid == makinaid);
             List<tblarizakategorileri> liste = db.tblarizakategorileri.Where(x => x.makinatipi == mc.makinatip_id).ToList();
             return Json(liste, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
 
         //----------------------------------------------------------ARIZA KAYDI OLUSTURULUYOR--------------
         public ActionResult yeniarizakaydi(int makinaid, int kategori, string tanım, DateTime tarih)
@@ -173,6 +183,7 @@ namespace Uruntakip.Controllers
 
             return Json(sonuc, JsonRequestBehavior.AllowGet);
         }
+  
 
 
 
@@ -197,6 +208,7 @@ namespace Uruntakip.Controllers
 
             return View(liste);
         }
+        [Authorize]
         //-----------------------------------------------ACIK OLAN ARIZALAR CEKILIYOR-------------------
         public ActionResult _arizalistesinicek()
         {
@@ -236,6 +248,7 @@ namespace Uruntakip.Controllers
             }
             return Json(listeler, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
 
         //--------------------------------------------------İŞLEM TİPLERİNI CEKIYORUZ----------------------
         public ActionResult _islemtipleri()
@@ -243,6 +256,7 @@ namespace Uruntakip.Controllers
             List<tblarızasonuctipleri> liste = db.tblarızasonuctipleri.ToList();
             return Json(liste, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
 
 
         public ActionResult getaktifariza(int id)

@@ -494,7 +494,7 @@
     <Content Include="images\3.jpg" />
     <Content Include="images\dowload.png" />
     <Content Include="images\icons\favicon.ico" />
-    <Content Include="images\VAV.png" />
+    <Content Include="images\imza.png" />
     <Content Include="images\yukleniyor.gif" />
     <Content Include="myscripts\arizaislemleri.js" />
     <Content Include="myscripts\customercodes.js" />
@@ -679,6 +679,7 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="dosya\test.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dataTables.fixedColums.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
@@ -786,6 +787,7 @@
     <Content Include="vendor\daterangepicker\moment.js" />
     <Content Include="vendor\daterangepicker\moment.min.js" />
     <Content Include="vendor\jquery\jquery-3.2.1.min.js" />
+    <Content Include="vendor\jquery\jquery.metadata.js" />
     <Content Include="vendor\perfect-scrollbar\perfect-scrollbar.css" />
     <Content Include="vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
     <Content Include="vendor\select2\select2.css" />

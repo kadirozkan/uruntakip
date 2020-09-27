@@ -176,7 +176,7 @@ function teslimattiplerinicek()
                 $("#acıklama").val(k.aciklama);
             }
             else {
-                item += '<option value="' + k.gonderiID + '">' + k.gonderimadi + '</option>'
+                item += '<option value="' + k.teslimatID + '">' + k.teslimatadi  + '</option>'
             }
 
         })
@@ -187,11 +187,14 @@ function teslimattiplerinicek()
 //--------------------------------------urun bulma işlemi-----------------
 function urunbul()
 {
+    document.getElementById("basarılı").style.display = "none";
+    document.getElementById("urungecmisi").style.display = "none";
+    document.getElementById("loding").style.display = "";
     var table = $("#urunstokları").DataTable();
     table
         .clear()
         .draw();
-    document.getElementById("veri").style.display = "";
+    
     $.post("/Stok/teklifurunu", { name: $("#arama").val(), teklifno: $("#_teklifno2").text() }, function (data) {
 
         $.each(data, function (v, k) {
@@ -206,7 +209,7 @@ function urunbul()
             ]).draw();
 
         })
-        document.getElementById("veri").style.display = "none";
+        document.getElementById("loding").style.display = "none";
     })
 
 }
@@ -316,18 +319,18 @@ function teklifhazırla()
         $("#urunid").text(data[0]);
         $("#urunadi").val(data[1]);
         $("#fiyat").val(data[3]);
-        document.getElementById("mesaj").style.display = "none";
+        
 
         //--------------------------------------------secilen urun baska bır fırma ıcın daha once teklıf hazırlandıysa bılgılerını yazdırıyoruz
 
-        $.post("/Stok/urunteklifgecmisi", { id: data[0] }, function (data) {
-            if (data.count()>0)
+        $.post("/Stok/urunteklifgecmisi", { id: data[0] }, function (gelenveri) {
+            if (gelenveri.length>0)
             {
                 var urungecmisi = $("#eskiteklif").DataTable();
                 urungecmisi
                     .clear()
                     .draw();
-                $.each(data, function (v, k) {
+                $.each(gelenveri, function (v, k) {
 
                     urungecmisi.row.add([
                         k.firmaadi,
@@ -375,7 +378,7 @@ function teklifhazırla()
         $("#adet").val(1);
         $("#fiyat").val("");
 
-        document.getElementById("mesaj").style.display = "";
+        document.getElementById("basarılı").style.display = "";
 
     });
    

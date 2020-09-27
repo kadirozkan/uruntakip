@@ -15,16 +15,19 @@ namespace Uruntakip.Controllers
         // GET: Machine
 
         uruntakipdbEntities3 db = new uruntakipdbEntities3();
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
+        [Authorize]
         public ActionResult _makinalar()
         {
             List<cls_makinalar> liste = (from c in db.tblCustomer join m in db.tblmakina on c.firmaid equals m.musteri_id join t in db.tblmakinatipi on m.makinatip_id equals t.tipid select (new cls_makinalar { _firmaadi = c.firmaadi, _makinaid = m.makinaid, _makinaserino = m.serino, _makinatipi = t.makinatipi })).ToList();
             return Json(liste, JsonRequestBehavior.AllowGet);
 
         }
+        [Authorize]
         public ActionResult _makinasahibi(int makinaid)
         {
             tblmakina m = db.tblmakina.FirstOrDefault(x => x.makinaid == makinaid);
@@ -33,18 +36,21 @@ namespace Uruntakip.Controllers
 
             return Json(musteri, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
         public ActionResult _makinabul(int makinaid)
         {
             tblmakina t = db.tblmakina.FirstOrDefault(x => x.makinaid == makinaid);
 
             return Json(t, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
         public ActionResult _makinatipi()
         {
 
             List<tblmakinatipi> makinatipi = db.tblmakinatipi.ToList();
             return Json(makinatipi, JsonRequestBehavior.AllowGet);
         }
+        [Authorize]
         public ActionResult _makinaguncelle(int makinaid, int firmaid, int makinatipi, string makinaserino)
         {
             string sonuc = "";
