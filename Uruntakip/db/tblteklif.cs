@@ -28,5 +28,6 @@ namespace Uruntakip.db
         public Nullable<int> parabirimi { get; set; }
         public string gdr_adres { get; set; }
         public string gdr_email { get; set; }
+        public Nullable<int> durum { get; set; }
     }
 }

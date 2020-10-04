@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="uruntakipdbModel.tblsevk" Width="1.5" PointX="8.75" PointY="0.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblsevkdetay" Width="1.5" PointX="8.75" PointY="3.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblsevkiyat" Width="1.5" PointX="8.75" PointY="6.75" />
-        <EntityTypeShape EntityType="uruntakipdbModel.tblteklif" Width="1.5" PointX="4.75" PointY="9.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblteklif_urunler" Width="1.5" PointX="6.75" PointY="9.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblteslimattipleri" Width="1.5" PointX="8.75" PointY="9.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblurun_islem_Gecmisi" Width="1.5" PointX="10.75" PointY="0.75" />
@@ -27,6 +26,7 @@
         <EntityTypeShape EntityType="uruntakipdbModel.tblurunharekettipi" Width="1.5" PointX="10.75" PointY="4.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.tblurunler" Width="1.5" PointX="10.75" PointY="7.75" />
         <EntityTypeShape EntityType="uruntakipdbModel.vwyeniteklif" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="uruntakipdbModel.tblteklif" Width="1.5" PointX="3.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

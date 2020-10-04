@@ -18,14 +18,33 @@
                 <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Telefon</th>
                 <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Adres</th>
                 <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Detaylar</th>
+                
+            </tr>
+        </thead>
+        <tbody style="font-weight:bold">
+        </tbody>
+    </table>
+</div>
+<br />
+
+<div style="margin-top:25px;display:none" id="divteklifler">
+    <table id="tekliflistesi" class="table table-hover table-bordered">
+
+        <thead>
+            <tr>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif NO</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Tarih</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Açıklama</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif Durumu</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">İşlem</th>
 
             </tr>
         </thead>
         <tbody style="font-weight:bold">
-           
         </tbody>
     </table>
 </div>
+
 
 
 <div class="modal fade" id="frmmusteri">
@@ -89,15 +108,23 @@
             null,
             null,
             null,
-           null,
+            null,
             { "width": "20%" },
-            { "width": "20%" }
+            { "width": "25%" }
         ],
         columnDefs: [
             { targets: 'no-sort', orderable: false }
         ]
     })
-  
+    $("#tekliflistesi").DataTable({
+        "searching": false,
+        "lengthChange": false,
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ]
+
+    })
+
 </script>
 
 <script>

@@ -679,7 +679,6 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
-    <Content Include="dosya\test.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dataTables.fixedColums.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />

@@ -108,9 +108,8 @@ function bilgileriguncelle()
                                  v1.ad+' '+v1.soyad,
                                  v1.email,
                                  v1.telefon,
-                                  v1.adres,
-                                '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">'+'Güncelle'+'</button>'+' '+'<button id="teklif" onclick="teklifformu('+v1.firmaid+')" class="btn btn-warning">'+'Teklif'+'</button>'+' '+'<button id="sevk" value="'+v1.firmaid+'" class="btn btn-info">'+'Sevk'+'</button>',
-
+                                v1.adres,
+                                '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">' + 'Güncelle' + '</button>' + ' ' + '<button id="teklif" onclick="teklifformu(' + v1.firmaid + ')" class="btn btn-danger">' + 'Teklif' + '</button>' + ' ' + '<button id="sevk" value="' + v1.firmaid + '" class="btn btn-warning">' + 'Sevk' + '</button>' + ' ' + '<button class="btn btn-primary" onclick="tekliflistesi(' + v1.firmaid + ')" id="goster">' + 'Göster' + '</button>',
                                 ]).draw();
                         });
 
@@ -146,8 +145,7 @@ function musterilistesi()
                 v1.email,
                 v1.telefon,
                 v1.adres,
-                '<button value="'+v1.firmaid+'" onclick="'+musteribilgileri()+'" class= "btn btn-success" id="guncelle">'+'Güncelle'+'</button>'+' '+'<button id="teklif" onclick="teklifformu('+v1.firmaid+')" class="btn btn-warning">'+'Teklif'+'</button>'+' '+'<button id="sevk" value="'+v1.firmaid+'" class="btn btn-info">'+'Sevk'+'</button>',
-
+                '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">' + 'Güncelle' + '</button>' + ' ' + '<button id="teklif" onclick="teklifformu(' + v1.firmaid + ')" class="btn btn-danger">' + 'Teklif' + '</button>' + ' ' + '<button id="sevk" value="' + v1.firmaid + '" class="btn btn-warning">' + 'Sevk' + '</button>' + ' ' + '<button class="btn btn-primary" onclick="tekliflistesi(' + v1.firmaid + ')" id="goster">' + 'Göster' + '</button>',
             ]).draw();
         });
 
@@ -314,7 +312,7 @@ function teklifhazırla()
     // ---------------------------------listeden urun secılıyor------------------------------------------
     $("#urunstokları tbody").on("click", "#_sec", function () {
       
-      
+        document.getElementById("basarılı").style.display = "none";
         var data = $('#urunstokları').DataTable().row($(this).parents('tr')).data();
         $("#urunid").text(data[0]);
         $("#urunadi").val(data[1]);
@@ -361,8 +359,9 @@ function teklifhazırla()
         var id = $("#urunid").text();
         var urunadi = $("#urunadi").val();
         var adet = Number($("#adet").val());
-        var birimfiyat = Number($("#fiyat").val());
-        var total = adet * birimfiyat;
+        var birimfiyat = Number( $("#fiyat").val());
+        birimfiyat = birimfiyat.toFixed(2);
+        var total = (adet * birimfiyat).toFixed(2);
 
         table.row.add([
             id,
@@ -429,11 +428,59 @@ function teklifhazırla()
     })
    
 }
+// ------------------------------------olustrurunlan teklıfı ekranda gosterme-----------------------
 function pdfgoruntule(id)
 {
     location.href = "/Customer/pdfgoruntule/" + id;
 }
 
+//-------------------------------------------musteriye ait teklifleri gosterme------------
+function tekliflistesi(id) {
+    var table = $("#tekliflistesi").DataTable();
+    table
+        .clear()
+        .draw();
+    $.post("/Customer/gettekliflistesi", { musteriid: id }, function (gelenveri) {
+        
+        if (gelenveri.length > 0)
+        {
+            if (document.getElementById("divteklifler").style.display = "none") {
+                document.getElementById("divteklifler").style.display = "";
+            }
+            var items = "";
+            $.each(gelenveri, function (k, v) {
+
+                if (v.durum == 0) {
+                    table.row.add([
+                        v.firmaadi,
+                        v.tarih,
+                        v.acıklama,
+                        'Onay Bekleniyor',
+                        '<a href="../Customer/teklifduzenle/' + v.teklifid + '" class="btn btn-success">' + 'Düzenle' + '</a>' +' ' +'<a href="../Customer/pdfgoruntule/' + v.teklifid + '" class="btn btn-primary">'+'Görüntüle' + '</a>',
+                       
+                    ]).draw();
+                }
+                else {
+                    table.row.add([
+                        v.firmaadi,
+                        v.tarih,
+                        v.acıklama,
+                        'Teklif Onaylandı',
+                        '<a href="../Customer/teklifduzenle/' + v.teklifid + '" class="btn btn-success">' + 'Düzenle' + '</a>' + ' ' + '<a href="../Customer/pdfgoruntule/' + v.teklifid + '" class="btn btn-primary">' + 'Görüntüle' + '</a>',
+                    ]).draw();
+                }
+
+
+
+                
+
+
+            })
+           
+        }
+
+    })
+}
 
 
 

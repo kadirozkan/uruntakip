@@ -39,7 +39,6 @@ namespace Uruntakip.db
         public virtual DbSet<tblsevk> tblsevk { get; set; }
         public virtual DbSet<tblsevkdetay> tblsevkdetay { get; set; }
         public virtual DbSet<tblsevkiyat> tblsevkiyat { get; set; }
-        public virtual DbSet<tblteklif> tblteklif { get; set; }
         public virtual DbSet<tblteklif_urunler> tblteklif_urunler { get; set; }
         public virtual DbSet<tblteslimattipleri> tblteslimattipleri { get; set; }
         public virtual DbSet<tblurun_islem_Gecmisi> tblurun_islem_Gecmisi { get; set; }
@@ -47,5 +46,6 @@ namespace Uruntakip.db
         public virtual DbSet<tblurunharekettipi> tblurunharekettipi { get; set; }
         public virtual DbSet<tblurunler> tblurunler { get; set; }
         public virtual DbSet<vwyeniteklif> vwyeniteklif { get; set; }
+        public virtual DbSet<tblteklif> tblteklif { get; set; }
     }
 }

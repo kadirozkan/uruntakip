@@ -11,5 +11,8 @@ namespace Uruntakip.Models
         public string firmaadi;
         public double fiyat;
         public string parabirimi;
+        public string acıklama;
+        public int teklifid;
+        public int durum;
     }
 }

@@ -150,6 +150,7 @@
           <Property Name="parabirimi" Type="int" />
           <Property Name="gdr_adres" Type="text" />
           <Property Name="gdr_email" Type="nvarchar" MaxLength="50" />
+          <Property Name="durum" Type="int" />
         </EntityType>
         <EntityType Name="tblteklif_urunler">
           <Key>
@@ -303,7 +304,6 @@ warning 6002: The table/view 'uruntakipdb.dbo.vwyeniteklif' does not have a prim
           <EntitySet Name="tblsevk" EntityType="uruntakipdbModel.tblsevk" />
           <EntitySet Name="tblsevkdetay" EntityType="uruntakipdbModel.tblsevkdetay" />
           <EntitySet Name="tblsevkiyat" EntityType="uruntakipdbModel.tblsevkiyat" />
-          <EntitySet Name="tblteklif" EntityType="uruntakipdbModel.tblteklif" />
           <EntitySet Name="tblteklif_urunler" EntityType="uruntakipdbModel.tblteklif_urunler" />
           <EntitySet Name="tblteslimattipleri" EntityType="uruntakipdbModel.tblteslimattipleri" />
           <EntitySet Name="tblurun_islem_Gecmisi" EntityType="uruntakipdbModel.tblurun_islem_Gecmisi" />
@@ -311,6 +311,7 @@ warning 6002: The table/view 'uruntakipdb.dbo.vwyeniteklif' does not have a prim
           <EntitySet Name="tblurunharekettipi" EntityType="uruntakipdbModel.tblurunharekettipi" />
           <EntitySet Name="tblurunler" EntityType="uruntakipdbModel.tblurunler" />
           <EntitySet Name="vwyeniteklif" EntityType="uruntakipdbModel.vwyeniteklif" />
+          <EntitySet Name="tblteklif" EntityType="uruntakipdbModel.tblteklif" />
         </EntityContainer>
         <EntityType Name="tblarızasonuctipleri">
           <Key>
@@ -439,25 +440,6 @@ warning 6002: The table/view 'uruntakipdb.dbo.vwyeniteklif' does not have a prim
           <Property Name="sevkiyatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="sevkiyatadi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tblteklif">
-          <Key>
-            <PropertyRef Name="teklifid" />
-          </Key>
-          <Property Name="teklifid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="musteri_id" Type="Int32" />
-          <Property Name="teklifno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="teslimatid" Type="Int32" />
-          <Property Name="teslimat_notu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="tarih" Type="DateTime" Precision="0" />
-          <Property Name="teklifnotu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="sevkiyat_id" Type="Int32" />
-          <Property Name="makinserino" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="arizano" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="iskonto" Type="Int32" />
-          <Property Name="parabirimi" Type="Int32" />
-          <Property Name="gdr_adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="gdr_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="tblteklif_urunler">
           <Key>
             <PropertyRef Name="teklifurun_id" />
@@ -541,6 +523,26 @@ warning 6002: The table/view 'uruntakipdb.dbo.vwyeniteklif' does not have a prim
           <Property Name="birimfiyat" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="urunadeti" Type="Int32" />
           <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tblteklif">
+          <Key>
+            <PropertyRef Name="teklifid" />
+          </Key>
+          <Property Name="teklifid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="musteri_id" Type="Int32" />
+          <Property Name="teklifno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="teslimatid" Type="Int32" />
+          <Property Name="teslimat_notu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="tarih" Type="DateTime" Precision="0" />
+          <Property Name="teklifnotu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sevkiyat_id" Type="Int32" />
+          <Property Name="makinserino" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="arizano" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="iskonto" Type="Int32" />
+          <Property Name="parabirimi" Type="Int32" />
+          <Property Name="gdr_adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="gdr_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="durum" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -689,26 +691,6 @@ warning 6002: The table/view 'uruntakipdb.dbo.vwyeniteklif' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblteklif">
-            <EntityTypeMapping TypeName="uruntakipdbModel.tblteklif">
-              <MappingFragment StoreEntitySet="tblteklif">
-                <ScalarProperty Name="gdr_email" ColumnName="gdr_email" />
-                <ScalarProperty Name="gdr_adres" ColumnName="gdr_adres" />
-                <ScalarProperty Name="parabirimi" ColumnName="parabirimi" />
-                <ScalarProperty Name="iskonto" ColumnName="iskonto" />
-                <ScalarProperty Name="arizano" ColumnName="arizano" />
-                <ScalarProperty Name="makinserino" ColumnName="makinserino" />
-                <ScalarProperty Name="sevkiyat_id" ColumnName="sevkiyat_id" />
-                <ScalarProperty Name="teklifnotu" ColumnName="teklifnotu" />
-                <ScalarProperty Name="tarih" ColumnName="tarih" />
-                <ScalarProperty Name="teslimat_notu" ColumnName="teslimat_notu" />
-                <ScalarProperty Name="teslimatid" ColumnName="teslimatid" />
-                <ScalarProperty Name="teklifno" ColumnName="teklifno" />
-                <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
-                <ScalarProperty Name="teklifid" ColumnName="teklifid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblteklif_urunler">
             <EntityTypeMapping TypeName="uruntakipdbModel.tblteklif_urunler">
               <MappingFragment StoreEntitySet="tblteklif_urunler">
@@ -796,6 +778,27 @@ warning 6002: The table/view 'uruntakipdb.dbo.vwyeniteklif' does not have a prim
                 <ScalarProperty Name="teslimat_notu" ColumnName="teslimat_notu" />
                 <ScalarProperty Name="tarih" ColumnName="tarih" />
                 <ScalarProperty Name="teklifno" ColumnName="teklifno" />
+                <ScalarProperty Name="teklifid" ColumnName="teklifid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblteklif">
+            <EntityTypeMapping TypeName="uruntakipdbModel.tblteklif">
+              <MappingFragment StoreEntitySet="tblteklif">
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="gdr_email" ColumnName="gdr_email" />
+                <ScalarProperty Name="gdr_adres" ColumnName="gdr_adres" />
+                <ScalarProperty Name="parabirimi" ColumnName="parabirimi" />
+                <ScalarProperty Name="iskonto" ColumnName="iskonto" />
+                <ScalarProperty Name="arizano" ColumnName="arizano" />
+                <ScalarProperty Name="makinserino" ColumnName="makinserino" />
+                <ScalarProperty Name="sevkiyat_id" ColumnName="sevkiyat_id" />
+                <ScalarProperty Name="teklifnotu" ColumnName="teklifnotu" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="teslimat_notu" ColumnName="teslimat_notu" />
+                <ScalarProperty Name="teslimatid" ColumnName="teslimatid" />
+                <ScalarProperty Name="teklifno" ColumnName="teklifno" />
+                <ScalarProperty Name="musteri_id" ColumnName="musteri_id" />
                 <ScalarProperty Name="teklifid" ColumnName="teklifid" />
               </MappingFragment>
             </EntityTypeMapping>
