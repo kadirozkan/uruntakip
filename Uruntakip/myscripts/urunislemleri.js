@@ -59,9 +59,8 @@ function fiyatverikontrol() {
         var code;
         if (e.keyCode) code = e.keyCode;
         else if (e.which) code = e.which;
-        if (e.which == 46)
-            return false;
-        if (code == 8 || code == 46||code==44)
+        
+        if (code == 8 || code == 46)
             return true;
         if (code < 48 || code > 57)
             return false;
@@ -73,7 +72,7 @@ function fiyatverikontrol() {
         var code;
         if (e.keyCode) code = e.keyCode;
         else if (e.which) code = e.which;
-        if (e.which == 46 )
+        if (e.which == 46)
             return false;
         if (code == 8 || code == 46 ||code==45 )
             return true;

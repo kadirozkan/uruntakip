@@ -560,7 +560,7 @@ namespace Uruntakip.Controllers
                         }
                         break;
                    
-                    case "TL":
+                    case "TÜRK LİRASI":
                         foreach (cls_urunler tt in liste)
                         {
                             tt.parabirimi = "TL";

@@ -728,7 +728,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Ürün id</Value>
+                              <Value>Stok Kodu</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>

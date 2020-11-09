@@ -12,6 +12,7 @@ using System.EnterpriseServices;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using Microsoft.Reporting.WebForms;
+using System.Xml;
 
 namespace Uruntakip.Controllers
 {
@@ -19,7 +20,22 @@ namespace Uruntakip.Controllers
     {
         // GET: Machine
         uruntakipdbEntities3 db = new uruntakipdbEntities3();
-  
+        public string tarihduzelt_yıl_ay_gun(string tt)
+        {
+            string v = Convert.ToDateTime(tt).ToShortDateString();  // 19.09.2020 seklınde gelen tarıhı 2020-09-19 formatına cevırdık datetımepickere yazmak ıcın
+            var t = v.Split('.');
+            if (t[1].Count() == 1)
+            {
+                t[1] = "0" + t[1];
+            }
+            if (t[0].Count() == 1)
+            {
+                t[0] = "0" + t[0];
+            }
+            string tarih = t[2] + '-' + t[1] + '-' + t[0];
+            return tarih;
+        }
+
         [Authorize]
         
         public ActionResult Index()
@@ -194,15 +210,32 @@ namespace Uruntakip.Controllers
             return Json(sonuc, JsonRequestBehavior.AllowGet);
         }
         [Authorize]
-        public ActionResult teklifdetay(string teklifno,string serino,string arizano,int parabirimi,int iskonto)
+        public ActionResult teklifdetay(string teklifno,string makinaid,string arizano,int parabirimi,int iskonto)
         {
             int sonuc = 0;
             try
             {
               
                 tblteklif t = db.tblteklif.FirstOrDefault(x => x.teklifno == teklifno);
-                t.arizano = arizano;
-                t.makinserino = serino;
+                if (string.IsNullOrEmpty(makinaid))
+                {
+                    t.makinaid = null;
+                }
+                else
+                {
+                    t.makinaid =Convert.ToInt32( makinaid);
+                }
+                if (string.IsNullOrEmpty(arizano))
+                {
+                    t.arizano = null;
+
+                }
+                else {
+
+                    t.arizano =Convert.ToInt32( arizano);
+                }
+                
+               
                 t.parabirimi = parabirimi;
                 t.iskonto = iskonto;
                 
@@ -350,6 +383,210 @@ namespace Uruntakip.Controllers
         {
             List<cls_teklif> liste = (from c in db.tblCustomer join t in db.tblteklif on c.firmaid equals t.musteri_id where t.musteri_id == musteriid select (new cls_teklif { teklifid = t.teklifid, tarih = t.tarih.ToString(), acıklama = t.teklifnotu, firmaadi = c.firmaadi,durum=(int) t.durum})).ToList();
             return Json(liste, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize]
+        public ActionResult teklifduzenle(string id)
+        {
+            if (string.IsNullOrEmpty(id) == false)
+            {
+                int _id = Convert.ToInt32(id);
+                tblteklif gelenteklif = db.tblteklif.FirstOrDefault(x => x.teklifid == _id);
+                List<tblarizalar> acikarızalar = new List<tblarizalar>();
+
+                if (gelenteklif != null)
+                {
+                    if(gelenteklif.makinaid!=null)
+                    {
+                        var arizalar = db.tblarizalar.Where(x => x.makina_id == gelenteklif.makinaid).ToList();
+                       
+                        foreach (var item in arizalar)
+                        {
+                            var liste = (from i in db.tblarizaislemleri join s in db.tblarızasonuctipleri on i.islemtipi equals s.arizasonuc_id where i.ariza_id == item.arizaid  orderby i.islem_id descending select new { i.ariza_id,s.durum}).Take(1);
+                            foreach ( var item2 in liste)
+                            { 
+                                if (item2.durum != "Tamamlandı" && item2.durum != "İptal Edildi")
+                                {
+                                    tblarizalar t = db.tblarizalar.FirstOrDefault(x => x.arizaid == item2.ariza_id);
+                                    acikarızalar.Add(t);
+
+                                }
+                               
+                            }
+                        }
+                    }
+
+                    ViewBag.makinalar = db.tblmakina.Where(x => x.musteri_id == gelenteklif.musteri_id).ToList();
+                    ViewBag.teslimat = db.tblteslimattipleri.ToList();
+                    ViewBag.sevkiyat = db.tblsevkiyat.ToList();
+                    ViewBag.arizalar = acikarızalar;
+                    ViewBag.parabirimleri = db.tblparabirimleri.ToList();
+
+                    cls_teklif tek = new cls_teklif();
+                    tek.teklifno = gelenteklif.teklifno;
+                    tek.tarih = tarihduzelt_yıl_ay_gun(gelenteklif.tarih.ToString());
+                    tek.teklifnotu = gelenteklif.teklifnotu;
+                    tek.sevkiyatid =(int) gelenteklif.sevkiyat_id;
+                    if (gelenteklif.makinaid != null)
+                    {
+                        tek.makinaid = (int)gelenteklif.makinaid;
+                    }
+                    else 
+                    {
+                        tek.makinaid = 0;
+                    }
+                    if (gelenteklif.arizano != null)
+                    {
+                        tek.makinaid = (int)gelenteklif.makinaid;
+                    }
+                    else
+                    {
+                        tek.arizano = 0;
+                    }
+                    
+                    tek.teslimatid =(int) gelenteklif.teslimatid;
+                    tek.teslimatnotu = gelenteklif.teslimat_notu;
+                    tek.iskonto = (int)gelenteklif.iskonto;
+                    tek.paraid = (int)gelenteklif.parabirimi;
+
+                    return View(tek);
+                }
+            }
+           
+           return View();
+            
+        }
+        public ActionResult teklifbilgileriniguncelle(int id,string sayfa,string sevkiyat,string teslimat,string teslimatnotu,string teklifnotu,string makinaid,string arizano,string iskonto,string paraid)
+        {
+            int sonuc = 0;
+            try
+            {
+                tblteklif teklif = db.tblteklif.FirstOrDefault(x => x.teklifid == id);
+               
+                if(teklif !=null)
+                {
+                    try
+                    {
+                        switch (sayfa)
+                        {
+                            case "1":
+                                teklif.sevkiyat_id = Convert.ToInt32(sevkiyat);
+                                teklif.teslimatid = Convert.ToInt32(teslimat);
+                                teklif.teslimat_notu = teslimatnotu;
+                                teklif.teklifnotu = teklifnotu;
+                                break;
+                            case "2":
+                                if (string.IsNullOrEmpty(makinaid))
+                                {
+                                    teklif.makinaid = null;
+                                }
+                                else
+                                {
+                                    teklif.makinaid = Convert.ToInt32(makinaid);
+                                }
+                                if (string.IsNullOrEmpty(arizano))
+                                {
+                                    teklif.makinaid = null;
+                                }
+                                else
+                                {
+                                    teklif.makinaid = Convert.ToInt32(arizano);
+                                }
+                                teklif.iskonto = Convert.ToInt32(iskonto);
+                                if (teklif.parabirimi != Convert.ToInt32(paraid))
+                                {
+                                   
+                                    urunfiyatlarınıguncelle(teklif, Convert.ToInt32(paraid));
+                                    teklif.parabirimi = Convert.ToInt32(paraid);
+                                }
+                                break;
+                        }
+
+
+                        db.SaveChanges();
+                        sonuc = 1;
+                    }
+                    catch (Exception)
+                    {
+
+                        sonuc = 0;
+                    }
+                   
+                }
+            }
+            catch (Exception)
+            {
+
+                sonuc = 0;
+            }
+            return Json(sonuc, JsonRequestBehavior.AllowGet);
+        }
+
+        public void urunfiyatlarınıguncelle(tblteklif teklif,int paraid)
+        {
+            tblparabirimleri eskipara = db.tblparabirimleri.FirstOrDefault(x => x.paraid == teklif.parabirimi);
+            tblparabirimleri yenipara = db.tblparabirimleri.FirstOrDefault(x => x.paraid == paraid);
+          List<tblteklif_urunler> liste = db.tblteklif_urunler.Where(x => x.teklif_id == teklif.teklifid).ToList();
+            foreach (tblteklif_urunler item in liste)
+            {
+                item.birimfiyat = (decimal)fiyatduzenle(eskipara.parabirimi, yenipara.parabirimi, (double)item.birimfiyat);
+                item.total = item.birimfiyat * item.urunadeti;
+                tblteklif_urunler urun = db.tblteklif_urunler.FirstOrDefault(x => x.teklifurun_id == item.teklifurun_id);
+                urun.birimfiyat = item.birimfiyat;
+                urun.total = item.total;
+            }
+            db.SaveChanges();
+           
+        }
+        public double fiyatduzenle(string eskipara,string yenipara, double tutar)
+        {
+            string bugun = "https://www.tcmb.gov.tr/kurlar/today.xml";
+            var xmldoc = new XmlDocument();
+            xmldoc.Load(bugun);
+            string usd = xmldoc.SelectSingleNode("Tarih_Date/Currency [@Kod='USD']/BanknoteSelling").InnerXml;
+            string eur = xmldoc.SelectSingleNode("Tarih_Date/Currency [@Kod='EUR']/BanknoteSelling").InnerXml;
+            usd = usd.Replace('.', ',');
+            eur = eur.Replace('.', ',');
+            double dolar = Convert.ToDouble(usd);
+            double euro = Convert.ToDouble(eur);
+            double deger = 0;
+            switch (eskipara)
+            {
+                case "DOLAR":
+                    switch (yenipara)
+                    {
+                        case "EURO":
+                            deger = tutar * (dolar / euro);
+                            break;
+                        case "TL":
+                            deger = tutar * dolar;
+                            break;
+                    }
+                    break;
+                case "EURO":
+                    switch (yenipara)
+                    {
+                        case "DOLAR":
+                            deger = tutar * (euro / dolar);
+                            break;
+                        case "TL":
+                            deger = tutar * euro;
+                            break;
+                    }
+                    break;
+                case "TL":
+                    switch (yenipara)
+                    {
+                        case "DOLAR":
+                            deger = tutar * dolar;
+                            break;
+                        case "TL":
+                            deger = tutar * euro;
+                            break;
+                    }
+                    break;
+            }
+            deger = Math.Round(deger, 3);
+            return deger;
         }
     }
 }

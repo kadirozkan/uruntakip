@@ -238,10 +238,30 @@ function teklifhazırla()
         {
             $.post("/Ariza/getaktifariza", { id: $("#makina :selected").val() }, function (data) {
                 var item = "";
-                $.each(data, function (v, k) {
+                var sayi = 0;
 
-                    item += '<option value="' + k._arizano + '">' + k._arizano+' '+ '-' +' '+ k._kategoriadi   + '</option>';
-                })
+                if (data.length == 0) {
+                    item += '<option selected="selected">' + 'Arıza Seçiniz' + '</option>';
+
+                }
+                else
+                {
+
+                    $.each(data, function (v, k) {
+                        
+                            if (sayi == 0) {
+                                item += '<option selected="selected">' + 'Arıza Seçiniz' + '</option>';
+                                sayi++;
+                            }
+                            else {
+                                item += '<option value="' + k._arizano + '">' + k._arizano + ' ' + '-' + ' ' + k._tanım + '</option>';
+                            }
+
+                    })
+
+
+                }
+               
                 $("#ariza").empty();
                 $("#ariza").append(item);
             })
@@ -290,14 +310,17 @@ function teklifhazırla()
     // 2 cı sayfadan makına bılgılerını alıp bır sonrakı sayfaya yonlendırıyoruz
 
     $("#form2").click(function () {
-        var _serino = "";
+        var _makinaid = "";
         var _arizano = "";
         if ($("#makina :selected").index() > 0) {
-            _serino = $("#makina :selected").val();
+            _makinaid = $("#makina :selected").val();
+            
+        }
+        if ($("#ariza :selected").index() > 0)
+        {
             _arizano = $("#ariza :selected").val();
         }
-
-        $.post("/Customer/teklifdetay", { teklifno: $("#_teklifno2").text(), serino: _serino, arizano: _arizano, iskonto: $("#iskonto").val(), parabirimi: $("#birim :selected").val() }, function (data) {
+        $.post("/Customer/teklifdetay", { teklifno: $("#_teklifno2").text(), makinaid: _makinaid, arizano: _arizano, iskonto: $("#iskonto").val(), parabirimi: $("#birim :selected").val() }, function (data) {
 
             if (data == 0) {
                 swal("işlem başarısız", "", "warning");
@@ -482,7 +505,77 @@ function tekliflistesi(id) {
     })
 }
 
+//------------------------------------------teklif duzenleme ıslemleri--------------
+function teklifduzenle()
+{
+    var url = window.location.pathname;
+    var teklifid = url.substring(url.lastIndexOf('/') + 1);
+    $("#form1duzenle").click(function () {
+        
+        var _not = $("#teklifnot").val();
+        var _sevkiyat = $("#sevkiyattip :selected").val();
+        var _teslimat = $("#teslimattip :selected").val();
+        var _teslimatnotu = $("#acıklama").val();
 
+        if ( _not == "" || _sevkiyat == "" || _teslimat == "" || _teslimatnotu == "") {
+            swal("", "Lütfen bilgileri eksiksiz giriniz", "warning");
+        }
+        else
+        {
+            $.post("/Customer/teklifbilgileriniguncelle", { id: teklifid,sayfa:1 ,teklifnotu: _not,  sevkiyat: _sevkiyat, teslimat: _teslimat, teslimatnotu: _teslimatnotu }, function (data) {
+
+                if (data == 0) {
+                    swal("işlem başarısız", "", "warning");
+                }
+                else {
+                    ileri($("#form1duzenle").val());
+
+                }
+            })
+
+        }
+
+
+    })
+    $("#form2duzenle").click(function ()
+    {
+   
+        var _iskonto = $("#iskonto").val();
+        var _paraid = $("#birim :selected").val();
+        var _makinaid = "";
+        var _arizano = "";
+        if ($("#makina :selected").index() > 0)
+        {
+            _makinaid = $("#makina :selected").val();
+        }
+        if ($("#ariza :selected").index() > 0)
+        {
+            _arizano = $("#ariza :selected").val();
+
+        }
+        if (_iskonto == "") {
+            swal("", "İskonto oranını belirtiniz", "warning");
+        }
+        else
+        {
+            $.post("/Customer/teklifbilgileriniguncelle", { id: teklifid, sayfa: 2, makinaid: _makinaid, arizano: _arizano, iskonto: _iskonto, paraid: _paraid }, function (data) {
+
+                if (data == 1) {
+                    swal("", "işlem başarılı", "success");
+                }
+                else {
+                    alert("hata");
+                }
+
+
+            })
+
+        }
+       
+    })
+
+
+}
 
 
 

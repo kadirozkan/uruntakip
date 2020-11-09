@@ -8,6 +8,7 @@ namespace Uruntakip.Models
     public class cls_arizalistesi
     {
         public int _arizano;
+        public string _tanım;
         public string _firmaadi;
         public string _arizatanimi;
         public string _makinatipi;

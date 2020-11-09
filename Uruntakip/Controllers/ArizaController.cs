@@ -261,7 +261,7 @@ namespace Uruntakip.Controllers
 
         public ActionResult getaktifariza(int id)
         {
-            List<cls_arizalistesi> liste = (from a in db.tblarizalar join k in db.tblarizakategorileri on a.kategori_id equals k.ariza_kategori_ID where a.makina_id == id && (a.durum != 4 && a.durum != 5) select (new cls_arizalistesi { _arizano = a.arizaid, _kategoriadi = k.kategoriadi })).ToList();
+            List<cls_arizalistesi> liste = (from a in db.tblarizalar join k in db.tblarizakategorileri on a.kategori_id equals k.ariza_kategori_ID where a.makina_id == id && (a.durum != 4 && a.durum != 5) select (new cls_arizalistesi { _arizano = a.arizaid, _tanım = a.tanım })).ToList();
             return Json(liste, JsonRequestBehavior.AllowGet);
 
         }

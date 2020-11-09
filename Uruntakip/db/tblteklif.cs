@@ -22,8 +22,8 @@ namespace Uruntakip.db
         public Nullable<System.DateTime> tarih { get; set; }
         public string teklifnotu { get; set; }
         public Nullable<int> sevkiyat_id { get; set; }
-        public string makinserino { get; set; }
-        public string arizano { get; set; }
+        public Nullable<int> makinaid { get; set; }
+        public Nullable<int> arizano { get; set; }
         public Nullable<int> iskonto { get; set; }
         public Nullable<int> parabirimi { get; set; }
         public string gdr_adres { get; set; }

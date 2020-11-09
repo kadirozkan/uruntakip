@@ -831,6 +831,7 @@
       <DependentUpon>uruntakipdbDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="Views\Customer\pdfgoruntule.cshtml" />
+    <Content Include="Views\Customer\teklifduzenle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

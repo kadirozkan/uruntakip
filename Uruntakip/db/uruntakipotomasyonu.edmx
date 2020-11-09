@@ -144,8 +144,8 @@
           <Property Name="tarih" Type="date" />
           <Property Name="teklifnotu" Type="text" />
           <Property Name="sevkiyat_id" Type="int" />
-          <Property Name="makinserino" Type="nvarchar" MaxLength="50" />
-          <Property Name="arizano" Type="nvarchar" MaxLength="50" />
+          <Property Name="makinaid" Type="int" />
+          <Property Name="arizano" Type="int" />
           <Property Name="iskonto" Type="int" />
           <Property Name="parabirimi" Type="int" />
           <Property Name="gdr_adres" Type="text" />
@@ -536,8 +536,8 @@ warning 6002: The table/view 'uruntakipdb.dbo.vwyeniteklif' does not have a prim
           <Property Name="tarih" Type="DateTime" Precision="0" />
           <Property Name="teklifnotu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="sevkiyat_id" Type="Int32" />
-          <Property Name="makinserino" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="arizano" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="makinaid" Type="Int32" />
+          <Property Name="arizano" Type="Int32" />
           <Property Name="iskonto" Type="Int32" />
           <Property Name="parabirimi" Type="Int32" />
           <Property Name="gdr_adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -791,7 +791,7 @@ warning 6002: The table/view 'uruntakipdb.dbo.vwyeniteklif' does not have a prim
                 <ScalarProperty Name="parabirimi" ColumnName="parabirimi" />
                 <ScalarProperty Name="iskonto" ColumnName="iskonto" />
                 <ScalarProperty Name="arizano" ColumnName="arizano" />
-                <ScalarProperty Name="makinserino" ColumnName="makinserino" />
+                <ScalarProperty Name="makinaid" ColumnName="makinaid" />
                 <ScalarProperty Name="sevkiyat_id" ColumnName="sevkiyat_id" />
                 <ScalarProperty Name="teklifnotu" ColumnName="teklifnotu" />
                 <ScalarProperty Name="tarih" ColumnName="tarih" />
