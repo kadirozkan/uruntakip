@@ -434,10 +434,35 @@ namespace Uruntakip.Controllers
         }
         [Authorize]
 
-        public ActionResult teklifurunu(string name,string teklifno)
+        public ActionResult teklifurunu(string name,string teklifno,string kontrol)
         {
             name = name.Trim();
-            var teklif = from t in db.tblteklif join p in db.tblparabirimleri on t.parabirimi equals p.paraid where t.teklifno==teklifno select new { p.parabirimi };
+            string parabirimi = "";
+            if (kontrol == "1")
+            {
+                int id = Convert.ToInt32(teklifno);
+                var teklif = from t in db.tblteklif join p in db.tblparabirimleri on t.parabirimi equals p.paraid where t.teklifid == id select new { p.parabirimi };
+                foreach (var item in teklif)
+                {
+                    parabirimi = item.parabirimi;
+                }
+            }
+            else
+            {
+               var  teklif = from t in db.tblteklif join p in db.tblparabirimleri on t.parabirimi equals p.paraid where t.teklifno == teklifno select new { p.parabirimi };
+
+                foreach (var item in teklif)
+                {
+                    parabirimi = item.parabirimi;
+                }
+
+
+            }       
+                    
+                    
+                    
+                    
+                 
             List < cls_urunler > liste = new List<cls_urunler>();
             try
             {
@@ -548,9 +573,7 @@ namespace Uruntakip.Controllers
                 
             }
             
-            foreach (var item in teklif)
-            {
-                switch (item.parabirimi)
+                switch (parabirimi)
                 {
                     case "DOLAR":
                         foreach (cls_urunler tt in liste)
@@ -576,7 +599,7 @@ namespace Uruntakip.Controllers
                         break;
                 }
 
-            }
+            
            return Json(liste, JsonRequestBehavior.AllowGet);
         }
         [Authorize]

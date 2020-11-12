@@ -455,7 +455,7 @@ namespace Uruntakip.Controllers
            return View();
             
         }
-        public ActionResult teklifbilgileriniguncelle(int id,string sayfa,string sevkiyat,string teslimat,string teslimatnotu,string teklifnotu,string makinaid,string arizano,string iskonto,string paraid)
+        public ActionResult teklifbilgileriniguncelle(int id,string sayfa,string sevkiyat,string teslimat,string teslimatnotu,string teklifnotu,string makinaid,string arizano,string iskonto,string paraid,string urun)
         {
             int sonuc = 0;
             try
@@ -498,6 +498,33 @@ namespace Uruntakip.Controllers
                                     urunfiyatlarınıguncelle(teklif, Convert.ToInt32(paraid));
                                     teklif.parabirimi = Convert.ToInt32(paraid);
                                 }
+                                break;
+                            case "3":
+                                if(string.IsNullOrEmpty(urun)==false)
+                                {
+                                    var yeniurun = urun.Split('-');
+                                    tblteklif_urunler t = new tblteklif_urunler();
+                                    t.teklif_id = id;
+                                    t.urun_id = Convert.ToInt32(yeniurun[0]);
+                                    t.urunadi = yeniurun[1];
+                                    t.urunadeti = Convert.ToInt32(yeniurun[2]);
+                                    t.birimfiyat = Convert.ToDecimal(yeniurun[3]);
+                                    t.total = Convert.ToDecimal(yeniurun[4]);
+                                    db.tblteklif_urunler.Add(t);
+
+                                        
+
+
+                                }
+                                break;
+                            case "4":
+
+                                ViewBag.urunler = from t in db.tblteklif
+                                                  join p in db.tblparabirimleri on t.parabirimi equals p.paraid
+                                                  join u in db.tblteklif_urunler on t.teklifid equals u.teklif_id
+                                                  where t.teklifid == id
+                                                  select new { u.urun_id,u.birimfiyat, u.urunadeti, u.urunadi, u.total, p.parabirimi };
+                                                 
                                 break;
                         }
 
@@ -557,7 +584,7 @@ namespace Uruntakip.Controllers
                         case "EURO":
                             deger = tutar * (dolar / euro);
                             break;
-                        case "TL":
+                        case "TÜRK LİRASI":
                             deger = tutar * dolar;
                             break;
                     }
@@ -573,13 +600,13 @@ namespace Uruntakip.Controllers
                             break;
                     }
                     break;
-                case "TL":
+                case "TÜRK LİRASI":
                     switch (yenipara)
                     {
                         case "DOLAR":
                             deger = tutar * dolar;
                             break;
-                        case "TL":
+                        case "TÜRK LİRASI":
                             deger = tutar * euro;
                             break;
                     }

@@ -192,8 +192,8 @@ function urunbul()
     table
         .clear()
         .draw();
-    
-    $.post("/Stok/teklifurunu", { name: $("#arama").val(), teklifno: $("#_teklifno2").text() }, function (data) {
+
+    $.post("/Stok/teklifurunu", { name: $("#arama").val(), teklifno: $("#_teklifno2").text(), kontrol:0 }, function (data) {
 
         $.each(data, function (v, k) {
             table.row.add([
@@ -561,10 +561,10 @@ function teklifduzenle()
             $.post("/Customer/teklifbilgileriniguncelle", { id: teklifid, sayfa: 2, makinaid: _makinaid, arizano: _arizano, iskonto: _iskonto, paraid: _paraid }, function (data) {
 
                 if (data == 1) {
-                    swal("", "işlem başarılı", "success");
+                    ileri($("#form2duzenle").val());
                 }
                 else {
-                    alert("hata");
+                    swal("", "işlem başarısız!!!", "warning");
                 }
 
 
@@ -573,7 +573,77 @@ function teklifduzenle()
         }
        
     })
+    $("#yeniurun").click(function () {
 
+        document.getElementById("basarılı").style.display = "none";
+        document.getElementById("urungecmisi").style.display = "none";
+        document.getElementById("loding").style.display = "";
+        var table = $("#urunstokları").DataTable();
+        table
+            .clear()
+            .draw();
+
+        $.post("/Stok/teklifurunu", { name: $("#arama").val(), teklifno: teklifid,kontrol:1 }, function (data) {
+
+            $.each(data, function (v, k) {
+                table.row.add([
+                    k._stokkodu,
+                    k._urunadi,
+                    k._urunadedi,
+                    k.urunfiyati,
+                    k.parabirimi,
+                    '<buton class="btn btn-danger" id="_sec">' + 'Ürün Seç' + '</buton>'
+
+                ]).draw();
+
+            })
+            document.getElementById("loding").style.display = "none";
+        })
+
+    })
+   
+        
+
+    
+
+    $("#sepetduzenle").click(function () {
+        var id = $("#urunid").text();
+        var urunadi = $("#urunadi").val();
+        var adet = Number($("#adet").val());
+        var birimfiyat = Number($("#fiyat").val());
+        birimfiyat = birimfiyat.toFixed(2);
+        var total = (adet * birimfiyat).toFixed(2);
+        var _urun = "";
+        _urun = id + '-' + urunadi + '-' + adet + '-' + birimfiyat + '-' + total;
+        $.post("/Customer/teklifbilgileriniguncelle", { id: teklifid, sayfa: 3, urun: _urun }, function (data) {
+
+            if (data == 1) {
+                document.getElementById("basarılı").style.display = "";
+            }
+            else {
+                swal("", "işlem başarısız!!!", "warning");
+            }
+
+
+        })
+
+
+    })
+    $("#form3duzenle").click(function ()
+    {
+        $.post("/Customer/teklifbilgileriniguncelle", { id: teklifid, sayfa: 4 }, function (data) {
+
+            if (data == "1") {
+                ileri($("#form3duzenle").val());
+            }
+            else
+            {
+                swal("", "Hata", "warning");
+            }
+        })
+       
+
+    })
 
 }
 
