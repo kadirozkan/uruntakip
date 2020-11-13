@@ -358,27 +358,13 @@
                         </thead>
 
                         <tbody>
-                            @if (ViewBag.urunler != null)
-                            {
-                                foreach (var item in ViewBag.urunler)
-                                {
-                            <tr>
-                                <td>@item.urun_id</td>
-                                <td>@item.urunadi</td>
-                                <td>@item.urunadeti</td>
-                                <td>@item.birimbiyat</td>
-                                <td>@item.total</td>
-                                <td><button class="btn btn-warning">SİL</button></td>
-                            </tr>
-                                }
-
-                            }
+                         
                         </tbody>
                     </table>
                 </div>
 
                 <div style="padding-left:740px;">
-                    <button class="btn btn-danger" onclick="geri(4)">Geri</button> <button value="4" id="kaydet" class="btn btn-success">Oluştur</button>
+                    <button class="btn btn-danger" onclick="geri(4)">Geri</button> <button value="4" id="duzenle" class="btn btn-success">Oluştur</button>
                 </div>
 
             </div>

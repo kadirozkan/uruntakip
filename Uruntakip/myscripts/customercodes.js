@@ -434,7 +434,7 @@ function teklifhazırla()
             }
         });
 
-        $.post("/Customer/teklifurunleri", { data: item, teklifno: $("#_teklifno2").text() }, function (data) {
+        $.post("/Customer/teklifurunleri", { data: item, teklifno: $("#_teklifno2").text()}, function (data) {
 
             if (data != null)
             {
@@ -510,7 +510,9 @@ function teklifduzenle()
 {
     var url = window.location.pathname;
     var teklifid = url.substring(url.lastIndexOf('/') + 1);
-    $("#form1duzenle").click(function () {
+    // ılk sayfadakı teslımat ve gonderım bılgılerı ıle teklıf acıklaması guncellenıyor
+    $("#form1duzenle").click(function ()
+    {
         
         var _not = $("#teklifnot").val();
         var _sevkiyat = $("#sevkiyattip :selected").val();
@@ -537,6 +539,7 @@ function teklifduzenle()
 
 
     })
+    //ıskonto , parabırımı ıle musterıye aıt makına bılgılerı guncellenıyor
     $("#form2duzenle").click(function ()
     {
    
@@ -560,7 +563,8 @@ function teklifduzenle()
         {
             $.post("/Customer/teklifbilgileriniguncelle", { id: teklifid, sayfa: 2, makinaid: _makinaid, arizano: _arizano, iskonto: _iskonto, paraid: _paraid }, function (data) {
 
-                if (data == 1) {
+                if (data == 1)
+                {
                     ileri($("#form2duzenle").val());
                 }
                 else {
@@ -573,6 +577,8 @@ function teklifduzenle()
         }
        
     })
+    // yenı urun aranıyor verı tabanında
+
     $("#yeniurun").click(function () {
 
         document.getElementById("basarılı").style.display = "none";
@@ -605,6 +611,7 @@ function teklifduzenle()
         
 
     
+    // yenı urunler eklenıyor
 
     $("#sepetduzenle").click(function () {
         var id = $("#urunid").text();
@@ -617,7 +624,8 @@ function teklifduzenle()
         _urun = id + '-' + urunadi + '-' + adet + '-' + birimfiyat + '-' + total;
         $.post("/Customer/teklifbilgileriniguncelle", { id: teklifid, sayfa: 3, urun: _urun }, function (data) {
 
-            if (data == 1) {
+            if (data == 1)
+            {
                 document.getElementById("basarılı").style.display = "";
             }
             else {
@@ -629,11 +637,26 @@ function teklifduzenle()
 
 
     })
+    //teklife aıt urunler lıstelenıyor
+
     $("#form3duzenle").click(function ()
     {
-        $.post("/Customer/teklifbilgileriniguncelle", { id: teklifid, sayfa: 4 }, function (data) {
+        var table = $("#sepetim").DataTable();
+        $.post("/Customer/teklifeaiturunler", { teklif: teklifid ,sorgu:0}, function (data) {
+            table.clear().draw();
+            if (data.length >0)
+            {
+                $.each(data, function (v, k) {
+                    table.row.add([
+                        k.urun_id,
+                        k.urunadi,
+                        k.urunadeti,
+                        k.birimfiyat,
+                        k.total,
+                        '<button class="btn btn-warning" id="urunsil">' + 'Ürünü Sil' + '</button>',
+                    ]).draw();
 
-            if (data == "1") {
+                })
                 ileri($("#form3duzenle").val());
             }
             else
@@ -642,6 +665,39 @@ function teklifduzenle()
             }
         })
        
+
+    })
+    $("#sepetim tbody").on("click", "#urunsil", function () {
+        var table = $("#sepetim").DataTable();
+        var data = $('#sepetim').DataTable().row($(this).parents('tr')).data();
+        var id = data[0];
+        $.post("/Customer/teklifeaiturunler", { teklif: teklifid, sorgu: 1, urunid: id }, function (data) {
+
+            if (data.length>0)
+            {
+                table.clear().draw();
+                if (data != null) {
+                    $.each(data, function (v, k) {
+                        table.row.add([
+                            k.urun_id,
+                            k.urunadi,
+                            k.urunadeti,
+                            k.birimfiyat,
+                            k.total,
+                            '<button class="btn btn-warning" id="urunsil">' + 'Ürünü Sil' + '</button>',
+                        ]).draw();
+
+                    })
+                   
+                }
+            }
+
+        })
+
+
+    })
+    $("#duzenle").click(function () {
+        pdfgoruntule(teklifid);
 
     })
 

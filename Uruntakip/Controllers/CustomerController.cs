@@ -508,8 +508,8 @@ namespace Uruntakip.Controllers
                                     t.urun_id = Convert.ToInt32(yeniurun[0]);
                                     t.urunadi = yeniurun[1];
                                     t.urunadeti = Convert.ToInt32(yeniurun[2]);
-                                    t.birimfiyat = Convert.ToDecimal(yeniurun[3]);
-                                    t.total = Convert.ToDecimal(yeniurun[4]);
+                                    t.birimfiyat = Convert.ToDecimal(yeniurun[3].Replace('.',','));
+                                    t.total = Convert.ToDecimal(yeniurun[4].Replace('.',','));
                                     db.tblteklif_urunler.Add(t);
 
                                         
@@ -517,15 +517,7 @@ namespace Uruntakip.Controllers
 
                                 }
                                 break;
-                            case "4":
-
-                                ViewBag.urunler = from t in db.tblteklif
-                                                  join p in db.tblparabirimleri on t.parabirimi equals p.paraid
-                                                  join u in db.tblteklif_urunler on t.teklifid equals u.teklif_id
-                                                  where t.teklifid == id
-                                                  select new { u.urun_id,u.birimfiyat, u.urunadeti, u.urunadi, u.total, p.parabirimi };
-                                                 
-                                break;
+                         
                         }
 
 
@@ -546,6 +538,36 @@ namespace Uruntakip.Controllers
                 sonuc = 0;
             }
             return Json(sonuc, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult teklifeaiturunler(string teklif,string sorgu,string urunid)
+        {
+            if (string.IsNullOrEmpty(teklif) == false && sorgu == "0")
+            {
+                int id = Convert.ToInt32(teklif);
+                var liste = from t in db.tblteklif
+                            join p in db.tblparabirimleri on t.parabirimi equals p.paraid
+                            join u in db.tblteklif_urunler on t.teklifid equals u.teklif_id
+                            where t.teklifid == id
+                            select new { u.urun_id, u.birimfiyat, u.urunadeti, u.urunadi, u.total, p.parabirimi };
+                return Json(liste, JsonRequestBehavior.AllowGet);
+
+            }
+            else 
+            {
+                int id = Convert.ToInt32(urunid);
+                int teklifid = Convert.ToInt32(teklif);
+                tblteklif_urunler tt = db.tblteklif_urunler.FirstOrDefault(x => x.teklif_id == teklifid && x.urun_id == id);
+                db.tblteklif_urunler.Remove(tt);
+                db.SaveChanges();
+                var liste = from t in db.tblteklif
+                            join p in db.tblparabirimleri on t.parabirimi equals p.paraid
+                            join u in db.tblteklif_urunler on t.teklifid equals u.teklif_id
+                            where t.teklifid == teklifid
+                            select new { u.urun_id, u.birimfiyat, u.urunadeti, u.urunadi, u.total, p.parabirimi };
+                return Json(liste, JsonRequestBehavior.AllowGet);
+
+            }
+            
         }
 
         public void urunfiyatlarınıguncelle(tblteklif teklif,int paraid)
