@@ -81,10 +81,18 @@ namespace Uruntakip.Controllers
           
         }
        [Authorize]
-        public ActionResult getcustomer()
-        {
-            List<tblCustomer> liste = db.tblCustomer.Where(x=>x.musteritipi==1).ToList();
-            return Json(liste, JsonRequestBehavior.AllowGet);
+        public ActionResult getcustomer(string name)
+        {  if (string.IsNullOrEmpty(name))
+            {
+                List<tblCustomer> liste = db.tblCustomer.Where(x => x.musteritipi == 1).ToList();
+                return Json(liste, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                name = name.ToUpper();
+                List<tblCustomer> liste = db.tblCustomer.Where(x => x.musteritipi == 1&&(x.firmaadi.StartsWith(name)==true||x.firmaadi.Contains(name)==true||x.firmaadi.EndsWith(name)==true)).ToList();
+                return Json(liste, JsonRequestBehavior.AllowGet);
+            }
         }
         [Authorize]
         //-------------------------------------------musterı lıstesı gonderılıyor
@@ -445,8 +453,24 @@ namespace Uruntakip.Controllers
                     
                     tek.teslimatid =(int) gelenteklif.teslimatid;
                     tek.teslimatnotu = gelenteklif.teslimat_notu;
-                    tek.iskonto = (int)gelenteklif.iskonto;
-                    tek.paraid = (int)gelenteklif.parabirimi;
+                    if (gelenteklif.iskonto == null)
+                    {
+                        tek.iskonto = 0;
+                    }
+                    else
+                    {
+                        tek.iskonto = (int)gelenteklif.iskonto;
+                    }
+                    if (gelenteklif.parabirimi == null)
+                    {
+                        tblparabirimleri p = db.tblparabirimleri.FirstOrDefault(x => x.parabirimi == "EURO");
+                        tek.paraid = p.paraid;
+                    }
+                    else 
+                    {
+                        tek.paraid = (int)gelenteklif.parabirimi;
+                    }
+                    
 
                     return View(tek);
                 }
@@ -636,6 +660,11 @@ namespace Uruntakip.Controllers
             }
             deger = Math.Round(deger, 3);
             return deger;
+        }
+        public ActionResult tekliflistesi(string id)
+        {
+
+            return View();
         }
     }
 }

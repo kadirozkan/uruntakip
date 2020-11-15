@@ -38,7 +38,27 @@ function musteriekle()
     });
 }
 
+//----- musteri bulma islemi
+function musteribul()
+{
+    var aranan = $("#arama").val();
+    $.post("/Customer/getcustomer", { name: aranan }, function (data) {
 
+       
+        var item = '<option selected="selected">' + 'Firma Seçiniz' + '</option >';
+        var sayi = 0;
+        $.each(data, function (v, k) {
+
+            if (data.length >0)
+            {
+                item += '<option value="' + k.firmaid + '">' + k.firmaadi + '</option >';
+            }
+
+        })
+        $("#frmguncelle_firmalar").empty();
+        $("#frmguncelle_firmalar").append(item);
+    })
+}
 //------------------------------------musteri bilgileri gösteriliyor--------------
 
 function musteribilgileri()
@@ -145,7 +165,7 @@ function musterilistesi()
                 v1.email,
                 v1.telefon,
                 v1.adres,
-                '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">' + 'Güncelle' + '</button>' + ' ' + '<button id="teklif" onclick="teklifformu(' + v1.firmaid + ')" class="btn btn-danger">' + 'Teklif' + '</button>' + ' ' + '<button id="sevk" value="' + v1.firmaid + '" class="btn btn-warning">' + 'Sevk' + '</button>' + ' ' + '<button class="btn btn-primary" onclick="tekliflistesi(' + v1.firmaid + ')" id="goster">' + 'Göster' + '</button>',
+                '<button value="' + v1.firmaid + '" onclick="' + musteribilgileri() + '" class= "btn btn-success" id="guncelle">' + 'Güncelle' + '</button>' + ' ' + '<a href="../Customer/yeniteklif/' + v1.firmaid + '" class="btn btn-danger">' + 'Teklif' + '</a>' + ' ' + '<a href="#" class="btn btn-warning">' + 'Sevk' + '</a>' + ' ' + '<a href="../Customer/tekliflistesi/' + v1.firmaid + '" class="btn btn-primary">' + 'Teklifler' + '</a>',
             ]).draw();
         });
 
@@ -657,12 +677,9 @@ function teklifduzenle()
                     ]).draw();
 
                 })
-                ileri($("#form3duzenle").val());
+                
             }
-            else
-            {
-                swal("", "Hata", "warning");
-            }
+            ileri($("#form3duzenle").val());
         })
        
 

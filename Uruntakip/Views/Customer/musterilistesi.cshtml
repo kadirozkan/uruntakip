@@ -27,23 +27,7 @@
 </div>
 <br />
 
-<div style="margin-top:25px;display:none" id="divteklifler">
-    <table id="tekliflistesi" class="table table-hover table-bordered">
 
-        <thead>
-            <tr>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif NO</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Tarih</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Açıklama</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif Durumu</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">İşlem</th>
-
-            </tr>
-        </thead>
-        <tbody style="font-weight:bold">
-        </tbody>
-    </table>
-</div>
 
 
 
@@ -116,14 +100,7 @@
             { targets: 'no-sort', orderable: false }
         ]
     })
-    $("#tekliflistesi").DataTable({
-        "searching": false,
-        "lengthChange": false,
-        columnDefs: [
-            { targets: 'no-sort', orderable: false }
-        ]
-
-    })
+    
 
 </script>
 
