@@ -1,34 +1,86 @@
-﻿
+﻿@model List<Uruntakip.Models.cls_teklif>
 @{
     ViewBag.Title = "tekliflistesi";
+    Layout = "~/Views/Shared/main.cshtml";
 }
+<br />
+<table id="tblteklifler" class="table table-hover table-bordered">
 
-<div style="margin-top:25px;display:none" id="divteklifler">
-    <table id="tekliflistesi" class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif NO</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Tarih</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Açıklama</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Makina</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif Durumu</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">İşlem</th>
 
-        <thead>
-            <tr>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif NO</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Tarih</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Açıklama</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Makina</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif Durumu</th>
-                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">İşlem</th>
-                
-            </tr>
-        </thead>
-        <tbody style="font-weight:bold">
-        </tbody>
-    </table>
-</div>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+          
+              foreach (var item in Model)
+              { <tr>
+                  <td>@item.teklifno</td>
+                  <td>@Convert.ToDateTime(item.tarih2).ToShortDateString()</td>
+                  <td>@item.teklifnotu</td>
+                  <td>@item.serino</td>
+                  @if(item.arizano==0)
+                  {
+                      <td> </td>
+
+                  }
+                  else
+                  {
+                      <td>@item.arizano</td>
+                  }
+                  @if(item.durum==0)
+                  {
+                      <td>Onay Bekleniyor</td>
+                  }
+                  else
+                  {
+                      <td>Onaylandı</td>
+                  }
+                  <td><a class="btn btn-success">Düzenle</a>  <a class="btn btn-primary">Göster</a></td>
+             </tr>
+              }
+
+
+
+
+
+
+
+
+
+
+         
+        
+        }
+    </tbody>
+</table>
+
 <script>
-    $("#tekliflistesi").DataTable({
-        "searching": false,
-        "lengthChange": false,
-        columnDefs: [
-            { targets: 'no-sort', orderable: false }
-        ]
+    //$("#tblteklifler").DataTable({
 
-    })
+
+    //    "columnDefs": [
+    //        {
+    //            "targets": "no-soryt",
+    //            "orderable": false,
+
+    //        },
+
+    //    ]
+    //});
+    //var table = $("#tblteklifler").DataTable();
+    //table
+    //    .order([1, 'desc'])
+    //    .draw();
+    
+
 </script>

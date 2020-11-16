@@ -389,7 +389,7 @@ namespace Uruntakip.Controllers
         [Authorize]
         public ActionResult gettekliflistesi(int musteriid)
         {
-            List<cls_teklif> liste = (from c in db.tblCustomer join t in db.tblteklif on c.firmaid equals t.musteri_id where t.musteri_id == musteriid select (new cls_teklif { teklifid = t.teklifid, tarih = t.tarih.ToString(), acıklama = t.teklifnotu, firmaadi = c.firmaadi,durum=(int) t.durum})).ToList();
+            List<cls_teklif> liste = (from c in db.tblCustomer join t in db.tblteklif on c.firmaid equals t.musteri_id where t.musteri_id == musteriid select (new cls_teklif { teklifid = t.teklifid, tarih = t.tarih.ToString(), acıklama = t.teklifnotu, firmaadi = c.firmaadi,durum= (int)t.durum})).ToList();
             return Json(liste, JsonRequestBehavior.AllowGet);
         }
         [Authorize]
@@ -661,10 +661,47 @@ namespace Uruntakip.Controllers
             deger = Math.Round(deger, 3);
             return deger;
         }
+        [Authorize]
         public ActionResult tekliflistesi(string id)
         {
+            int musteriid;
+            List<cls_teklif> teklifler = new List<cls_teklif>();
+            if(string.IsNullOrEmpty(id)==false)
+            {
 
-            return View();
+                musteriid = Convert.ToInt32(id);
+                List<tblteklif> tt = db.tblteklif.Where(x => x.musteri_id == musteriid).OrderBy(y=>y.teklifid).ToList();
+                foreach (tblteklif item in tt)
+                {
+                    cls_teklif c = new cls_teklif();
+                    c.teklifnotu = item.teklifnotu;
+                    if(item.arizano==null)
+                    {
+                        c.arizano = 0;
+                    }
+                    else
+                    {
+                        c.arizano =(int) item.arizano;
+                    }
+                    if (item.makinaid == null)
+                    {
+                        c.serino = "";
+
+                    }
+                    else
+                    {
+                        tblmakina m = db.tblmakina.FirstOrDefault(x => x.makinaid == item.makinaid);
+                        c.serino = m.serino;
+                    }
+                    c.teklifno = item.teklifno;
+                    c.teklifid = item.teklifid;
+                    c.tarih2 =(DateTime)item.tarih;
+                    c.durum =(int) item.durum;
+                    teklifler.Add(c);
+                }
+            }
+
+            return View(teklifler);
         }
     }
 }

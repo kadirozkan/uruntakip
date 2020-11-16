@@ -21,8 +21,10 @@ namespace Uruntakip.Models
         public int teslimatid;
         public string teslimatnotu;
         public int arizano;
-        public int iskonto;
-        public int paraid;
+        public int  iskonto;
+        public int  paraid;
         public int makinaid;
+        public string serino;
+        public DateTime tarih2;
     }
 }
