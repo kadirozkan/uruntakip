@@ -8,10 +8,11 @@
 <br />
 <table id="tblteklifler" class="table table-hover table-bordered">
 
-    <thead>
+    <thead >
         <tr>
-            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sortt">Teklif NO</th>
-            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sortt">Tarih</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" >Teklif ID</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif NO</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Tarih</th>
             <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Açıklama</th>
             <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Makina</th>
             <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza</th>
@@ -27,6 +28,7 @@
             foreach (var item in Model)
             {
                 <tr>
+                    <td>@item.teklifid</td>
                     <td>@item.teklifno</td>
                     <td>@item.tarih2.ToShortDateString()</td>
                     <td>@item.teklifnotu</td>
@@ -58,10 +60,14 @@
 </table>
 
 <script>
+   
+   
     $("#tblteklifler").DataTable({
-        "columnDefs": [{ "type": "date", "targets": 1 }, { "targets": "no-sort", "orderable": false }],
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ],
        
-        "order": [[1, 'desc']],
+        "order": [[0, 'desc']]
         
     })
     

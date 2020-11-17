@@ -281,8 +281,8 @@ namespace Uruntakip.Controllers
                     yeniurun.urun_id= Convert.ToInt32(gelen[0]);
                     yeniurun.urunadi = gelen[1];
                     yeniurun.urunadeti = Convert.ToInt32(gelen[2]);
-                    yeniurun.birimfiyat = Convert.ToDecimal(gelen[3].Replace('.',','));
-                    yeniurun.total = Convert.ToDecimal(gelen[4].Replace('.',','));
+                    yeniurun.birimfiyat = Convert.ToDecimal(gelen[3]);
+                    yeniurun.total = Convert.ToDecimal(gelen[4]);
                     db.tblteklif_urunler.Add(yeniurun);
                     teklifid = t.teklifid.ToString();
                 }
@@ -444,7 +444,7 @@ namespace Uruntakip.Controllers
                     }
                     if (gelenteklif.arizano != null)
                     {
-                        tek.makinaid = (int)gelenteklif.makinaid;
+                        tek.arizano = (int)gelenteklif.arizano;
                     }
                     else
                     {
@@ -532,8 +532,8 @@ namespace Uruntakip.Controllers
                                     t.urun_id = Convert.ToInt32(yeniurun[0]);
                                     t.urunadi = yeniurun[1];
                                     t.urunadeti = Convert.ToInt32(yeniurun[2]);
-                                    t.birimfiyat = Convert.ToDecimal(yeniurun[3].Replace('.',','));
-                                    t.total = Convert.ToDecimal(yeniurun[4].Replace('.',','));
+                                    t.birimfiyat = Convert.ToDecimal(yeniurun[3]);
+                                    t.total = Convert.ToDecimal(yeniurun[4]);
                                     db.tblteklif_urunler.Add(t);
 
                                         
@@ -617,8 +617,8 @@ namespace Uruntakip.Controllers
             xmldoc.Load(bugun);
             string usd = xmldoc.SelectSingleNode("Tarih_Date/Currency [@Kod='USD']/BanknoteSelling").InnerXml;
             string eur = xmldoc.SelectSingleNode("Tarih_Date/Currency [@Kod='EUR']/BanknoteSelling").InnerXml;
-            usd = usd.Replace('.', ',');
-            eur = eur.Replace('.', ',');
+            //usd = usd.Replace('.', ',');
+            //eur = eur.Replace('.', ',');
             double dolar = Convert.ToDouble(usd);
             double euro = Convert.ToDouble(eur);
             double deger = 0;
@@ -641,7 +641,7 @@ namespace Uruntakip.Controllers
                         case "DOLAR":
                             deger = tutar * (euro / dolar);
                             break;
-                        case "TL":
+                        case "TÜRK LİRASI":
                             deger = tutar * euro;
                             break;
                     }
@@ -650,10 +650,10 @@ namespace Uruntakip.Controllers
                     switch (yenipara)
                     {
                         case "DOLAR":
-                            deger = tutar * dolar;
+                            deger = tutar /dolar;
                             break;
-                        case "TÜRK LİRASI":
-                            deger = tutar * euro;
+                        case "EURO":
+                            deger = tutar / euro;
                             break;
                     }
                     break;
@@ -670,7 +670,7 @@ namespace Uruntakip.Controllers
             {
 
                 musteriid = Convert.ToInt32(id);
-                List<tblteklif> tt = db.tblteklif.Where(x => x.musteri_id == musteriid).OrderByDescending(y=>y.tarih).ToList();
+                List<tblteklif> tt = db.tblteklif.Where(x => x.musteri_id == musteriid).OrderByDescending(y=>y.teklifid).ToList();
                 foreach (tblteklif item in tt)
                 {
                     cls_teklif c = new cls_teklif();

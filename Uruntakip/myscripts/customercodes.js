@@ -690,8 +690,7 @@ function teklifduzenle()
         var id = data[0];
         $.post("/Customer/teklifeaiturunler", { teklif: teklifid, sorgu: 1, urunid: id }, function (data) {
 
-            if (data.length>0)
-            {
+            if (data.length > 0) {
                 table.clear().draw();
                 if (data != null) {
                     $.each(data, function (v, k) {
@@ -705,8 +704,12 @@ function teklifduzenle()
                         ]).draw();
 
                     })
-                   
+
                 }
+            }
+            else
+            {
+                table.clear().draw();
             }
 
         })
