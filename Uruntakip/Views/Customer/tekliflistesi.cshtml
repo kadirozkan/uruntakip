@@ -3,13 +3,15 @@
     ViewBag.Title = "tekliflistesi";
     Layout = "~/Views/Shared/main.cshtml";
 }
+<script src="~/Scripts/moments.js"></script>
+<script src="~/Scripts/moments2.js"></script>
 <br />
 <table id="tblteklifler" class="table table-hover table-bordered">
 
     <thead>
         <tr>
-            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Teklif NO</th>
-            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Tarih</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sortt">Teklif NO</th>
+            <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sortt">Tarih</th>
             <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Açıklama</th>
             <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Makina</th>
             <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza</th>
@@ -21,66 +23,46 @@
     <tbody>
         @if (Model != null)
         {
-          
-              foreach (var item in Model)
-              { <tr>
-                  <td>@item.teklifno</td>
-                  <td>@Convert.ToDateTime(item.tarih2).ToShortDateString()</td>
-                  <td>@item.teklifnotu</td>
-                  <td>@item.serino</td>
-                  @if(item.arizano==0)
-                  {
-                      <td> </td>
 
-                  }
-                  else
-                  {
-                      <td>@item.arizano</td>
-                  }
-                  @if(item.durum==0)
-                  {
-                      <td>Onay Bekleniyor</td>
-                  }
-                  else
-                  {
-                      <td>Onaylandı</td>
-                  }
-                  <td><a class="btn btn-success">Düzenle</a>  <a class="btn btn-primary">Göster</a></td>
-             </tr>
-              }
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.teklifno</td>
+                    <td>@item.tarih2.ToShortDateString()</td>
+                    <td>@item.teklifnotu</td>
+                    <td>@item.serino</td>
+                    @if (item.arizano == 0)
+                    {
+                        <td> </td>
 
-
-
+                    }
+                    else
+                    {
+                        <td>@item.arizano</td>
+                    }
+                    @if (item.durum == 0)
+                    {
+                        <td style="color:orangered;font-weight:bold">Onay Bekleniyor</td>
+                    }
+                    else
+                    {
+                        <td style="color:forestgreen;font-weight:bold" >Onaylandı</td>
+                    }
+                    <td><a href="../../Customer/teklifduzenle/@item.teklifid" class="btn btn-success">Düzenle</a>  <a href="../../Customer/pdfgoruntule/@item.teklifid" class="btn btn-primary">Göster</a></td>
+                </tr>
+            }
 
 
-
-
-
-
-
-         
-        
         }
     </tbody>
 </table>
 
 <script>
-    //$("#tblteklifler").DataTable({
-
-
-    //    "columnDefs": [
-    //        {
-    //            "targets": "no-soryt",
-    //            "orderable": false,
-
-    //        },
-
-    //    ]
-    //});
-    //var table = $("#tblteklifler").DataTable();
-    //table
-    //    .order([1, 'desc'])
-    //    .draw();
+    $("#tblteklifler").DataTable({
+        "columnDefs": [{ "type": "date", "targets": 1 }, { "targets": "no-sort", "orderable": false }],
+       
+        "order": [[1, 'desc']],
+        
+    })
     
-
 </script>

@@ -772,6 +772,8 @@
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moments.js" />
+    <Content Include="Scripts\moments2.js" />
     <Content Include="Scripts\util.js" />
     <Content Include="vendor\animate\animate.css" />
     <Content Include="vendor\animsition\css\animsition.css" />
@@ -898,4 +900,11 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
 </Project>

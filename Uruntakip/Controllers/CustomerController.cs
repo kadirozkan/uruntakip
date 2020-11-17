@@ -22,8 +22,8 @@ namespace Uruntakip.Controllers
         uruntakipdbEntities3 db = new uruntakipdbEntities3();
         public string tarihduzelt_yıl_ay_gun(string tt)
         {
-            string v = Convert.ToDateTime(tt).ToShortDateString();  // 19.09.2020 seklınde gelen tarıhı 2020-09-19 formatına cevırdık datetımepickere yazmak ıcın
-            var t = v.Split('.');
+            string v = Convert.ToDateTime(tt).ToShortDateString().Replace('.','/');  // 19.09.2020 seklınde gelen tarıhı 2020-09-19 formatına cevırdık datetımepickere yazmak ıcın
+            var t = v.Split('/');
             if (t[1].Count() == 1)
             {
                 t[1] = "0" + t[1];
@@ -670,7 +670,7 @@ namespace Uruntakip.Controllers
             {
 
                 musteriid = Convert.ToInt32(id);
-                List<tblteklif> tt = db.tblteklif.Where(x => x.musteri_id == musteriid).OrderBy(y=>y.teklifid).ToList();
+                List<tblteklif> tt = db.tblteklif.Where(x => x.musteri_id == musteriid).OrderByDescending(y=>y.tarih).ToList();
                 foreach (tblteklif item in tt)
                 {
                     cls_teklif c = new cls_teklif();
