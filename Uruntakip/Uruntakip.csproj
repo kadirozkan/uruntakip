@@ -835,6 +835,7 @@
     <Content Include="Views\Customer\pdfgoruntule.cshtml" />
     <Content Include="Views\Customer\teklifduzenle.cshtml" />
     <Content Include="Views\Customer\tekliflistesi.cshtml" />
+    <Content Include="Views\Customer\arizagecmisi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

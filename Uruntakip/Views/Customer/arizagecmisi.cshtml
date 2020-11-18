@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "arizagecmisi";
+    Layout = "~/Views/Shared/main.cshtml";
+}
+
+<br />
+    <table class="table table-hover table-bordered" id="tblarizagecmisi">
+        <thead>
+            <tr>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Arıza No</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px">Arıza Kategorisi</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza Tarihi</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza Tanımı</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Arıza Durumu</th>
+                <th scope="col" style="color:#fc6c05;font-size:16px" class="no-sort">Detaylar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="frmedit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align:center">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 id="frmedit_arizano" hidden="hidden"></h3>
+                    <h3 id="frmedit_makinaid" hidden="hidden"></h3>
+
+                </div>
+                <div class="modal-body">
+                    <form id="Registration">
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Kategorileri</b></span>
+                                <fieldset>
+                                    <select id="frmedit_kategoriler" class="form-control" style="font-weight:bold">
+                                    </select>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Arıza Tanımı</b></span>
+
+                                <b><input type="text" id="frmedit_tanim" autocomplete="off" class="form-control" /></b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width:128px;color:#fc6c05"><b>Arıza Tarihi</b></span>
+                                <b><input type="date" id="frmedit_tarih" class="form-control" /></b>
+
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="form-group">
+                        <button class="btn btn-success form-control" type="submit" onclick="arizayiguncelle()">Arızayı Güncelle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+   
+    $("#tblarizagecmisi").dataTable({
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ],
+        "columns": [
+            null,
+            null,
+            null,
+            { "width": "40%" },
+            null,
+            { "width": "16%" }
+        ],
+        "order": [[0, 'desc']]
+    });
+    arizalarigöster();
+    arizabilgilerinigetir();
+</script>

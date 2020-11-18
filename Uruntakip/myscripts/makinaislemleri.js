@@ -1,13 +1,11 @@
 ﻿
 //---------------tum makinalar cekılıyor---------------------
 
-function tummakinalar()
+function tummakinalar() 
 {
-    var table = $('#tblmakinalar').DataTable({
-        columnDefs: [
-            { targets: 'no-sort', orderable: false }
-        ]
-    });
+    var table = $('#tblmakinalar').DataTable();
+        
+    
 
     $.get("/Machine/_makinalar", {}, function (gelendata) {
 
@@ -17,7 +15,7 @@ function tummakinalar()
                     '<b>' + v1._firmaadi + '</b>',
                     '<b>' + v1._makinatipi + '</b>',
                     '<b>' + v1._makinaserino + '</b>',
-                    '<button value="' + v1._makinaid + '" class= "btn btn-success" onclick="makinabilgileri()" id="guncelle">' +'Güncelle'+ '</button>' +" "+ '<button value="' + v1._makinaid + '" class= "btn btn-warning" id="ariza">' +'Arıza Aç'+ '</button>' +" "+ '<button value="' + v1._makinaid + '" class= "btn btn-info" id="gecmis">' +'Geçmiş'+ '</button>',
+                    '<button value="' + v1._makinaid + '" class= "btn btn-success" onclick="makinabilgileri()" id="guncelle">' + 'Güncelle' + '</button>' + " " + '<button value="' + v1._makinaid + '" class= "btn btn-warning" id="ariza">' + 'Arıza Aç' + '</button>' + " " + '<a href="../../Customer/arizagecmisi/' + v1._makinaid + '" class="btn btn-info">' + 'Arıza Geçmişi' + '</a>',
                 ]).draw(false);
 
 

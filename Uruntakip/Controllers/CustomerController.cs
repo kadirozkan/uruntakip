@@ -703,5 +703,10 @@ namespace Uruntakip.Controllers
 
             return View(teklifler);
         }
+        [Authorize]
+        public ActionResult arizagecmisi(string id)
+        {
+            return View();
+        }
     }
 }

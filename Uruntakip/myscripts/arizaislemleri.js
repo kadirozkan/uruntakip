@@ -208,6 +208,33 @@ function arizayiguncelle() {
 
                                 ]).draw();
                             }
+                            else if (k._durum == "Tamamlandı") {
+                                table.row.add([
+
+                                    '<b>' + k._arizano + '</b>',
+                                    '<b>' + k._kategoriadi + '</b>',
+                                    '<b>' + k.tarih2 + '</b>',
+                                    '<b>' + k._arizatanimi + '</b>',
+                                    '<b style="color:black">' + k._durum + '</b>',
+                                    '<button id="duzen" value="' + k._arizano + '" class="btn btn-success">' + 'Güncelle' + '</button>' + ' ' + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + '<input id="detay" type="button" class="btn btn-warning" value="Detaylar">' + '</a>', ,
+
+
+                                ]).draw();
+                            }
+                            else {
+                                table.row.add([
+
+                                    '<b>' + k._arizano + '</b>',
+                                    '<b>' + k._kategoriadi + '</b>',
+                                    '<b>' + k.tarih2 + '</b>',
+                                    '<b>' + k._arizatanimi + '</b>',
+                                    '<b style="color:yellow">' + k._durum + '</b>',
+                                    '<button id="duzen" value="' + k._arizano + '" class="btn btn-success">' + 'Güncelle' + '</button>' + ' ' + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + '<input id="detay" type="button" class="btn btn-warning" value="Detaylar">' + '</a>', ,
+
+
+                                ]).draw();
+
+                            }
 
                         })
 
@@ -230,26 +257,13 @@ function arizayiguncelle() {
 
 //----------- Makinaya ait arızalar-----------------------
 
-function arizalarigöster() {
-
-    $('#tblmakinalar tbody').on("click", "#gecmis", function () {
-
+function arizalarigöster()
+{
+    var url = window.location.pathname;
+    var id = url.substring(url.lastIndexOf('/') + 1);  
         var table = $('#tblarizagecmisi').DataTable();
-
-        if (document.getElementById('divgecmis').style.display == "") {
-            document.getElementById('divgecmis').style.display = "none";
-            document.getElementById('tblarizagecmisi').style.display = "none";
-            table
-                .clear()
-                .draw();
-
-        }
-        else if (document.getElementById('divgecmis').style.display == "none") {
-
-
-            var _makinaid = $(this).val();
-
-            var gidendata = { makinaid: _makinaid };
+           
+           var gidendata = { makinaid: id };
             $.ajax({
                 type: "POST",
                 url: "/Ariza/_arizagecmisi",
@@ -335,13 +349,7 @@ function arizalarigöster() {
             })
 
 
-            document.getElementById('divgecmis').style.display = "";
-
-            document.getElementById('tblarizagecmisi').style.display = "";
-        }
-
-
-    });
+           
 }
 
 //--------------------------------------işlem formunun acılması
@@ -409,23 +417,22 @@ function islemgirisi()
                 $.get("/Ariza/_arizalistesinicek", {}, function (data) {
 
                     $.each(data, function (v, k) {
-                        if (k._durum == "İşleme Alındı")
-                        {
+                        if (k._durum == "İşleme Alındı") {
                             table.row.add([
-                                '<b>'+k._arizano+'</b>',
-                                '<b>'+k.tarih2+'</b>',
-                                '<b>'+k._firmaadi+'</b>',
-                                '<b>'+k._makinatipi+'</b>',
-                                '<b>'+k._serino+'</b>',
+                                '<b>' + k._arizano + '</b>',
+                                '<b>' + k.tarih2 + '</b>',
+                                '<b>' + k._firmaadi + '</b>',
+                                '<b>' + k._makinatipi + '</b>',
+                                '<b>' + k._serino + '</b>',
                                 '<b>' + k._arizatanimi + '</b>',
                                 '<b style="color:green">' + k._durum + '</b>',
-                                '<button id="ekle" value="' + k._arizano + '" class="btn btn-success">' + 'Ekle' + '</button>' + "   " + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + "   " + '<input type="button" value="Detay" id="detay" class="btn btn-warning" />'+" "+'</a >'+"    "+ '<a href="#">'+" "+'<input type="button" value="Sevk" id="sevk" class="btn btn-info" />'+" "+'</a>'
+                                '<button id="ekle" value="' + k._arizano + '" class="btn btn-success">' + 'Ekle' + '</button>' + "   " + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + "   " + '<input type="button" value="Detay" id="detay" class="btn btn-warning" />' + " " + '</a >' + "    " + '<a href="#">' + " " + '<input type="button" value="Sevk" id="sevk" class="btn btn-info" />' + " " + '</a>'
 
 
                             ]).draw();
 
                         }
-                       else if (k._durum == "Kontrol Ediliyor") {
+                        else if (k._durum == "Kontrol Ediliyor") {
                             table.row.add([
                                 '<b>' + k._arizano + '</b>',
                                 '<b>' + k.tarih2 + '</b>',
@@ -434,13 +441,13 @@ function islemgirisi()
                                 '<b>' + k._serino + '</b>',
                                 '<b>' + k._arizatanimi + '</b>',
                                 '<b style="color:red">' + k._durum + '</b>',
-                                '<button id="ekle" value="' + k._arizano + '" class="btn btn-success">' + 'Ekle' + '</button>' +"   " + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + '' + '<input type="button" value="Detay" id="detay" class="btn btn-warning" />' + '' + '</a >' + "   " + '<a href="#">' + '' + '<input type="button" value="Sevk" id="sevk" class="btn btn-info" />' + '' + '</a>'
+                                '<button id="ekle" value="' + k._arizano + '" class="btn btn-success">' + 'Ekle' + '</button>' + "   " + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + '' + '<input type="button" value="Detay" id="detay" class="btn btn-warning" />' + '' + '</a >' + "   " + '<a href="#">' + '' + '<input type="button" value="Sevk" id="sevk" class="btn btn-info" />' + '' + '</a>'
 
 
                             ]).draw();
 
                         }
-                       else if (k._durum == "Malzeme Gönderildi") {
+                        else if (k._durum == "Malzeme Gönderildi") {
                             table.row.add([
                                 '<b>' + k._arizano + '</b>',
                                 '<b>' + k.tarih2 + '</b>',
@@ -455,13 +462,40 @@ function islemgirisi()
                             ]).draw();
 
                         }
+                        else if (k._durum == "Tamamlandı") {
+                            table.row.add([
+
+                                '<b>' + k._arizano + '</b>',
+                                '<b>' + k._kategoriadi + '</b>',
+                                '<b>' + k.tarih2 + '</b>',
+                                '<b>' + k._arizatanimi + '</b>',
+                                '<b style="color:black">' + k._durum + '</b>',
+                                '<button id="duzen" value="' + k._arizano + '" class="btn btn-success">' + 'Güncelle' + '</button>' + ' ' + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + '<input id="detay" type="button" class="btn btn-warning" value="Detaylar">' + '</a>', ,
+
+
+                            ]).draw();
+                        }
+                        else {
+                            table.row.add([
+
+                                '<b>' + k._arizano + '</b>',
+                                '<b>' + k._kategoriadi + '</b>',
+                                '<b>' + k.tarih2 + '</b>',
+                                '<b>' + k._arizatanimi + '</b>',
+                                '<b style="color:yellow">' + k._durum + '</b>',
+                                '<button id="duzen" value="' + k._arizano + '" class="btn btn-success">' + 'Güncelle' + '</button>' + ' ' + '<a href="/Ariza/arizadetayı/' + k._arizano + '">' + '<input id="detay" type="button" class="btn btn-warning" value="Detaylar">' + '</a>', ,
+
+
+                            ]).draw();
+
+                        }
 
                     })
 
                 })
-
             }
-            else {
+            else
+            {
                 swal("İşlem başarısız", "", "warning");
             }
 

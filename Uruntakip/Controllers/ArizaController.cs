@@ -117,7 +117,7 @@ namespace Uruntakip.Controllers
         public string tarihduzelt_yıl_ay_gun(string tt)
         {
             string v = Convert.ToDateTime(tt).ToShortDateString();  // 19.09.2020 seklınde gelen tarıhı 2020-09-19 formatına cevırdık datetımepickere yazmak ıcın
-            var t = v.Split('.');
+            var t = v.Split('/');
           string tarih = t[2] + '-' + t[1] + '-' + t[0];
             return tarih;
         }
