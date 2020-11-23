@@ -175,7 +175,7 @@ namespace Uruntakip.Controllers
             }
             return Json(aciklama, JsonRequestBehavior.AllowGet);
             
-
+            //
            
         }
         [Authorize]
