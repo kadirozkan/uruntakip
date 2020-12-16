@@ -1166,7 +1166,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(CDbl(Fields!total.Value), "musteriteklifleri")</Value>
+                              <Value>=FormatNumber(CDbl(Sum(CDbl(Fields!total.Value), "musteriteklifleri")),2)</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -1187,6 +1187,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
